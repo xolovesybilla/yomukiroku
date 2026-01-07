@@ -283,6 +283,7 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.6s ease-out forwards;
+            cursor: pointer;
         }
         
         .book-card:nth-child(1) { animation-delay: 0.1s; }
@@ -466,6 +467,227 @@
             font-size: 1.2rem;
         }
         
+        /* ===== BORROW FORM MODAL ===== */
+        .borrow-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .borrow-modal.active {
+            display: flex;
+        }
+        
+        .borrow-modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+        
+        .borrow-modal-header {
+            padding: 2rem 2rem 1.5rem;
+            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
+            border-radius: 20px 20px 0 0;
+            text-align: center;
+        }
+        
+        .borrow-modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--white);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .borrow-modal-close:hover {
+            background: var(--pink-primary);
+            color: var(--white);
+        }
+        
+        .borrow-modal-title {
+            color: var(--pink-primary);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+        }
+        
+        .borrow-modal-subtitle {
+            color: var(--green-dark);
+            font-size: 1rem;
+        }
+        
+        .borrow-modal-body {
+            padding: 2rem;
+        }
+        
+        .borrow-book-info {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(148, 163, 141, 0.2);
+        }
+        
+        .borrow-book-cover {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
+            border-radius: 10px;
+        }
+        
+        .borrow-book-details h4 {
+            color: var(--green-dark);
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+        
+        .borrow-book-details p {
+            color: var(--text-dark);
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--green-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--green-light);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--pink-primary);
+            box-shadow: 0 0 0 3px rgba(220, 79, 108, 0.1);
+        }
+        
+        .form-textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--green-light);
+            margin-top: 0.5rem;
+            display: block;
+        }
+        
+        .borrow-modal-footer {
+            padding: 1.5rem 2rem 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            border-top: 1px solid rgba(148, 163, 141, 0.2);
+        }
+        
+        .btn-secondary {
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--green-light);
+            border-radius: 10px;
+            color: var(--green-dark);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary:hover {
+            background: var(--green-light);
+            color: var(--white);
+        }
+        
+        .btn-primary {
+            padding: 0.8rem 1.5rem;
+            background: var(--pink-primary);
+            border: none;
+            border-radius: 10px;
+            color: var(--white);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            background: #c43f5c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 79, 108, 0.3);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-message {
+            display: none;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: #4caf50;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 4000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+        
+        .success-message.active {
+            display: block;
+        }
+        
         /* ===== ANIMATIONS ===== */
         @keyframes fadeInUp {
             from {
@@ -478,10 +700,30 @@
             }
         }
         
-        @keyframes slideIn {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100%);
             }
             to {
                 opacity: 1;
@@ -557,6 +799,14 @@
             .book-cover {
                 height: 200px;
             }
+            
+            .borrow-modal {
+                padding: 1rem;
+            }
+            
+            .borrow-modal-content {
+                max-height: 95vh;
+            }
         }
         
         @media (max-width: 576px) {
@@ -586,6 +836,24 @@
             
             .nav-link {
                 font-size: 0.95rem;
+            }
+            
+            .borrow-book-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .borrow-modal-body {
+                padding: 1.5rem;
+            }
+            
+            .borrow-modal-footer {
+                padding: 1.5rem;
+                flex-direction: column;
+            }
+            
+            .btn-primary, .btn-secondary {
+                width: 100%;
             }
         }
         
@@ -694,6 +962,7 @@
                     <option value="read">Read</option>
                     <option value="unread">Unread</option>
                     <option value="borrowed">Borrowed</option>
+                    <option value="available">Available for Borrow</option>
                 </select>
             </div>
             
@@ -739,6 +1008,87 @@
         </div>
     </section>
 
+    <!-- Borrow Form Modal -->
+    <div class="borrow-modal" id="borrowModal">
+        <div class="borrow-modal-content">
+            <div class="borrow-modal-header">
+                <button class="borrow-modal-close" id="closeBorrowModal">×</button>
+                <h3 class="borrow-modal-title">Borrow This Book</h3>
+                <p class="borrow-modal-subtitle">Fill out the form to request this book</p>
+            </div>
+            
+            <div class="borrow-modal-body">
+                <div class="borrow-book-info" id="borrowBookInfo">
+                    <!-- Book info will be inserted here -->
+                </div>
+                
+                <form id="borrowForm">
+                    <div class="form-group">
+                        <label class="form-label" for="borrowerName">Your Name *</label>
+                        <input type="text" 
+                               class="form-input" 
+                               id="borrowerName" 
+                               name="borrowerName"
+                               placeholder="Enter your full name"
+                               required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="borrowerPhone">Phone Number *</label>
+                        <input type="tel" 
+                               class="form-input" 
+                               id="borrowerPhone" 
+                               name="borrowerPhone"
+                               placeholder="Enter your WhatsApp number"
+                               required>
+                        <span class="form-hint">Admin will contact you via WhatsApp for confirmation</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="borrowDate">Preferred Borrow Date</label>
+                        <input type="date" 
+                               class="form-input" 
+                               id="borrowDate" 
+                               name="borrowDate">
+                        <span class="form-hint">When would you like to pick up the book?</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="borrowDuration">Borrow Duration</label>
+                        <select class="form-input" id="borrowDuration" name="borrowDuration">
+                            <option value="1-week">1 Week</option>
+                            <option value="2-weeks" selected>2 Weeks</option>
+                            <option value="3-weeks">3 Weeks</option>
+                            <option value="1-month">1 Month</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="additionalNotes">Additional Notes (Optional)</label>
+                        <textarea class="form-input form-textarea" 
+                                  id="additionalNotes" 
+                                  name="additionalNotes"
+                                  placeholder="Any specific requests or questions?"></textarea>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="borrow-modal-footer">
+                <button type="button" class="btn-secondary" id="cancelBorrow">Cancel</button>
+                <button type="button" class="btn-primary" id="sendBorrowRequest" disabled>
+                    <span id="sendButtonText">Send Borrow Request</span>
+                    <span id="sendButtonLoading" style="display: none;">Sending...</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <strong>✓ Request Sent!</strong><br>
+        Your borrow request has been sent to Caca. She will contact you via WhatsApp shortly to confirm.
+    </div>
+
     <script>
         // ===== BOOKS DATA =====
         const booksData = [
@@ -751,7 +1101,8 @@
                 rating: 4,
                 status: "read",
                 location: "Living Room Shelf A",
-                cover: "📖"
+                cover: "📖",
+                available: true
             },
             {
                 id: 2,
@@ -762,7 +1113,8 @@
                 rating: 5,
                 status: "read",
                 location: "Bedroom Shelf B",
-                cover: "🤖"
+                cover: "🤖",
+                available: true
             },
             {
                 id: 3,
@@ -773,7 +1125,8 @@
                 rating: 4,
                 status: "read",
                 location: "Office Shelf C",
-                cover: "🚀"
+                cover: "🚀",
+                available: false
             },
             {
                 id: 4,
@@ -784,7 +1137,8 @@
                 rating: 3,
                 status: "read",
                 location: "Living Room Shelf A",
-                cover: "👻"
+                cover: "👻",
+                available: true
             },
             {
                 id: 5,
@@ -795,7 +1149,8 @@
                 rating: 5,
                 status: "read",
                 location: "Coffee Table",
-                cover: "☕"
+                cover: "☕",
+                available: true
             },
             {
                 id: 6,
@@ -806,7 +1161,8 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf D",
-                cover: "⚛️"
+                cover: "⚛️",
+                available: false
             },
             {
                 id: 7,
@@ -817,7 +1173,8 @@
                 rating: 4,
                 status: "unread",
                 location: "Bedroom Shelf C",
-                cover: "🎓"
+                cover: "🎓",
+                available: true
             },
             {
                 id: 8,
@@ -828,7 +1185,8 @@
                 rating: 4,
                 status: "read",
                 location: "Living Room Shelf B",
-                cover: "🎭"
+                cover: "🎭",
+                available: true
             },
             {
                 id: 9,
@@ -839,7 +1197,8 @@
                 rating: 5,
                 status: "read",
                 location: "Bedroom Shelf A",
-                cover: "🧙‍♀️"
+                cover: "🧙‍♀️",
+                available: true
             },
             {
                 id: 10,
@@ -850,7 +1209,8 @@
                 rating: 4,
                 status: "borrowed",
                 location: "Lent to Friend",
-                cover: "👫"
+                cover: "👫",
+                available: false
             },
             {
                 id: 11,
@@ -861,7 +1221,8 @@
                 rating: 5,
                 status: "read",
                 location: "Living Room Shelf C",
-                cover: "🎬"
+                cover: "🎬",
+                available: true
             },
             {
                 id: 12,
@@ -872,7 +1233,8 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf A",
-                cover: "🏜️"
+                cover: "🏜️",
+                available: true
             },
             {
                 id: 13,
@@ -883,7 +1245,8 @@
                 rating: 4,
                 status: "unread",
                 location: "Office Shelf D",
-                cover: "🧠"
+                cover: "🧠",
+                available: true
             },
             {
                 id: 14,
@@ -894,7 +1257,8 @@
                 rating: 5,
                 status: "read",
                 location: "Living Room Shelf A",
-                cover: "🐉"
+                cover: "🐉",
+                available: false
             },
             {
                 id: 15,
@@ -905,7 +1269,8 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf B",
-                cover: "👨‍👩‍👧‍👦"
+                cover: "👨‍👩‍👧‍👦",
+                available: true
             },
             {
                 id: 16,
@@ -916,7 +1281,8 @@
                 rating: 4,
                 status: "read",
                 location: "Bedroom Shelf D",
-                cover: "🎪"
+                cover: "🎪",
+                available: true
             },
             {
                 id: 17,
@@ -927,7 +1293,8 @@
                 rating: 4,
                 status: "read",
                 location: "Living Room Shelf B",
-                cover: "🦀"
+                cover: "🦀",
+                available: true
             },
             {
                 id: 18,
@@ -938,7 +1305,8 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf C",
-                cover: "👩‍💼"
+                cover: "👩‍💼",
+                available: false
             },
             {
                 id: 19,
@@ -949,7 +1317,8 @@
                 rating: 5,
                 status: "read",
                 location: "Bedside Table",
-                cover: "⚗️"
+                cover: "⚗️",
+                available: true
             },
             {
                 id: 20,
@@ -960,7 +1329,8 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf A",
-                cover: "👁️"
+                cover: "👁️",
+                available: true
             }
         ];
 
@@ -972,6 +1342,7 @@
         let currentGenre = 'all';
         let currentStatus = 'all';
         let currentSort = 'title-asc';
+        let currentBookForBorrow = null;
 
         // ===== DOM ELEMENTS =====
         const booksGrid = document.getElementById('booksGrid');
@@ -983,12 +1354,31 @@
         const booksCount = document.getElementById('booksCount');
         const totalBooks = document.getElementById('totalBooks');
         const pagination = document.getElementById('pagination');
+        
+        // Borrow Modal Elements
+        const borrowModal = document.getElementById('borrowModal');
+        const closeBorrowModal = document.getElementById('closeBorrowModal');
+        const cancelBorrow = document.getElementById('cancelBorrow');
+        const borrowBookInfo = document.getElementById('borrowBookInfo');
+        const borrowForm = document.getElementById('borrowForm');
+        const sendBorrowRequest = document.getElementById('sendBorrowRequest');
+        const borrowerName = document.getElementById('borrowerName');
+        const borrowerPhone = document.getElementById('borrowerPhone');
+        const borrowDate = document.getElementById('borrowDate');
+        const borrowDuration = document.getElementById('borrowDuration');
+        const additionalNotes = document.getElementById('additionalNotes');
+        const sendButtonText = document.getElementById('sendButtonText');
+        const sendButtonLoading = document.getElementById('sendButtonLoading');
+        const successMessage = document.getElementById('successMessage');
 
         // ===== BOOK CARD TEMPLATE =====
         function createBookCard(book) {
             const statusText = book.status === 'read' ? 'Read' : 
                              book.status === 'unread' ? 'Unread' : 'Borrowed';
             const statusClass = `status-${book.status}`;
+            
+            // Check if book is available for borrowing
+            const canBorrow = book.available && book.status !== 'borrowed';
             
             // Create star rating HTML
             let starsHtml = '';
@@ -997,10 +1387,11 @@
             }
             
             return `
-                <div class="book-card" data-id="${book.id}">
+                <div class="book-card" data-id="${book.id}" data-available="${book.available}">
                     <div class="book-cover">
                         <span>${book.cover}</span>
                         <span class="book-status ${statusClass}">${statusText}</span>
+                        ${!canBorrow ? '<div style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.7); color: white; padding: 0.2rem 0.5rem; border-radius: 5px; font-size: 0.7rem;">UNAVAILABLE</div>' : ''}
                     </div>
                     <div class="book-info">
                         <h3 class="book-title">${book.title}</h3>
@@ -1042,7 +1433,11 @@
             
             // Status filter
             if (currentStatus !== 'all') {
-                result = result.filter(book => book.status === currentStatus);
+                if (currentStatus === 'available') {
+                    result = result.filter(book => book.available && book.status !== 'borrowed');
+                } else {
+                    result = result.filter(book => book.status === currentStatus);
+                }
             }
             
             // Sort books
@@ -1098,7 +1493,8 @@
             document.querySelectorAll('.book-card').forEach(card => {
                 card.addEventListener('click', function() {
                     const bookId = this.getAttribute('data-id');
-                    showBookDetails(bookId);
+                    const isAvailable = this.getAttribute('data-available') === 'true';
+                    showBookDetails(bookId, isAvailable);
                 });
             });
         }
@@ -1204,8 +1600,154 @@
             totalBooks.textContent = booksData.length;
         }
 
+        // ===== BORROW MODAL FUNCTIONS =====
+        function openBorrowModal(book) {
+            currentBookForBorrow = book;
+            
+            // Set book info in modal
+            borrowBookInfo.innerHTML = `
+                <div class="borrow-book-cover">
+                    ${book.cover}
+                </div>
+                <div class="borrow-book-details">
+                    <h4>${book.title}</h4>
+                    <p>by ${book.author}</p>
+                    <p><small>${book.year} • ${book.genre}</small></p>
+                </div>
+            `;
+            
+            // Set minimum date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            borrowDate.min = tomorrow.toISOString().split('T')[0];
+            
+            // Reset form
+            borrowForm.reset();
+            
+            // Enable/disable send button based on form validity
+            updateSendButtonState();
+            
+            // Show modal
+            borrowModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            borrowModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            currentBookForBorrow = null;
+        }
+
+        function updateSendButtonState() {
+            const isFormValid = borrowerName.value.trim() !== '' && 
+                               borrowerPhone.value.trim() !== '';
+            sendBorrowRequest.disabled = !isFormValid;
+        }
+
+        function showSuccessMessage() {
+            successMessage.classList.add('active');
+            setTimeout(() => {
+                successMessage.classList.remove('active');
+            }, 5000);
+        }
+
+        function sendBorrowRequestToAdmin() {
+            // Show loading state
+            sendButtonText.style.display = 'none';
+            sendButtonLoading.style.display = 'inline';
+            sendBorrowRequest.disabled = true;
+            
+            // Get form data
+            const formData = {
+                bookTitle: currentBookForBorrow.title,
+                bookAuthor: currentBookForBorrow.author,
+                borrowerName: borrowerName.value.trim(),
+                borrowerPhone: borrowerPhone.value.trim(),
+                borrowDate: borrowDate.value || 'Not specified',
+                borrowDuration: borrowDuration.value,
+                additionalNotes: additionalNotes.value.trim(),
+                timestamp: new Date().toLocaleString('id-ID')
+            };
+            
+            // Admin phone number (Caca)
+            const adminPhone = '6281234567890'; // Ganti dengan nomor WhatsApp Caca
+            const adminName = 'Caca';
+            
+            // Create WhatsApp message
+            const message = `📚 *BOOK BORROW REQUEST*\n\n` +
+                          `*Book:* ${formData.bookTitle}\n` +
+                          `*Author:* ${formData.bookAuthor}\n\n` +
+                          `*Borrower Details:*\n` +
+                          `👤 Name: ${formData.borrowerName}\n` +
+                          `📱 Phone: ${formData.borrowerPhone}\n\n` +
+                          `*Request Details:*\n` +
+                          `📅 Preferred Date: ${formData.borrowDate}\n` +
+                          `⏱️ Duration: ${formData.borrowDuration}\n` +
+                          `💭 Notes: ${formData.additionalNotes || 'None'}\n\n` +
+                          `_Requested at: ${formData.timestamp}_`;
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(message);
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/${adminPhone}?text=${encodedMessage}`;
+            
+            // Simulate sending delay
+            setTimeout(() => {
+                // In production, you would:
+                // 1. Open WhatsApp with the message
+                // 2. Save the request to a database
+                // 3. Send email notification
+                
+                // For now, we'll show a success message
+                sendButtonText.style.display = 'inline';
+                sendButtonLoading.style.display = 'none';
+                
+                // Close modal
+                closeModal();
+                
+                // Show success message
+                showSuccessMessage();
+                
+                // In production, uncomment this to open WhatsApp:
+                // window.open(whatsappURL, '_blank');
+                
+                // For demo purposes, we'll log the URL
+                console.log('WhatsApp URL:', whatsappURL);
+                console.log('Form data:', formData);
+                
+                // You can also send the data to a server here
+                // Example using fetch:
+                /*
+                fetch('/api/borrow-request', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    sendButtonText.style.display = 'inline';
+                    sendButtonLoading.style.display = 'none';
+                    closeModal();
+                    showSuccessMessage();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to send request. Please try again.');
+                    sendButtonText.style.display = 'inline';
+                    sendButtonLoading.style.display = 'none';
+                    sendBorrowRequest.disabled = false;
+                });
+                */
+                
+            }, 1500);
+        }
+
         // ===== BOOK DETAILS MODAL =====
-        function showBookDetails(bookId) {
+        function showBookDetails(bookId, isAvailable) {
             const book = booksData.find(b => b.id === parseInt(bookId));
             if (!book) return;
             
@@ -1244,6 +1786,7 @@
                             <div style="text-align: center; margin-bottom: 2rem;">
                                 <div style="font-size: 5rem; margin-bottom: 1rem;">${book.cover}</div>
                                 <span style="padding: 0.5rem 1.5rem; border-radius: 20px; background: ${statusClass === 'status-read' ? 'rgba(76, 175, 80, 0.2)' : statusClass === 'status-unread' ? 'rgba(244, 67, 54, 0.2)' : 'rgba(255, 193, 7, 0.2)'}; color: ${statusClass === 'status-read' ? '#2e7d32' : statusClass === 'status-unread' ? '#c62828' : '#ff8f00'}; font-weight: 500;">${statusText}</span>
+                                ${!book.available ? '<div style="margin-top: 0.5rem; padding: 0.3rem 1rem; background: rgba(0,0,0,0.7); color: white; border-radius: 15px; font-size: 0.9rem; display: inline-block;">CURRENTLY UNAVAILABLE</div>' : ''}
                             </div>
                         </div>
                         
@@ -1271,18 +1814,32 @@
                             </div>
                             
                             <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
-                                <h3 style="color: #4b6967; margin-bottom: 1rem; font-size: 1.2rem;">Description</h3>
+                                <h3 style="color: #4b6967; margin-bottom: 1rem; font-size: 1.2rem;">Book Status</h3>
                                 <p style="color: #666; line-height: 1.6;">
-                                    This book is part of Caca's personal collection. 
-                                    ${book.status === 'read' ? 'Has been read and reviewed.' : book.status === 'unread' ? 'Currently on the reading list.' : 'Currently borrowed by someone.'}
+                                    ${book.status === 'read' ? '✅ This book has been read and reviewed by Caca.' : 
+                                      book.status === 'unread' ? '📖 This book is currently on Caca\'s reading list.' : 
+                                      '📚 This book is currently borrowed by someone.'}
+                                    <br><br>
+                                    ${book.available ? '🟢 Available for borrowing' : '🔴 Currently not available for borrowing'}
                                 </p>
                             </div>
                             
-                            <button style="width: 100%; padding: 1rem; background: #dc4f6c; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: background 0.3s;" 
-                                    onmouseover="this.style.background='#c43f5c'" 
-                                    onmouseout="this.style.background='#dc4f6c'">
-                                View Full Review
-                            </button>
+                            <div style="display: flex; gap: 1rem;">
+                                <button style="flex: 1; padding: 1rem; background: transparent; color: #4b6967; border: 2px solid #94a38d; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;" 
+                                        onmouseover="this.style.background='#94a38d'; this.style.color='white'" 
+                                        onmouseout="this.style.background='transparent'; this.style.color='#4b6967'"
+                                        onclick="this.closest('div').parentElement.parentElement.parentElement.remove()">
+                                    Close
+                                </button>
+                                ${book.available ? `
+                                    <button style="flex: 1; padding: 1rem; background: #dc4f6c; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;" 
+                                            onmouseover="this.style.background='#c43f5c'" 
+                                            onmouseout="this.style.background='#dc4f6c'"
+                                            onclick="openBorrowModalFromDetails(${book.id})">
+                                        Borrow This Book
+                                    </button>
+                                ` : ''}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1309,6 +1866,19 @@
                     document.removeEventListener('keydown', closeOnEscape);
                 }
             });
+        }
+
+        // Helper function to open borrow modal from details modal
+        function openBorrowModalFromDetails(bookId) {
+            const book = booksData.find(b => b.id === bookId);
+            if (book) {
+                // Close details modal
+                const modals = document.querySelectorAll('[style*="position: fixed"]');
+                modals.forEach(modal => document.body.removeChild(modal));
+                
+                // Open borrow modal
+                openBorrowModal(book);
+            }
         }
 
         // ===== EVENT LISTENERS =====
@@ -1349,6 +1919,32 @@
             currentPage = 1;
             
             filterBooks();
+        });
+
+        // Borrow modal event listeners
+        closeBorrowModal.addEventListener('click', closeModal);
+        cancelBorrow.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        borrowModal.addEventListener('click', function(e) {
+            if (e.target === borrowModal) {
+                closeModal();
+            }
+        });
+
+        // Form validation
+        borrowerName.addEventListener('input', updateSendButtonState);
+        borrowerPhone.addEventListener('input', updateSendButtonState);
+
+        // Send borrow request
+        sendBorrowRequest.addEventListener('click', sendBorrowRequestToAdmin);
+
+        // Allow form submission with Enter key
+        borrowForm.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !sendBorrowRequest.disabled) {
+                e.preventDefault();
+                sendBorrowRequestToAdmin();
+            }
         });
 
         // ===== INITIALIZE =====
@@ -1394,12 +1990,24 @@
                     observer.observe(card);
                 });
             }, 100);
+            
+            // Set default borrow date to 3 days from now
+            const defaultDate = new Date();
+            defaultDate.setDate(defaultDate.getDate() + 3);
+            borrowDate.value = defaultDate.toISOString().split('T')[0];
         });
 
         // ===== WINDOW RESIZE HANDLER =====
         window.addEventListener('resize', function() {
             // Re-render pagination on resize
             renderPagination();
+        });
+
+        // ===== ESCAPE KEY TO CLOSE MODAL =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && borrowModal.classList.contains('active')) {
+                closeModal();
+            }
         });
     </script>
 </body>
