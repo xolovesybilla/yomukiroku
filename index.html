@@ -1,0 +1,1535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yomu Kiroku 🌸 - Your Little Reading Diary</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FFFCF5;
+            --soft-pink: #FFE6F2;
+            --pastel-pink: #FFC8DD;
+            --pastel-lavender: #CDB4DB;
+            --pastel-blue: #A2D2FF;
+            --pastel-green: #BDE0FE;
+            --pastel-yellow: #FFE5B4;
+            --pastel-peach: #FFD6CC;
+            --soft-gray: #8A8A8A;
+            --text-color: #5A5A5A;
+            --rounded: 20px;
+            --rounded-sm: 12px;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .floating-element:nth-child(2n) {
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(3n) {
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+        }
+
+        /* Image styling */
+        .custom-img {
+            max-width: 100%;
+            height: auto;
+            transition: var(--transition);
+        }
+
+        .small-img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .medium-img {
+            width: 120px;
+            height: 120px;
+        }
+
+        .large-img {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Header / Navbar */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: rgba(255, 252, 245, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 200, 221, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        .logo-img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+            font-weight: 700;
+            color: #FF8EAB;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 16px;
+            color: var(--text-color);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: var(--rounded-sm);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item:hover {
+            background-color: var(--soft-pink);
+            color: #FF8EAB;
+            transform: translateY(-3px);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF8EAB;
+            transition: width 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            width: 100%;
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover i {
+            transform: scale(1.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--text-color);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 200, 221, 0.2) 0%, rgba(255, 200, 221, 0) 70%);
+            z-index: -1;
+            animation: pulse 4s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1.2);
+                opacity: 0.8;
+            }
+        }
+
+        .hero-content h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 64px;
+            color: #FF8EAB;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            animation: slideInLeft 1s ease-out;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                transform: translateX(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 24px;
+            color: var(--soft-gray);
+            margin-bottom: 30px;
+            animation: slideInLeft 1s ease-out 0.2s both;
+        }
+
+        .hero-content p {
+            animation: slideInLeft 1s ease-out 0.4s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: slideInLeft 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background-color: var(--pastel-pink);
+            color: #9A1663;
+            box-shadow: 0 4px 15px rgba(255, 140, 171, 0.2);
+        }
+
+        .btn-primary:hover {
+            background-color: #FFB4D9;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(255, 140, 171, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: var(--pastel-blue);
+            color: #2A629A;
+            box-shadow: 0 4px 15px rgba(162, 210, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background-color: #8BC5FF;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(162, 210, 255, 0.3);
+        }
+
+        .hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 1s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .illustration-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            height: 350px;
+        }
+
+        .hero-desk {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 120px;
+            background-color: var(--pastel-yellow);
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            animation: deskAppear 1s ease-out;
+        }
+
+        @keyframes deskAppear {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .hero-book {
+            position: absolute;
+            animation: bookFloat 4s ease-in-out infinite;
+        }
+
+        .hero-book:nth-child(1) {
+            left: 20%;
+            bottom: 130px;
+            width: 70px;
+            animation-delay: 0s;
+        }
+
+        .hero-book:nth-child(2) {
+            left: 35%;
+            bottom: 125px;
+            width: 65px;
+            animation-delay: 0.5s;
+        }
+
+        .hero-book:nth-child(3) {
+            left: 50%;
+            bottom: 120px;
+            width: 60px;
+            animation-delay: 1s;
+        }
+
+        @keyframes bookFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        .hero-girl {
+            position: absolute;
+            right: 30px;
+            bottom: 140px;
+            width: 100px;
+            animation: girlSway 4s ease-in-out infinite;
+        }
+
+        @keyframes girlSway {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(-2deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(2deg);
+            }
+        }
+
+        .hero-flower {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            width: 50px;
+            animation: spin 15s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Section Common Styles */
+        section {
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            color: #FF8EAB;
+            margin-bottom: 30px;
+            font-family: 'Dancing Script', cursive;
+            animation: titleBounce 1s ease-out;
+        }
+
+        @keyframes titleBounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px);
+            }
+            60% {
+                transform: translateY(-7px);
+            }
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: var(--soft-gray);
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+
+        .divider {
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--pastel-pink), var(--pastel-blue));
+            margin: 0 auto 40px;
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out;
+        }
+
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+
+        /* About Section */
+        .about-content {
+            text-align: center;
+            font-size: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            line-height: 1.8;
+            position: relative;
+            animation: contentAppear 1s ease-out;
+            transition: transform 0.3s ease;
+        }
+
+        .about-content:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes contentAppear {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--rounded);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--pastel-pink), var(--pastel-blue));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: iconFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes iconFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .feature-title {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #5A5A5A;
+        }
+
+        .feature-desc {
+            color: var(--soft-gray);
+        }
+
+        /* Book Location Section */
+        .book-location {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background-color: rgba(255, 232, 242, 0.3);
+            padding: 40px;
+            border-radius: var(--rounded);
+            animation: slideUp 1s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .mockup-card {
+            background-color: white;
+            border-radius: var(--rounded);
+            padding: 25px;
+            box-shadow: var(--shadow);
+            max-width: 350px;
+            margin: 0 auto;
+            animation: cardWiggle 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes cardWiggle {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-5px) rotate(-1deg);
+            }
+            75% {
+                transform: translateY(-3px) rotate(1deg);
+            }
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-lavender));
+            border-radius: var(--rounded-sm);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        .book-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .book-author {
+            color: var(--soft-gray);
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .tag {
+            padding: 6px 12px;
+            background-color: var(--soft-pink);
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: transform 0.3s ease;
+        }
+
+        .tag:hover {
+            transform: scale(1.1);
+        }
+
+        .status {
+            padding: 10px 15px;
+            background-color: rgba(255, 192, 203, 0.2);
+            border-radius: var(--rounded-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #FF6B9D;
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 10px rgba(255, 107, 157, 0);
+            }
+        }
+
+        .location-content h3 {
+            font-size: 32px;
+            color: #FF8EAB;
+            margin-bottom: 20px;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        .location-content p {
+            font-size: 18px;
+            margin-bottom: 25px;
+        }
+
+        /* Cute Experience Section */
+        .experience {
+            background-color: rgba(205, 180, 219, 0.1);
+            border-radius: var(--rounded);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffc8dd' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            animation: bgMove 20s linear infinite;
+        }
+
+        @keyframes bgMove {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100px 100px;
+            }
+        }
+
+        .experience-bullets {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            max-width: 800px;
+            margin: 40px auto 0;
+        }
+
+        .bullet-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 18px;
+            text-align: left;
+            padding: 15px;
+            border-radius: var(--rounded-sm);
+            background-color: rgba(255, 255, 255, 0.7);
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            animation: bulletAppear 0.5s ease-out both;
+        }
+
+        .bullet-item:nth-child(1) { animation-delay: 0.1s; }
+        .bullet-item:nth-child(2) { animation-delay: 0.3s; }
+        .bullet-item:nth-child(3) { animation-delay: 0.5s; }
+        .bullet-item:nth-child(4) { animation-delay: 0.7s; }
+
+        @keyframes bulletAppear {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .bullet-item:hover {
+            transform: translateY(-5px) scale(1.05);
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .bullet-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            animation: emojiBounce 2s infinite;
+        }
+
+        @keyframes emojiBounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Illustration Grid */
+        .illustration-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .grid-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: var(--rounded);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .grid-item:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 50%, rgba(255, 200, 221, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(162, 210, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .cta-text {
+            font-size: 32px;
+            color: #FF8EAB;
+            margin-bottom: 30px;
+            font-family: 'Dancing Script', cursive;
+            animation: textGlow 2s infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                text-shadow: 0 0 5px rgba(255, 140, 171, 0.5);
+            }
+            to {
+                text-shadow: 0 0 15px rgba(255, 140, 171, 0.8), 0 0 20px rgba(255, 140, 171, 0.6);
+            }
+        }
+
+        .btn-large {
+            padding: 20px 50px;
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--pastel-pink), var(--pastel-lavender));
+            color: #9A1663;
+            box-shadow: 0 8px 25px rgba(255, 140, 171, 0.3);
+            animation: btnPulse 2s infinite;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .btn-large:hover {
+            transform: translateY(-8px) scale(1.08);
+            box-shadow: 0 15px 35px rgba(255, 140, 171, 0.4);
+            animation: none;
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(255, 252, 245, 0.8);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 200, 221, 0.3);
+            position: relative;
+        }
+
+        .footer-text {
+            font-size: 16px;
+            color: var(--soft-gray);
+            margin-bottom: 15px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .footer-link {
+            color: var(--soft-gray);
+            text-decoration: none;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .footer-link:hover {
+            color: #FF8EAB;
+            transform: translateY(-3px);
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #FF8EAB;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* Page load animation */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--cream);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .page-loader.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-icon {
+            width: 80px;
+            height: 80px;
+            animation: loaderSpin 1.5s linear infinite;
+        }
+
+        @keyframes loaderSpin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1100px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .illustration-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-content h1 {
+                font-size: 52px;
+            }
+            
+            .book-location {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .experience-bullets {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero-content h1 {
+                font-size: 42px;
+            }
+            
+            .hero-subtitle {
+                font-size: 20px;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .illustration-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero {
+                padding: 50px 0;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .book-location, .experience {
+                padding: 30px 20px;
+            }
+            
+            .cta-text {
+                font-size: 28px;
+            }
+            
+            .illustration-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader">
+        <img src="images/logo.svg" alt="Yomu Kiroku" class="loader-icon">
+    </div>
+
+    <!-- Floating elements (flowers, mushrooms, etc.) -->
+    <div class="floating-element" style="top: 10%; left: 5%;">
+        <img src="images/pink flower.svg" alt="Pink Flower" class="custom-img small-img">
+    </div>
+    <div class="floating-element" style="top: 20%; right: 10%;">
+        <img src="images/blue flower.svg" alt="Blue Flower" class="custom-img small-img">
+    </div>
+    <div class="floating-element" style="bottom: 30%; left: 8%;">
+        <img src="images/mushroom.svg" alt="Mushroom" class="custom-img small-img">
+    </div>
+    <div class="floating-element" style="bottom: 20%; right: 5%;">
+        <img src="images/green graa.svg" alt="Green Grass" class="custom-img small-img">
+    </div>
+
+    <!-- Header / Navbar -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo-container">
+                    <img src="images/logo.svg" alt="Yomu Kiroku" class="logo-img">
+                    <span class="logo-text">Yomu Kiroku</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-book"></i> Library
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-edit"></i> Kiroku
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-map-marker-alt"></i> Locations
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-handshake"></i> Borrowed
+                    </a>
+                    <a href="#" class="nav-item">
+                        <i class="fas fa-heart"></i> Saved
+                    </a>
+                </div>
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Yomu Kiroku</h1>
+                <p class="hero-subtitle">your little reading diary</p>
+                <p>"tempat menyimpan buku, catatan kecil, dan jejak membaca yang pelan."</p>
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">
+                        <i class="fas fa-seedling"></i> mulai mencatat
+                    </a>
+                    <a href="#" class="btn btn-secondary">
+                        <i class="fas fa-book"></i> lihat koleksi buku
+                    </a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="illustration-container">
+                    <div class="hero-desk"></div>
+                    <img src="images/book blue.svg" alt="Blue Book" class="hero-book custom-img">
+                    <img src="images/book pink.svg" alt="Pink Book" class="hero-book custom-img">
+                    <img src="images/watch.svg" alt="Watch" class="hero-book custom-img">
+                    <img src="images/girl read.svg" alt="Girl Reading" class="hero-girl custom-img">
+                    <img src="images/blue flower.svg" alt="Blue Flower" class="hero-flower custom-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section>
+        <div class="container">
+            <div class="divider"></div>
+            <h2 class="section-title">✨ tentang yomu kiroku</h2>
+            <div class="about-content">
+                Yomu Kiroku adalah perpustakaan pribadi untuk menyimpan buku, catatan membaca, dan kenangan kecil setelah menutup halaman terakhir.
+            </div>
+            
+            <!-- Illustration Grid -->
+            <div class="illustration-grid">
+                <div class="grid-item">
+                    <img src="images/boy read.svg" alt="Boy Reading" class="custom-img medium-img">
+                    <p style="margin-top: 10px;">Membaca dengan tenang</p>
+                </div>
+                <div class="grid-item">
+                    <img src="images/girl drawing.svg" alt="Girl Drawing" class="custom-img medium-img">
+                    <p style="margin-top: 10px;">Mencatat ide</p>
+                </div>
+                <div class="grid-item">
+                    <img src="images/kids on boat.svg" alt="Kids on Boat" class="custom-img medium-img">
+                    <p style="margin-top: 10px;">Petualangan imajinasi</p>
+                </div>
+                <div class="grid-item">
+                    <img src="images/mushrooms.svg" alt="Mushrooms" class="custom-img medium-img">
+                    <p style="margin-top: 10px;">Dunia yang indah</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">fitur utama</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="images/book blue.svg" alt="All Books" class="custom-img">
+                    </div>
+                    <h3 class="feature-title">All Books</h3>
+                    <p class="feature-desc">lihat semua buku yang kamu punya lengkap dengan status & lokasi</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="images/watch.svg" alt="Book Location" class="custom-img">
+                    </div>
+                    <h3 class="feature-title">Book Location</h3>
+                    <p class="feature-desc">tahu buku ini ada di rak mana, box mana, atau rumah siapa</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="images/girl with gadget.svg" alt="Lending" class="custom-img">
+                    </div>
+                    <h3 class="feature-title">Lending</h3>
+                    <p class="feature-desc">catat buku yang dipinjam teman tanpa lupa siapa dan sejak kapan</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="images/boy idea.svg" alt="Kiroku" class="custom-img">
+                    </div>
+                    <h3 class="feature-title">Kiroku</h3>
+                    <p class="feature-desc">simpan catatan, kutipan, dan perasaan setelah membaca</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="images/girl idea.svg" alt="Yomu" class="custom-img">
+                    </div>
+                    <h3 class="feature-title">Yomu</h3>
+                    <p class="feature-desc">pantau buku yang sedang kamu baca dengan mood kecil yang lucu</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <img src="images/pink flower.svg" alt="Saved" class="custom-img">
+                    </div>
+                    <h3 class="feature-title">Saved</h3>
+                    <p class="feature-desc">koleksi buku favorit yang ingin dibaca ulang atau disimpan khusus</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Location Section -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">📍 buku ini di mana, ya?</h2>
+            <div class="book-location">
+                <div class="mockup-card">
+                    <div class="book-cover">Buku Impian</div>
+                    <h4 class="book-title">Petualangan di Negeri Awan</h4>
+                    <p class="book-author">oleh Mira Susanto</p>
+                    <div class="tags">
+                        <span class="tag"><i class="fas fa-tag"></i> Fiksi</span>
+                        <span class="tag"><i class="fas fa-heart"></i> Favorit</span>
+                    </div>
+                    <div class="tags">
+                        <span class="tag"><i class="fas fa-map-marker-alt"></i> Rak Kos</span>
+                    </div>
+                    <div class="status">
+                        <i class="fas fa-handshake"></i> dipinjam Rei 🤍
+                    </div>
+                </div>
+                <div class="location-content">
+                    <h3>📍 buku ini di mana, ya?</h3>
+                    <p>Yomu Kiroku membantu kamu mengingat di mana buku disimpan dan siapa yang meminjamnya dengan cara yang lembut dan tidak ribet.</p>
+                    <p>Cukup tambahkan lokasi untuk setiap buku, dan kamu tidak perlu lagi mencari-cari di mana buku favoritmu berada.</p>
+                    <div style="margin-top: 30px;">
+                        <img src="images/laptop.svg" alt="Laptop" class="custom-img medium-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cute Experience Section -->
+    <section class="experience">
+        <div class="container">
+            <h2 class="section-title">bukan sekadar daftar buku</h2>
+            <div class="experience-bullets">
+                <div class="bullet-item">
+                    <img src="images/pink flower.svg" alt="Mood" class="bullet-icon custom-img">
+                    <div>mood membaca</div>
+                </div>
+                <div class="bullet-item">
+                    <img src="images/blue flower.svg" alt="Sticker" class="bullet-icon custom-img">
+                    <div>stiker kecil</div>
+                </div>
+                <div class="bullet-item">
+                    <img src="images/mushroom.svg" alt="Notes" class="bullet-icon custom-img">
+                    <div>catatan pelan</div>
+                </div>
+                <div class="bullet-item">
+                    <img src="images/green graa.svg" alt="Favorites" class="bullet-icon custom-img">
+                    <div>favorit yang disimpan lama</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <p class="cta-text">simpan bacaanmu, pelan-pelan.</p>
+            <a href="#" class="btn btn-large">
+                <img src="images/logo.svg" alt="Logo" style="width: 30px; height: 30px; margin-right: 10px;">
+                buat yomu kiroku-ku
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div style="margin-bottom: 20px;">
+                <img src="images/logo.svg" alt="Yomu Kiroku" style="width: 50px; height: 50px;">
+            </div>
+            <p class="footer-text">dibuat dengan tenang</p>
+            <p class="footer-text">© Yomu Kiroku</p>
+            <div class="footer-links">
+                <a href="#" class="footer-link">about</a>
+                <a href="#" class="footer-link">privacy</a>
+                <a href="#" class="footer-link">contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Page loader
+        window.addEventListener('load', function() {
+            const loader = document.querySelector('.page-loader');
+            setTimeout(() => {
+                loader.classList.add('fade-out');
+            }, 1000);
+        });
+
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            const navLinks = document.querySelector('.nav-links');
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            
+            // Responsive styling for mobile menu
+            if (window.innerWidth <= 768) {
+                if (navLinks.style.display === 'flex') {
+                    navLinks.style.flexDirection = 'column';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '70px';
+                    navLinks.style.right = '20px';
+                    navLinks.style.background = 'white';
+                    navLinks.style.padding = '20px';
+                    navLinks.style.borderRadius = 'var(--rounded)';
+                    navLinks.style.boxShadow = 'var(--shadow)';
+                    navLinks.style.width = '200px';
+                    navLinks.style.zIndex = '1000';
+                }
+            }
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const navLinks = document.querySelector('.nav-links');
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+            
+            if (window.innerWidth <= 768 && navLinks.style.display === 'flex') {
+                if (!navLinks.contains(event.target) && !mobileBtn.contains(event.target)) {
+                    navLinks.style.display = 'none';
+                }
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu after clicking a link
+                    if (window.innerWidth <= 768) {
+                        document.querySelector('.nav-links').style.display = 'none';
+                    }
+                }
+            });
+        });
+
+        // Create floating elements dynamically
+        function createFloatingElement() {
+            const images = [
+                { src: 'images/pink flower.svg', alt: 'Pink Flower' },
+                { src: 'images/blue flower.svg', alt: 'Blue Flower' },
+                { src: 'images/mushroom.svg', alt: 'Mushroom' },
+                { src: 'images/green graa.svg', alt: 'Green Grass' },
+                { src: 'images/mushrooms.svg', alt: 'Mushrooms' }
+            ];
+            
+            const image = images[Math.floor(Math.random() * images.length)];
+            
+            const floatingEl = document.createElement('div');
+            floatingEl.className = 'floating-element';
+            
+            const img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.alt;
+            img.className = 'custom-img small-img';
+            
+            floatingEl.appendChild(img);
+            
+            floatingEl.style.top = Math.random() * 100 + '%';
+            floatingEl.style.left = Math.random() * 100 + '%';
+            floatingEl.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            floatingEl.style.animationDelay = Math.random() * 5 + 's';
+            
+            document.body.appendChild(floatingEl);
+            
+            // Remove element after animation completes
+            setTimeout(() => {
+                if (floatingEl.parentNode) {
+                    floatingEl.parentNode.removeChild(floatingEl);
+                }
+            }, 30000);
+        }
+
+        // Create floating elements periodically
+        setInterval(createFloatingElement, 3000);
+
+        // Create initial floating elements
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createFloatingElement, i * 500);
+        }
+
+        // Add click animation to buttons
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(255, 255, 255, 0.7);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                `;
+                
+                this.appendChild(ripple);
+                
+                // Remove ripple after animation
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Add parallax effect to floating elements on scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const floatingElements = document.querySelectorAll('.floating-element');
+            
+            floatingElements.forEach(el => {
+                const speed = 0.5;
+                const yPos = -(scrolled * speed);
+                el.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
