@@ -10,20 +10,18 @@
     <link rel="stylesheet" href="https://use.typekit.net/eqz4czn.css">
     <style>
         /* ===== FONT DECLARATIONS ===== */
-         body {
-      font-family: "rix-cutecat-pro", sans-serif;
-    }
+        body {
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-weight: 500;
+            color: #333333;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
 
-    h1, .title {
-      font-family: "playwrite-cc-de-grund", serif;
-      font-weight: 100;
-    }
-
-    .review-text {
-      font-family: "playwrite-cc-de-grund", serif;
-      font-size: 1rem;
-      line-height: 1.6;
-    }
+        h1, h2, h3, .logo-text, .section-title, .carousel-title, .hero-title {
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+        }
         
         /* ===== CSS VARIABLES ===== */
         :root {
@@ -31,6 +29,7 @@
             --pink-light: #fec6e0;
             --green-dark: #4b6967;
             --green-light: #94a38d;
+            --green-muted: #98a68f;
             --white: #ffffff;
             --off-white: #fefcf9;
             --text-dark: #333333;
@@ -46,20 +45,6 @@
         
         html {
             scroll-behavior: smooth;
-        }
-        
-        body {
-            font-family: 'PlaywriteCCDEGrund', sans-serif;
-            font-weight: 100;
-            color: var(--text-dark);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-        
-        h1, h2, h3, .logo-text {
-            font-family: 'RixCutecatPro', sans-serif;
-            font-weight: 500;
-            font-style: normal;
         }
         
         /* ===== NAVBAR ===== */
@@ -166,7 +151,7 @@
             animation: floatInLeft 1s ease-out;
         }
         
-        .hero-image svg {
+        .hero-image img {
             width: 100%;
             max-width: 400px;
             height: auto;
@@ -187,7 +172,7 @@
             font-size: 1.1rem;
             color: var(--green-dark);
             max-width: 500px;
-            font-weight: 100;
+            font-weight: 500;
             margin-bottom: 2rem;
         }
         
@@ -198,7 +183,7 @@
             border: none;
             padding: 0.8rem 2rem;
             border-radius: 25px;
-            font-family: 'RixCutecatPro', sans-serif;
+            font-family: "rix-cutecat-pro", sans-serif;
             font-size: 1.1rem;
             font-weight: 500;
             cursor: pointer;
@@ -257,7 +242,7 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            font-weight: 100;
+            font-weight: 500;
         }
         
         .stats-grid {
@@ -284,14 +269,14 @@
             font-size: 3.5rem;
             color: var(--green-dark);
             margin-bottom: 0.5rem;
-            font-family: 'RixCutecatPro', sans-serif;
-            font-weight: 500;
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
         }
         
         .stat-label {
             color: var(--text-dark);
             font-size: 1.1rem;
-            font-weight: 100;
+            font-weight: 500;
         }
         
         .chart-container {
@@ -349,7 +334,7 @@
             text-align: center;
             color: var(--green-dark);
             font-size: 0.95rem;
-            font-weight: 100;
+            font-weight: 500;
         }
         
         .bar-value {
@@ -359,12 +344,12 @@
             right: 0;
             text-align: center;
             color: var(--green-dark);
-            font-family: 'RixCutecatPro', sans-serif;
-            font-weight: 500;
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
             font-size: 1.3rem;
         }
         
-        /* ===== HERO SECTION 3 ===== */
+        /* ===== HERO SECTION 3 (NEW) ===== */
         .hero-3 {
             min-height: 100vh;
             background: linear-gradient(to bottom, var(--pink-light), var(--green-light));
@@ -376,10 +361,92 @@
             margin-top: 0;
         }
         
-        .carousel-container {
+        .concept-title {
+            font-size: 2.8rem;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        
+        .concept-container {
             max-width: 1200px;
             width: 100%;
-            padding: 2rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin: 0 auto;
+        }
+        
+        .concept-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .concept-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+            background: rgba(255, 255, 255, 0.85);
+        }
+        
+        .concept-card:nth-child(1) {
+            animation-delay: 0.4s;
+        }
+        
+        .concept-card:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+        
+        .concept-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .concept-image img {
+            width: 150px;
+            height: auto;
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+        
+        .concept-name {
+            font-size: 2.2rem;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+        }
+        
+        .concept-description {
+            color: var(--green-dark);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            text-align: center;
+            font-weight: 500;
+        }
+        
+        /* ===== HERO SECTION 4 (FORMER HERO 3) ===== */
+        .hero-4 {
+            min-height: 100vh;
+            background: var(--green-muted);
+            padding: 2rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
         }
         
         .carousel-title {
@@ -390,6 +457,12 @@
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        
+        .carousel-container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem 0;
         }
         
         .carousel-wrapper {
@@ -459,8 +532,8 @@
             font-size: 1.3rem;
             color: var(--green-dark);
             margin-bottom: 0.5rem;
-            font-family: 'PlaywriteCCDEGrund', sans-serif;
-            font-weight: 100;
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-weight: 500;
         }
         
         .book-author {
@@ -468,7 +541,7 @@
             margin-bottom: 1rem;
             font-size: 0.95rem;
             opacity: 0.8;
-            font-weight: 100;
+            font-weight: 500;
         }
         
         .book-rating {
@@ -601,12 +674,17 @@
                 order: -1;
             }
             
-            .hero-image svg {
+            .hero-image img {
                 max-width: 300px;
             }
             
             .bar-chart {
                 gap: 4rem;
+            }
+            
+            .concept-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
         
@@ -635,7 +713,7 @@
                 font-size: 1rem;
             }
             
-            .section-title, .carousel-title {
+            .section-title, .carousel-title, .concept-title {
                 font-size: 2.2rem;
             }
             
@@ -660,7 +738,7 @@
                 width: 60px;
             }
             
-            .carousel-wrapper {
+            .carousel-wrapper, .concept-card {
                 padding: 1.5rem;
             }
             
@@ -672,6 +750,14 @@
                 padding: 0.7rem 1.8rem;
                 font-size: 1rem;
             }
+            
+            .concept-name {
+                font-size: 1.8rem;
+            }
+            
+            .concept-description {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -679,7 +765,7 @@
                 font-size: 2rem;
             }
             
-            .section-title, .carousel-title {
+            .section-title, .carousel-title, .concept-title {
                 font-size: 1.8rem;
             }
             
@@ -701,6 +787,14 @@
             
             .bar-value {
                 font-size: 1.1rem;
+            }
+            
+            .concept-card {
+                padding: 2rem;
+            }
+            
+            .concept-image img {
+                width: 120px;
             }
         }
     </style>
@@ -776,8 +870,37 @@
         </div>
     </section>
 
-    <!-- Hero Section 3 -->
+    <!-- Hero Section 3 (NEW) -->
     <section class="hero-3" id="hero3">
+        <h2 class="concept-title">The Meaning Behind</h2>
+        
+        <div class="concept-container">
+            <!-- Yomu Card -->
+            <div class="concept-card">
+                <div class="concept-image">
+                    <img src="image/girlidea.svg" alt="Girl with idea">
+                </div>
+                <h3 class="concept-name">Yomu</h3>
+                <p class="concept-description">
+                    "Yomu" means "to read" in Japanese. This represents the core of our platform - the joy of reading, discovering new worlds through pages, and sharing those experiences with others. Every book you see here has been carefully selected, thoughtfully read, and lovingly reviewed.
+                </p>
+            </div>
+            
+            <!-- Kiroku Card -->
+            <div class="concept-card">
+                <div class="concept-image">
+                    <img src="image/boyidea.svg" alt="Boy with idea">
+                </div>
+                <h3 class="concept-name">Kiroku</h3>
+                <p class="concept-description">
+                    "Kiroku" means "record" or "documentation" in Japanese. This symbolizes our mission to preserve reading memories, track reading journeys, and create a personal archive of literary adventures. Each book here tells a story not just of its content, but of when and how it was read.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section 4 (Former Hero 3) -->
+    <section class="hero-4" id="hero4">
         <h2 class="carousel-title">Recent Reads</h2>
         
         <div class="carousel-container">
@@ -990,6 +1113,20 @@
                 };
             }
             
+            // Handle concept images
+            const conceptImages = document.querySelectorAll('.concept-image img');
+            conceptImages.forEach(img => {
+                img.onerror = function() {
+                    console.log('Concept image not found');
+                    // Show placeholder emoji
+                    if (this.src.includes('girlidea')) {
+                        this.outerHTML = '<div style="font-size: 4rem; color: #dc4f6c;">💡</div>';
+                    } else if (this.src.includes('boyidea')) {
+                        this.outerHTML = '<div style="font-size: 4rem; color: #94a38d;">💭</div>';
+                    }
+                };
+            });
+            
             // Smooth scroll for navigation links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -1058,6 +1195,18 @@
                     this.style.transform = 'translateY(0)';
                 });
             }
+            
+            // Add hover effect to concept cards
+            const conceptCards = document.querySelectorAll('.concept-card');
+            conceptCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
         });
 
         // ===== PAUSE AUTOSCROLL ON HOVER =====
