@@ -3,27 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/svg" href="/image/logo.svg">
     <title>Yomu Kiroku</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Load fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        /* ===== VARIABLES & RESET ===== */
-        :root {
-            --soft-pink: #FFB6C1;
-            --mint: #98FFC7;
-            --lavender: #D8C3FF;
-            --sky: #B5E8FF;
-            --cream: #FFFCF5;
-            --gray-light: #F8F9FA;
-            --gray-medium: #E9ECEF;
-            --gray-dark: #6C757D;
-            --text: #2D3748;
-            --accent: #FF9AA2;
+        /* ===== FONT SETUP ===== */
+        /* Sighyer (using Dancing Script as similar elegant script font) */
+        @font-face {
+            font-family: 'Sigher';
+            src: url('https://fonts.gstatic.com/s/dancingscript/v24/If2cXTr6YS-zF4S-kcSWSVi_szLgiuE.woff2');
+            font-weight: normal;
+            font-style: normal;
         }
         
+        /* Garet (using Roboto Light as similar clean sans-serif) */
+        @font-face {
+            font-family: 'Garet';
+            src: url('https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmSU5fBBc4.woff2');
+            font-weight: 300;
+            font-style: normal;
+        }
+        
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --pink-primary: #dc4f6c;
+            --pink-light: #fec6e0;
+            --pink-bg: #fec6e0;
+            --cream-bg: #f6f5f5;
+            --green-dark: #4b6967;
+            --green-light: #94a38d;
+            --off-white: #fffaf7;
+            --gray-text: #5a5a5a;
+        }
+        
+        /* ===== RESET & BASE STYLES ===== */
         * {
             margin: 0;
             padding: 0;
@@ -31,875 +44,909 @@
         }
         
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--cream);
-            color: var(--text);
-            line-height: 1.6;
-            min-height: 100vh;
+            font-family: 'Garet', 'Roboto', sans-serif;
+            color: var(--gray-text);
+            overflow-x: hidden;
         }
         
-        h1, h2, h3, h4, .logo {
-            font-family: 'Playwrite DE Grund', cursive;
-            font-weight: 400;
+        h1, h2, h3, h4, .logo-text {
+            font-family: 'Sigher', 'Dancing Script', cursive;
         }
         
-        /* ===== ANIMATIONS ===== */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-        
-        @keyframes gentlePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(-20px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
-        /* ===== HEADER ===== */
-        header {
-            background: white;
-            padding: 1.5rem 2rem;
-            border-bottom: 1px solid var(--gray-medium);
-            position: sticky;
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
             top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        }
-        
-        .header-content {
-            max-width: 1200px;
-            margin: 0 auto;
+            left: 0;
+            right: 0;
+            background: transparent;
+            padding: 1rem 2rem;
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
         
-        .logo {
-            font-size: 2.2rem;
-            color: var(--text);
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(220, 79, 108, 0.1);
+        }
+        
+        .logo-container {
             display: flex;
             align-items: center;
-            gap: 8px;
-            animation: slideIn 0.5s ease-out;
+            gap: 10px;
         }
         
-        .logo .book-icon {
-            color: var(--accent);
-            animation: float 3s infinite ease-in-out;
+        .logo-img {
+            height: 40px;
+            width: auto;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
         
-        .user-menu {
+        .logo-text {
+            font-size: 1.8rem;
+            color: var(--pink-primary);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links {
             display: flex;
-            align-items: center;
-            gap: 1.5rem;
+            gap: 2rem;
+            list-style: none;
         }
         
-        .user-avatar {
-            width: 42px;
-            height: 42px;
-            background: linear-gradient(135deg, var(--soft-pink), var(--lavender));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: transform 0.2s ease;
-        }
-        
-        .user-avatar:hover {
-            transform: rotate(8deg);
-            animation: gentlePulse 1s infinite;
-        }
-        
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--gray-dark);
-            font-size: 0.95rem;
-            padding: 8px 16px;
+        .nav-links a {
+            text-decoration: none;
+            color: var(--green-dark);
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--pink-primary);
+            background: rgba(220, 79, 108, 0.1);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--pink-primary);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-links a:hover::after {
+            width: 80%;
+        }
+        
+        /* ===== HERO SECTION 1 ===== */
+        .hero-1 {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, var(--cream-bg), var(--pink-light));
             display: flex;
             align-items: center;
-            gap: 6px;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .nav-btn:hover, .nav-btn.active {
-            background: var(--gray-light);
-            color: var(--text);
-        }
-        
-        .nav-btn.active {
-            background: var(--soft-pink);
-            color: white;
-        }
-        
-        /* ===== MAIN CONTENT ===== */
-        .container {
+        .hero-content {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-            animation: fadeIn 0.5s ease-out;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
         
-        /* ===== WELCOME SECTION ===== */
-        .welcome-section {
-            text-align: center;
-            padding: 2rem 0 3rem;
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .hero-title {
+            font-size: 4.5rem;
+            color: var(--pink-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--green-dark);
+            line-height: 1.8;
             margin-bottom: 2rem;
         }
         
-        .welcome-text {
-            font-size: 1.1rem;
-            color: var(--gray-dark);
-            max-width: 600px;
-            margin: 1rem auto;
-        }
-        
-        .highlight {
-            background: linear-gradient(120deg, var(--mint) 0%, transparent 100%);
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        
-        /* ===== STATS CARDS ===== */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin: 2.5rem 0;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            border: 1px solid var(--gray-medium);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-            border-color: var(--soft-pink);
-        }
-        
-        .stat-icon {
-            font-size: 2.2rem;
-            margin-bottom: 1rem;
-            opacity: 0.8;
-        }
-        
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 300;
-            color: var(--text);
-            margin: 0.5rem 0;
-        }
-        
-        .stat-label {
-            color: var(--gray-dark);
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-        }
-        
-        /* ===== BOOKS SECTION ===== */
-        .section-header {
+        .hero-image {
+            animation: fadeInRight 1s ease-out 0.3s both;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            margin: 3rem 0 1.5rem;
+        }
+        
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            filter: drop-shadow(0 10px 30px rgba(220, 79, 108, 0.2));
+        }
+        
+        /* ===== HERO SECTION 2 ===== */
+        .hero-2 {
+            min-height: 100vh;
+            background: var(--pink-bg);
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
         
         .section-title {
-            font-size: 1.8rem;
-            color: var(--text);
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 3.5rem;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 4rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         
-        .section-title i {
-            color: var(--accent);
+        .stats-container {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--off-white);
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: 0 20px 50px rgba(220, 79, 108, 0.15);
+            animation: fadeInUp 1s ease-out;
         }
         
-        .view-all {
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: gap 0.2s ease;
+        .stats-header {
+            text-align: center;
+            margin-bottom: 3rem;
         }
         
-        .view-all:hover {
-            gap: 8px;
+        .stats-header h3 {
+            font-size: 2rem;
+            color: var(--green-dark);
+            margin-bottom: 1rem;
         }
         
-        .books-grid {
+        .stats-header p {
+            color: var(--gray-text);
+            font-size: 1.1rem;
+        }
+        
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 4rem;
+            font-family: 'Sigher', cursive;
+            color: var(--pink-primary);
+            margin-bottom: 1rem;
+            animation: countUp 2s ease-out;
+        }
+        
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--green-dark);
+        }
+        
+        .diagram-container {
+            margin-top: 3rem;
+            height: 300px;
+            position: relative;
+        }
+        
+        .bar-chart {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4rem;
+            height: 100%;
+            padding: 2rem;
+        }
+        
+        .bar {
+            width: 80px;
+            background: linear-gradient(to top, var(--pink-primary), var(--pink-light));
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px rgba(220, 79, 108, 0.2);
+        }
+        
+        .bar:hover {
+            transform: translateY(-10px);
+        }
+        
+        .bar.fiction {
+            height: 200px;
+            animation: growBar 1.5s ease-out 0.5s both;
+        }
+        
+        .bar.nonfiction {
+            height: 180px;
+            animation: growBar 1.5s ease-out 0.7s both;
+        }
+        
+        .bar.read {
+            height: 240px;
+            animation: growBar 1.5s ease-out 0.9s both;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--green-dark);
+            font-weight: 500;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--pink-primary);
+            font-family: 'Sigher', cursive;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        /* ===== HERO SECTION 3 ===== */
+        .hero-3 {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, var(--pink-bg), var(--green-light));
+            padding: 4rem 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .carousel-container {
+            max-width: 1200px;
+            width: 100%;
+            padding: 2rem 0;
+        }
+        
+        .carousel-title {
+            font-size: 3rem;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .carousel {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 2rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        
+        .carousel::-webkit-scrollbar {
+            display: none;
         }
         
         .book-card {
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            border: 1px solid var(--gray-medium);
-            transition: all 0.3s ease;
-            animation: fadeIn 0.5s ease-out;
+            min-width: 300px;
+            background: var(--off-white);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 15px 40px rgba(148, 163, 141, 0.2);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.8s ease-out;
         }
         
         .book-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 60px rgba(148, 163, 141, 0.3);
         }
         
         .book-cover {
-            height: 160px;
-            background: linear-gradient(135deg, var(--sky), var(--lavender));
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
+            border-radius: 15px;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 3.5rem;
+            font-size: 4rem;
+            color: var(--pink-primary);
         }
         
-        .book-content {
-            padding: 1.5rem;
+        .book-info {
+            text-align: center;
         }
         
         .book-title {
-            font-size: 1.2rem;
+            font-size: 1.5rem;
+            color: var(--green-dark);
             margin-bottom: 0.5rem;
-            color: var(--text);
-            line-height: 1.4;
+            font-weight: 600;
         }
         
         .book-author {
-            color: var(--gray-dark);
-            font-size: 0.9rem;
+            color: var(--gray-text);
             margin-bottom: 1rem;
+            font-size: 1rem;
         }
         
-        .book-meta {
+        .book-rating {
             display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
-            color: var(--gray-dark);
-            margin-bottom: 1.2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--gray-medium);
-        }
-        
-        .book-status {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            margin-bottom: 1.2rem;
-        }
-        
-        .status-available {
-            background: rgba(152, 255, 199, 0.2);
-            color: #2E8B57;
-            border: 1px solid var(--mint);
-        }
-        
-        .status-reading {
-            background: rgba(255, 182, 193, 0.2);
-            color: #C2185B;
-            border: 1px solid var(--soft-pink);
-        }
-        
-        .status-borrowed {
-            background: rgba(216, 195, 255, 0.2);
-            color: #6A1B9A;
-            border: 1px solid var(--lavender);
-        }
-        
-        .book-actions {
-            display: flex;
-            gap: 10px;
-        }
-        
-        /* ===== BUTTONS ===== */
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
         }
         
-        .btn-primary {
-            background: var(--accent);
-            color: white;
+        .star {
+            color: #ffd700;
+            font-size: 1.5rem;
+            animation: starPulse 2s infinite;
         }
         
-        .btn-primary:hover {
-            background: #FF7B8A;
-            transform: translateY(-2px);
-        }
+        .star:nth-child(1) { animation-delay: 0s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.4s; }
+        .star:nth-child(4) { animation-delay: 0.6s; }
+        .star:nth-child(5) { animation-delay: 0.8s; }
         
-        .btn-outline {
-            background: white;
-            color: var(--text);
-            border: 1px solid var(--gray-medium);
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-        }
-        
-        .btn-full {
-            width: 100%;
-        }
-        
-        /* ===== QUICK ACTIONS ===== */
-        .quick-actions {
-            background: white;
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 3rem 0;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
-            border: 1px solid var(--gray-medium);
-        }
-        
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .action-card {
-            text-align: center;
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: 1px solid var(--gray-medium);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .action-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-        
-        .action-icon {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--accent);
-        }
-        
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 3rem 2rem 2rem;
-            color: var(--gray-dark);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--gray-medium);
-            margin-top: 3rem;
-        }
-        
-        .footer-heart {
-            color: var(--accent);
-            animation: gentlePulse 1.5s infinite;
-        }
-        
-        /* ===== UTILITY ===== */
-        .text-center { text-align: center; }
-        .mt-1 { margin-top: 1rem; }
-        .mt-2 { margin-top: 2rem; }
-        .mb-1 { margin-bottom: 1rem; }
-        .mb-2 { margin-bottom: 2rem; }
-        
-        /* ===== TOAST NOTIFICATION ===== */
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 16px 24px;
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
-            border-left: 4px solid var(--accent);
+        .carousel-controls {
             display: flex;
-            align-items: center;
-            gap: 12px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease-out;
-            transform: translateX(0);
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
         }
         
-        .toast.hidden {
-            transform: translateX(100px);
-            opacity: 0;
+        .carousel-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--off-white);
+            border: none;
+            color: var(--pink-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         
-        .toast-icon {
-            font-size: 1.2rem;
-            color: var(--accent);
+        .carousel-btn:hover {
+            background: var(--pink-primary);
+            color: white;
+            transform: scale(1.1);
         }
         
-        /* ===== MOBILE RESPONSIVE ===== */
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes growBar {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes starPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .hero-title {
+                font-size: 3.5rem;
+            }
+            
+            .hero-image {
+                order: -1;
+            }
+            
+            .hero-image img {
+                max-width: 80%;
+            }
+        }
+        
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
                 gap: 1rem;
             }
             
-            .user-menu {
-                width: 100%;
-                justify-content: center;
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.4rem 0.8rem;
             }
             
-            .container {
-                padding: 1.5rem;
+            .hero-title {
+                font-size: 2.8rem;
             }
             
-            .books-grid {
-                grid-template-columns: 1fr;
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
             
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
+            .section-title, .carousel-title {
+                font-size: 2.5rem;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
             
-            .action-grid {
-                grid-template-columns: 1fr;
+            .bar-chart {
+                gap: 2rem;
+            }
+            
+            .bar {
+                width: 60px;
+            }
+            
+            .book-card {
+                min-width: 280px;
             }
         }
         
-        /* ===== LOADING ANIMATION ===== */
-        .loading-shimmer {
-            background: linear-gradient(90deg, 
-                var(--gray-light) 0%, 
-                white 50%, 
-                var(--gray-light) 100%);
-            background-size: 200% 100%;
-            animation: shimmer 1.5s infinite;
-        }
-        
-        @keyframes shimmer {
-            0% { background-position: -200% 0; }
-            100% { background-position: 200% 0; }
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title, .carousel-title {
+                font-size: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+            
+            .bar-chart {
+                gap: 1rem;
+            }
+            
+            .bar {
+                width: 50px;
+            }
+            
+            .book-card {
+                min-width: 250px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Toast Notification -->
-    <div id="toast" class="toast hidden">
-        <div class="toast-icon">📚</div>
-        <div class="toast-message">Selamat datang di Yomu Kiroku!</div>
-    </div>
-    
-    <!-- HEADER -->
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <span class="book-icon">📚</span>
-                <span>Yomu Kiroku</span>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="logo-container">
+            <img src="image/logo.svg" alt="Yomu Kiroku Logo" class="logo-img" id="logo-img">
+            <div class="logo-text">Yomu Kiroku</div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#collection">Koleksi</a></li>
+            <li><a href="#login">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section 1 -->
+    <section class="hero-1" id="hero1">
+        <div class="hero-content">
+            <div class="hero-image">
+                <!-- Using a placeholder since actual SVG is in your folder -->
+                <div style="width: 400px; height: 500px; background: linear-gradient(135deg, #dc4f6c20, #94a38d20); border-radius: 20px; display: flex; align-items: center; justify-content: center; color: #dc4f6c; font-size: 4rem;">
+                    📚
+                </div>
+                <!-- In production, use this:
+                <img src="image/girlread.svg" alt="Girl reading book">
+                -->
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">Welcome to Yomu Kiroku</h1>
+                <p class="hero-subtitle">
+                    This is Caca's personal digital library, where books are stored, read, reviewed, and shared. Here, you can see which books Caca owns, where they are placed, what she has finished reading, and which books are currently on loan. Each title carries a small review, written after the last page is turned.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section 2 -->
+    <section class="hero-2" id="hero2">
+        <h2 class="section-title">My Reading Universe</h2>
+        
+        <div class="stats-container">
+            <div class="stats-header">
+                <h3>Books in Caca's Collection</h3>
+                <p>A curated selection of fiction and nonfiction waiting to be explored</p>
             </div>
             
-            <div class="user-menu">
-                <button class="nav-btn active"><i class="fas fa-home"></i> Beranda</button>
-                <button class="nav-btn"><i class="fas fa-book"></i> Koleksi</button>
-                <button class="nav-btn"><i class="fas fa-exchange-alt"></i> Pinjaman</button>
-                <button class="nav-btn"><i class="fas fa-user"></i> Profil</button>
-                <div class="user-avatar" onclick="showToast('Hai, Bookworm! 📖')">
-                    <i class="fas fa-user"></i>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="fictionCount">0</div>
+                    <div class="stat-label">Fiction Books</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="nonfictionCount">0</div>
+                    <div class="stat-label">Non-Fiction Books</div>
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" id="totalBooks">0</div>
+                    <div class="stat-label">Total Books Owned</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" id="booksRead">0</div>
+                    <div class="stat-label">Books Read</div>
+                </div>
+            </div>
+            
+            <div class="diagram-container">
+                <div class="bar-chart">
+                    <div class="bar fiction">
+                        <div class="bar-value">149</div>
+                        <div class="bar-label">Fiction</div>
+                    </div>
+                    <div class="bar nonfiction">
+                        <div class="bar-value">149</div>
+                        <div class="bar-label">Non-Fiction</div>
+                    </div>
+                    <div class="bar read">
+                        <div class="bar-value">200+</div>
+                        <div class="bar-label">Books Read</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </header>
-    
-    <!-- MAIN CONTENT -->
-    <main class="container">
-        <!-- WELCOME SECTION -->
-        <section class="welcome-section">
-            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Halo, Pembaca! 👋</h1>
-            <p class="welcome-text">
-                Selamat datang di <span class="highlight">Yomu Kiroku</span>, tempat mencatat dan berbagi 
-                petualangan membaca yang menyenangkan. Mari simpan kenangan dari setiap halaman yang kamu baca.
-            </p>
-        </section>
+    </section>
+
+    <!-- Hero Section 3 -->
+    <section class="hero-3" id="hero3">
+        <h2 class="carousel-title">This Month's Reads</h2>
         
-        <!-- STATS -->
-        <section class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-icon" style="color: var(--soft-pink);">📖</div>
-                <div class="stat-number">128</div>
-                <div class="stat-label">Total Buku</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon" style="color: var(--mint);">👁️</div>
-                <div class="stat-number">15</div>
-                <div class="stat-label">Sedang Dibaca</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon" style="color: var(--lavender);">🤝</div>
-                <div class="stat-number">23</div>
-                <div class="stat-label">Dipinjamkan</div>
-            </div>
-            
-            <div class="stat-card">
-                <div class="stat-icon" style="color: var(--sky);">⭐</div>
-                <div class="stat-number">89</div>
-                <div class="stat-label">Selesai Dibaca</div>
-            </div>
-        </section>
-        
-        <!-- RECENTLY ADDED BOOKS -->
-        <section>
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-clock"></i> Baru Ditambahkan</h2>
-                <a href="#" class="view-all">Lihat Semua <i class="fas fa-chevron-right"></i></a>
-            </div>
-            
-            <div class="books-grid">
-                <!-- BOOK 1 -->
+        <div class="carousel-container">
+            <div class="carousel" id="bookCarousel">
+                <!-- Book 1 -->
                 <div class="book-card">
                     <div class="book-cover">
-                        <i class="fas fa-feather-alt"></i>
+                        📖
                     </div>
-                    <div class="book-content">
-                        <h3 class="book-title">Angin dan Ranting</h3>
-                        <p class="book-author">Maya Pratama</p>
-                        <div class="book-meta">
-                            <span>Fiksi</span>
-                            <span>320 halaman</span>
-                        </div>
-                        <div class="book-status status-available">Tersedia</div>
-                        <div class="book-actions">
-                            <button class="btn btn-primary btn-full" onclick="borrowBook(this)">
-                                <i class="fas fa-handshake"></i> Pinjam
-                            </button>
+                    <div class="book-info">
+                        <h3 class="book-title">The Midnight Library</h3>
+                        <p class="book-author">Matt Haig</p>
+                        <div class="book-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- BOOK 2 -->
+                <!-- Book 2 -->
                 <div class="book-card">
                     <div class="book-cover">
-                        <i class="fas fa-moon"></i>
+                        📚
                     </div>
-                    <div class="book-content">
-                        <h3 class="book-title">Malam Seribu Bintang</h3>
-                        <p class="book-author">Ario Wicaksono</p>
-                        <div class="book-meta">
-                            <span>Fantasi</span>
-                            <span>412 halaman</span>
-                        </div>
-                        <div class="book-status status-reading">Sedang Dibaca</div>
-                        <div class="book-actions">
-                            <button class="btn btn-outline btn-full">
-                                <i class="fas fa-book-open"></i> Lanjut Baca
-                            </button>
+                    <div class="book-info">
+                        <h3 class="book-title">Klara and the Sun</h3>
+                        <p class="book-author">Kazuo Ishiguro</p>
+                        <div class="book-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- BOOK 3 -->
+                <!-- Book 3 -->
                 <div class="book-card">
                     <div class="book-cover">
-                        <i class="fas fa-leaf"></i>
+                        📖
                     </div>
-                    <div class="book-content">
-                        <h3 class="book-title">Musim yang Hilang</h3>
-                        <p class="book-author">Sari Dewi</p>
-                        <div class="book-meta">
-                            <span>Drama</span>
-                            <span>285 halaman</span>
-                        </div>
-                        <div class="book-status status-borrowed">Dipinjam</div>
-                        <div class="book-actions">
-                            <button class="btn btn-outline btn-full" disabled>
-                                <i class="fas fa-clock"></i> Tersedia 5 Hari Lagi
-                            </button>
+                    <div class="book-info">
+                        <h3 class="book-title">Project Hail Mary</h3>
+                        <p class="book-author">Andy Weir</p>
+                        <div class="book-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <!-- QUICK ACTIONS -->
-        <section class="quick-actions">
-            <h2 class="section-title" style="margin: 0;"><i class="fas fa-bolt"></i> Aksi Cepat</h2>
-            <p style="color: var(--gray-dark); margin-top: 0.5rem;">Kelola koleksi bukumu dengan mudah</p>
-            
-            <div class="action-grid">
-                <div class="action-card" onclick="addBook()">
-                    <div class="action-icon"><i class="fas fa-plus-circle"></i></div>
-                    <h3>Tambah Buku</h3>
-                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Tambahkan buku baru ke koleksi</p>
-                </div>
                 
-                <div class="action-card" onclick="showToast('Fitur pencarian dibuka! 🔍')">
-                    <div class="action-icon"><i class="fas fa-search"></i></div>
-                    <h3>Cari Buku</h3>
-                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Temukan buku yang kamu cari</p>
-                </div>
-                
-                <div class="action-card" onclick="scanISBN()">
-                    <div class="action-icon"><i class="fas fa-barcode"></i></div>
-                    <h3>Scan ISBN</h3>
-                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Scan barcode buku</p>
-                </div>
-                
-                <div class="action-card" onclick="showToast('Membuka pengaturan notifikasi! 🔔')">
-                    <div class="action-icon"><i class="fas fa-bell"></i></div>
-                    <h3>Notifikasi</h3>
-                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Atur pengingat membaca</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- READING PROGRESS -->
-        <section>
-            <div class="section-header">
-                <h2 class="section-title"><i class="fas fa-chart-line"></i> Progress Membaca</h2>
-            </div>
-            
-            <div class="stat-card" style="text-align: left;">
-                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                    <div style="font-size: 2rem; color: var(--accent);">📊</div>
-                    <div>
-                        <h3 style="margin-bottom: 0.25rem;">Target Membaca 2024</h3>
-                        <p style="color: var(--gray-dark); font-size: 0.9rem;">12 buku sudah dibaca dari target 24 buku</p>
+                <!-- Book 4 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        📚
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">The Invisible Life</h3>
+                        <p class="book-author">Addie Larue</p>
+                        <div class="book-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="bar">☆</span>
+                            <span class="star">☆</span>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Progress Bar -->
-                <div style="background: var(--gray-medium); height: 10px; border-radius: 5px; overflow: hidden;">
-                    <div style="width: 50%; height: 100%; background: linear-gradient(90deg, var(--mint), var(--sky)); border-radius: 5px;"></div>
-                </div>
-                
-                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-dark);">
-                    <span>50% selesai</span>
-                    <span>12/24 buku</span>
+                <!-- Book 5 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        📖
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">Before the Coffee</h3>
+                        <p class="book-author">Toshikazu Kawaguchi</p>
+                        <div class="book-rating">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-    </main>
-    
-    <!-- FOOTER -->
-    <footer>
-        <p>Dibuat dengan <span class="footer-heart">❤️</span> untuk para pencinta buku</p>
-        <p class="mt-1" style="font-size: 0.85rem;">Yomu Kiroku © 2024 - Setiap halaman adalah petualangan baru</p>
-        <div class="mt-1" style="font-size: 1.2rem; letter-spacing: 10px; color: var(--accent); opacity: 0.7;">
-            📚✨📖
+            
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="scrollCarousel(-300)">‹</button>
+                <button class="carousel-btn" onclick="scrollCarousel(300)">›</button>
+            </div>
         </div>
-    </footer>
+    </section>
 
     <script>
-        // ===== TOAST NOTIFICATION =====
-        let toastTimeout;
-        
-        function showToast(message = "Aksi berhasil! ✨") {
-            const toast = document.getElementById('toast');
-            const toastMessage = toast.querySelector('.toast-message');
+        // ===== NAVBAR SCROLL EFFECT =====
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ===== ANIMATED COUNTERS =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            const targets = [89, 60, 149, 200];
+            const duration = 2000; // 2 seconds
             
-            // Clear any existing timeout
-            if (toastTimeout) clearTimeout(toastTimeout);
-            
-            // Update message
-            toastMessage.textContent = message;
-            
-            // Show toast
-            toast.classList.remove('hidden');
-            
-            // Auto hide after 3 seconds
-            toastTimeout = setTimeout(() => {
-                toast.classList.add('hidden');
-            }, 3000);
-        }
-        
-        // ===== BORROW BOOK FUNCTION =====
-        function borrowBook(button) {
-            const bookCard = button.closest('.book-card');
-            const bookTitle = bookCard.querySelector('.book-title').textContent;
-            const statusBadge = bookCard.querySelector('.book-status');
-            
-            // Update button state
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
-            button.disabled = true;
-            
-            // Simulate API call
-            setTimeout(() => {
-                // Update status
-                statusBadge.className = 'book-status status-borrowed';
-                statusBadge.textContent = 'Menunggu Konfirmasi';
+            counters.forEach((counter, index) => {
+                const target = targets[index];
+                const start = 0;
+                const increment = target / (duration / 16); // 60fps
+                let current = start;
                 
-                // Update button
-                button.innerHTML = '<i class="fas fa-check"></i> Permintaan Dikirim';
-                button.className = 'btn btn-outline btn-full';
-                button.disabled = true;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        counter.textContent = Math.floor(current);
+                    }
+                }, 16);
+            });
+        }
+
+        // ===== CAROUSEL CONTROLS =====
+        function scrollCarousel(amount) {
+            const carousel = document.getElementById('bookCarousel');
+            carousel.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        // ===== AUTO SCROLL CAROUSEL =====
+        let autoScrollInterval;
+        
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                const carousel = document.getElementById('bookCarousel');
+                const scrollAmount = 320; // card width + gap
                 
-                // Show success toast
-                showToast(`Permintaan pinjam "${bookTitle}" berhasil dikirim! 🤝`);
-            }, 800);
+                // Check if we've reached the end
+                if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+                    // Scroll back to start
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    // Scroll right
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                }
+            }, 4000); // Scroll every 4 seconds
         }
-        
-        // ===== ADD BOOK FUNCTION =====
-        function addBook() {
-            showToast("Membuka form tambah buku baru! 📖");
+
+        // ===== INITIALIZE ON LOAD =====
+        window.addEventListener('DOMContentLoaded', function() {
+            // Start counters animation
+            setTimeout(animateCounters, 500);
             
-            // In a real app, you would show a modal here
-            setTimeout(() => {
-                showToast('Fitur lengkap akan tersedia di versi berikutnya! ✨');
-            }, 500);
-        }
-        
-        // ===== SCAN ISBN FUNCTION =====
-        function scanISBN() {
-            showToast("Membuka kamera untuk scan ISBN... 📷");
+            // Start auto-scroll for carousel
+            setTimeout(startAutoScroll, 1000);
             
-            // Simulate scanning
-            setTimeout(() => {
-                showToast("ISBN berhasil di-scan! Buku ditambahkan. ✅");
-            }, 1500);
-        }
-        
-        // ===== NAVIGATION =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize
-            setTimeout(() => {
-                showToast("Selamat membaca! Setiap halaman adalah petualangan baru ✨");
-            }, 1000);
+            // Handle image loading - in production, remove this placeholder code
+            const logoImg = document.getElementById('logo-img');
+            logoImg.onerror = function() {
+                // If logo.svg doesn't exist, show placeholder
+                this.style.display = 'none';
+                console.log('Logo image not found. Using text only.');
+            };
             
-            // Navigation buttons
-            const navButtons = document.querySelectorAll('.nav-btn');
-            navButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Update active state
-                    navButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
                     
-                    // Show toast for navigation
-                    const icon = this.querySelector('i').className;
-                    let message = "Beranda Yomu Kiroku";
-                    
-                    if (icon.includes('fa-book')) message = "Membuka koleksi buku";
-                    if (icon.includes('fa-exchange-alt')) message = "Status peminjaman";
-                    if (icon.includes('fa-user')) message = "Profil pengguna";
-                    
-                    showToast(message);
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
             
-            // Book card hover effect
+            // Add hover effect to book cards
             const bookCards = document.querySelectorAll('.book-card');
             bookCards.forEach(card => {
                 card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
+                    this.style.transform = 'translateY(-15px) scale(1.03)';
                 });
                 
                 card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
+                    this.style.transform = 'translateY(0) scale(1)';
                 });
             });
             
-            // Stat cards animation on scroll
+            // Animate bars on scroll
             const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
+                threshold: 0.5,
+                rootMargin: '0px 0px -100px 0px'
             };
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
+                        const bars = entry.target.querySelectorAll('.bar');
+                        bars.forEach(bar => {
+                            bar.style.animationPlayState = 'running';
+                        });
                     }
                 });
             }, observerOptions);
             
-            // Observe stat cards
-            document.querySelectorAll('.stat-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                observer.observe(card);
+            const diagramContainer = document.querySelector('.diagram-container');
+            if (diagramContainer) {
+                observer.observe(diagramContainer);
+            }
+        });
+
+        // ===== PAUSE AUTOSCROLL ON HOVER =====
+        const carousel = document.getElementById('bookCarousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoScrollInterval);
             });
             
-            // Animate stat numbers
-            function animateValue(element, start, end, duration) {
-                let startTimestamp = null;
-                const step = (timestamp) => {
-                    if (!startTimestamp) startTimestamp = timestamp;
-                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                    element.textContent = Math.floor(progress * (end - start) + start);
-                    if (progress < 1) {
-                        window.requestAnimationFrame(step);
-                    }
-                };
-                window.requestAnimationFrame(step);
-            }
-            
-            // Animate main stats
-            setTimeout(() => {
-                const statNumbers = document.querySelectorAll('.stat-number');
-                statNumbers.forEach(stat => {
-                    const finalValue = parseInt(stat.textContent);
-                    animateValue(stat, 0, finalValue, 1500);
-                });
-            }, 500);
-        });
+            carousel.addEventListener('mouseleave', () => {
+                startAutoScroll();
+            });
+        }
+
+        // ===== TOUCH SUPPORT FOR CAROUSEL =====
+        let startX;
+        let scrollLeft;
         
-        // ===== KEYBOARD SHORTCUTS =====
-        document.addEventListener('keydown', function(e) {
-            // Ctrl/Cmd + N to add new book
-            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
-                e.preventDefault();
-                addBook();
-            }
+        if (carousel) {
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].pageX - carousel.offsetLeft;
+                scrollLeft = carousel.scrollLeft;
+                clearInterval(autoScrollInterval);
+            });
             
-            // Ctrl/Cmd + K to search
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                showToast("Membuka pencarian buku... 🔍");
-            }
+            carousel.addEventListener('touchmove', (e) => {
+                if (!startX) return;
+                const x = e.touches[0].pageX - carousel.offsetLeft;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft = scrollLeft - walk;
+            });
             
-            // Escape to close any open modals (in future implementation)
-            if (e.key === 'Escape') {
-                showToast("Menu ditutup");
-            }
-        });
+            carousel.addEventListener('touchend', () => {
+                startX = null;
+                setTimeout(startAutoScroll, 3000);
+            });
+        }
     </script>
 </body>
 </html>
