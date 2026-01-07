@@ -348,7 +348,7 @@
             font-size: 1.3rem;
         }
         
-        /* ===== HERO SECTION 3 (REVISED) ===== */
+        /* ===== HERO SECTION 3 (NEW) ===== */
         .hero-3 {
             min-height: 100vh;
             background: linear-gradient(to bottom, var(--pink-light), var(--green-light));
@@ -380,7 +380,7 @@
         }
         
         .concept-card {
-            background: rgba(255, 255, 255, 0.7);
+            background: var(--off-white);
             backdrop-filter: blur(10px);
             border-radius: 25px;
             padding: 3rem;
@@ -395,7 +395,7 @@
         .concept-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--off-white);
         }
         
         .concept-card:nth-child(1) {
@@ -414,29 +414,17 @@
             height: 200px;
         }
         
-        /* GANTI DENGAN STYLING UNTUK SVG INLINE */
-        .concept-svg {
+        .concept-image img {
             width: 100%;
             max-width: 200px;
             height: auto;
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-            /* Pastikan SVG benar-benar transparan */
+        }
+        
+        .concept-image svg,
+        .concept-image img[src*=".svg"] {
             background: transparent !important;
-            fill: currentColor;
-            color: var(--pink-primary); /* Warna default untuk SVG */
-        }
-        
-        .concept-svg-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-        
-        /* Styling khusus untuk SVG di kartu Kiroku */
-        .kiroku-svg {
-            color: var(--green-dark);
+            background-color: transparent !important;
         }
         
         .concept-name {
@@ -456,10 +444,10 @@
             font-weight: 500;
         }
         
-        /* ===== HERO SECTION 4 ===== */
+        /* ===== HERO SECTION 4 (FORMER HERO 3) ===== */
         .hero-4 {
             min-height: 100vh;
-            background: var(--green-light);
+            background: var(--green-light); /* Sama dengan kode warna hijau di hero 3 */
             padding: 2rem 2rem 4rem;
             display: flex;
             flex-direction: column;
@@ -778,7 +766,11 @@
                 font-size: 1rem;
             }
             
-            .concept-svg {
+            .concept-image {
+                height: 150px;
+            }
+            
+            .concept-image img {
                 max-width: 150px;
             }
         }
@@ -816,8 +808,12 @@
                 padding: 2rem;
             }
             
-            .concept-svg {
+            .concept-image img {
                 max-width: 120px;
+            }
+            
+            .concept-image {
+                height: 120px;
             }
         }
     </style>
@@ -844,10 +840,10 @@
             <div class="hero-text">
                 <h1 class="hero-title">Welcome to Yomu Kiroku</h1>
                 <p class="hero-subtitle">
-                    This is Caca's personal digital library, where books are stored, read, reviewed, and shared. Here, you can see which books Caca owns, where they are placed, what she has finished reading, and which books are currently on loan. Each title carries a small review, written after the last page is turned.
+                    This is Caca's personal digital library where books are stored, read, reviewed, and shared. Here, you can see which books Caca owns, where they are placed, what she has finished reading, and which books are currently on loan. Each title carries a small review, written after the last page is turned.
                 </p>
                 <button class="search-button" onclick="searchBooks()">
-                    🔍 Search Books
+                    🔍 Find Books
                 </button>
             </div>
         </div>
@@ -881,19 +877,19 @@
                         <div class="bar-label">Fiction</div>
                     </div>
                     <div class="bar nonfiction">
-                        <div class="bar-value">149</div>
+                        <div class="bar-value">69</div>
                         <div class="bar-label">Non-Fiction</div>
                     </div>
                     <div class="bar read">
                         <div class="bar-value">200+</div>
-                        <div class="bar-label">Books Read</div>
+                        <div class="bar-label">Read</div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Hero Section 3 (REVISED - dengan SVG inline) -->
+    <!-- Hero Section 3 (NEW) -->
     <section class="hero-3" id="hero3">
         <h2 class="concept-title">The Meaning Behind</h2>
         
@@ -901,120 +897,28 @@
             <!-- Yomu Card -->
             <div class="concept-card">
                 <div class="concept-image">
-                    <div class="concept-svg-container">
-                        <!-- SVG inline untuk Yomu (buku terbuka dengan detail) -->
-                        <svg class="concept-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="yomuGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#dc4f6c" stop-opacity="0.8" />
-                                    <stop offset="100%" stop-color="#fec6e0" stop-opacity="0.9" />
-                                </linearGradient>
-                            </defs>
-                            <!-- Background transparan -->
-                            <rect width="200" height="200" fill="transparent" />
-                            
-                            <!-- Buku terbuka -->
-                            <path d="M40,50 L40,150 C40,160 50,170 60,170 L140,170 C150,170 160,160 160,150 L160,50 C160,40 150,30 140,30 L60,30 C50,30 40,40 40,50 Z" 
-                                  fill="url(#yomuGradient)" stroke="#dc4f6c" stroke-width="2"/>
-                            
-                            <!-- Halaman buku kiri -->
-                            <path d="M60,50 L100,50 L100,150 L60,150 C50,150 40,140 40,130 L40,70 C40,60 50,50 60,50 Z" 
-                                  fill="white" fill-opacity="0.3" stroke="#dc4f6c" stroke-width="1"/>
-                            
-                            <!-- Halaman buku kanan -->
-                            <path d="M100,50 L140,50 C150,50 160,60 160,70 L160,130 C160,140 150,150 140,150 L100,150 Z" 
-                                  fill="white" fill-opacity="0.3" stroke="#dc4f6c" stroke-width="1"/>
-                            
-                            <!-- Garis-garis halaman -->
-                            <g stroke="#dc4f6c" stroke-width="0.5" stroke-opacity="0.5">
-                                <line x1="70" y1="70" x2="95" y2="70"/>
-                                <line x1="70" y1="85" x2="95" y2="85"/>
-                                <line x1="70" y1="100" x2="95" y2="100"/>
-                                <line x1="70" y1="115" x2="95" y2="115"/>
-                                <line x1="70" y1="130" x2="95" y2="130"/>
-                                
-                                <line x1="105" y1="70" x2="130" y2="70"/>
-                                <line x1="105" y1="85" x2="130" y2="85"/>
-                                <line x1="105" y1="100" x2="130" y2="100"/>
-                                <line x1="105" y1="115" x2="130" y2="115"/>
-                                <line x1="105" y1="130" x2="130" y2="130"/>
-                            </g>
-                            
-                            <!-- Simbol mata membaca -->
-                            <g transform="translate(150, 40)">
-                                <circle cx="0" cy="0" r="12" fill="#dc4f6c" fill-opacity="0.7"/>
-                                <circle cx="-4" cy="-2" r="3" fill="white"/>
-                                <path d="M-15,0 Q-8,-8 0,0 Q8,8 15,0" stroke="white" stroke-width="1.5" fill="none"/>
-                            </g>
-                        </svg>
-                    </div>
+                    <img src="image/laptop.svg" alt="Girl with idea">
                 </div>
                 <h3 class="concept-name">Yomu</h3>
                 <p class="concept-description">
-                    "Yomu" means "to read" in Japanese. This represents the core of our platform - the joy of reading, discovering new worlds through pages, and sharing those experiences with others. Every book you see here has been carefully selected, thoughtfully read, and lovingly reviewed.
+                    Yomu (読む) means to read in Japanese. This represents the core of our platform - the joy of reading, discovering new worlds through pages, and sharing those experiences with others. Every book you see here has been carefully selected, thoughtfully read, and lovingly reviewed.
                 </p>
             </div>
             
             <!-- Kiroku Card -->
             <div class="concept-card">
                 <div class="concept-image">
-                    <div class="concept-svg-container">
-                        <!-- SVG inline untuk Kiroku (dokumen dengan garis dan simbol catatan) -->
-                        <svg class="concept-svg kiroku-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="kirokuGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#4b6967" stop-opacity="0.8" />
-                                    <stop offset="100%" stop-color="#94a38d" stop-opacity="0.9" />
-                                </linearGradient>
-                            </defs>
-                            <!-- Background transparan -->
-                            <rect width="200" height="200" fill="transparent" />
-                            
-                            <!-- Dokumen/lembaran -->
-                            <path d="M50,40 L150,40 C160,40 170,50 170,60 L170,160 C170,170 160,180 150,180 L50,180 C40,180 30,170 30,160 L30,60 C30,50 40,40 50,40 Z" 
-                                  fill="url(#kirokuGradient)" stroke="#4b6967" stroke-width="2"/>
-                            
-                            <!-- Sudut dokumen terlipat -->
-                            <path d="M150,40 L170,60 L150,60 Z" fill="#4b6967" fill-opacity="0.5"/>
-                            
-                            <!-- Garis-garis pada dokumen -->
-                            <g stroke="#4b6967" stroke-width="2" stroke-opacity="0.7">
-                                <line x1="50" y1="70" x2="150" y2="70"/>
-                                <line x1="50" y1="90" x2="150" y2="90"/>
-                                <line x1="50" y1="110" x2="150" y2="110"/>
-                                <line x1="50" y1="130" x2="150" y2="130"/>
-                                <line x1="50" y1="150" x2="150" y2="150"/>
-                            </g>
-                            
-                            <!-- Simbol checklist -->
-                            <g transform="translate(100, 60)" stroke="white" stroke-width="3" fill="none">
-                                <path d="M-25,0 L-10,15 L20,-15" stroke-linecap="round" stroke-linejoin="round"/>
-                            </g>
-                            
-                            <!-- Simbol kalender -->
-                            <g transform="translate(60, 120)">
-                                <rect x="-15" y="-10" width="30" height="20" rx="3" fill="#4b6967" fill-opacity="0.5" stroke="white" stroke-width="1"/>
-                                <rect x="-15" y="-15" width="30" height="8" fill="#4b6967" stroke="white" stroke-width="1"/>
-                                <text x="0" y="5" text-anchor="middle" fill="white" font-family="Arial" font-size="10">27</text>
-                            </g>
-                            
-                            <!-- Simbol pena -->
-                            <g transform="translate(140, 140)">
-                                <path d="M-10,15 L5,-15" stroke="white" stroke-width="3" stroke-linecap="round"/>
-                                <path d="M3,-17 L10,-25 L15,-20 L8,-12 Z" fill="#4b6967"/>
-                            </g>
-                        </svg>
-                    </div>
+                    <img src="image/laptop.svg" alt="Boy with idea">
                 </div>
                 <h3 class="concept-name">Kiroku</h3>
                 <p class="concept-description">
-                    "Kiroku" means "record" or "documentation" in Japanese. This symbolizes our mission to preserve reading memories, track reading journeys, and create a personal archive of literary adventures. Each book here tells a story not just of its content, but of when and how it was read.
+                    Kiroku (記録) means record or documentation in Japanese. This symbolizes our mission to preserve reading memories, track reading journeys, and create a personal archive of literary adventures. Each book here tells a story not just of its content, but of when and how it was read.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Hero Section 4 -->
+    <!-- Hero Section 4 (Former Hero 3) -->
     <section class="hero-4" id="hero4">
         <h2 class="carousel-title">Recent Reads</h2>
         
@@ -1228,6 +1132,20 @@
                 };
             }
             
+            // Handle concept images
+            const conceptImages = document.querySelectorAll('.concept-image img');
+            conceptImages.forEach(img => {
+                img.onerror = function() {
+                    console.log('Concept image not found');
+                    // Show placeholder emoji
+                    if (this.src.includes('girlidea')) {
+                        this.outerHTML = '<div style="font-size: 4rem; color: #dc4f6c;">💡</div>';
+                    } else if (this.src.includes('boyidea')) {
+                        this.outerHTML = '<div style="font-size: 4rem; color: #94a38d;">💭</div>';
+                    }
+                };
+            });
+            
             // Smooth scroll for navigation links
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.addEventListener('click', function(e) {
@@ -1307,19 +1225,6 @@
                 card.addEventListener('mouseleave', function() {
                     this.style.transform = 'translateY(0)';
                 });
-            });
-            
-            // Tambahkan animasi untuk SVG
-            const svgElements = document.querySelectorAll('.concept-svg');
-            svgElements.forEach(svg => {
-                svg.style.opacity = '0';
-                svg.style.transform = 'scale(0.8)';
-                
-                setTimeout(() => {
-                    svg.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                    svg.style.opacity = '1';
-                    svg.style.transform = 'scale(1)';
-                }, 500);
             });
         });
 
