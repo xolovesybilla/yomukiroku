@@ -18,7 +18,7 @@
             line-height: 1.6;
         }
 
-        h1, h2, h3, .logo-text, .section-title, .carousel-title, .hero-title {
+        h1, h2, h3, .logo-text, .section-title, .carousel-title, .hero-title, .concept-title, .concept-name {
             font-family: "playwrite-cc-de-grund", serif;
             font-weight: 100;
         }
@@ -29,7 +29,6 @@
             --pink-light: #fec6e0;
             --green-dark: #4b6967;
             --green-light: #94a38d;
-            --green-muted: #98a68f;
             --white: #ffffff;
             --off-white: #fefcf9;
             --text-dark: #333333;
@@ -412,12 +411,21 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 2rem;
+            height: 200px;
         }
         
         .concept-image img {
-            width: 150px;
+            width: 100%;
+            max-width: 200px;
             height: auto;
             filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+        }
+        
+        /* Gambar tanpa background - menghapus efek background tambahan */
+        .concept-image svg,
+        .concept-image img[src*=".svg"] {
+            background: transparent !important;
+            background-color: transparent !important;
         }
         
         .concept-name {
@@ -440,7 +448,7 @@
         /* ===== HERO SECTION 4 (FORMER HERO 3) ===== */
         .hero-4 {
             min-height: 100vh;
-            background: var(--green-muted);
+            background: var(--green-light); /* Sama dengan kode warna hijau di hero 3 */
             padding: 2rem 2rem 4rem;
             display: flex;
             flex-direction: column;
@@ -758,6 +766,14 @@
             .concept-description {
                 font-size: 1rem;
             }
+            
+            .concept-image {
+                height: 150px;
+            }
+            
+            .concept-image img {
+                max-width: 150px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -794,7 +810,11 @@
             }
             
             .concept-image img {
-                width: 120px;
+                max-width: 120px;
+            }
+            
+            .concept-image {
+                height: 120px;
             }
         }
     </style>
