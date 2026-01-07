@@ -149,7 +149,8 @@
             background: var(--white);
             display: flex;
             align-items: center;
-            padding: 6rem 2rem 2rem;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 0;
         }
         
         .hero-1-content {
@@ -190,24 +191,50 @@
             color: var(--green-dark);
             max-width: 500px;
             font-weight: 100;
+            margin-bottom: 2rem;
+        }
+        
+        /* ===== SEARCH BUTTON ===== */
+        .search-button {
+            background: var(--green-light);
+            color: var(--white);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-family: 'RixCutecatPro', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 12px rgba(148, 163, 141, 0.3);
+        }
+        
+        .search-button:hover {
+            background: var(--green-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(148, 163, 141, 0.4);
         }
         
         /* ===== HERO SECTION 2 ===== */
         .hero-2 {
             min-height: 100vh;
             background: linear-gradient(to bottom, var(--white), var(--pink-light));
-            padding: 4rem 2rem;
+            padding: 2rem 2rem 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin-top: 0;
         }
         
         .section-title {
             font-size: 2.8rem;
             color: var(--pink-primary);
             text-align: center;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
@@ -344,11 +371,12 @@
         .hero-3 {
             min-height: 100vh;
             background: linear-gradient(to bottom, var(--pink-light), var(--green-light));
-            padding: 4rem 2rem;
+            padding: 2rem 2rem 4rem;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            margin-top: 0;
         }
         
         .carousel-container {
@@ -642,6 +670,11 @@
             .book-card {
                 min-width: 250px;
             }
+            
+            .search-button {
+                padding: 0.7rem 1.8rem;
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -699,6 +732,9 @@
                 <p class="hero-subtitle">
                     This is Caca's personal digital library, where books are stored, read, reviewed, and shared. Here, you can see which books Caca owns, where they are placed, what she has finished reading, and which books are currently on loan. Each title carries a small review, written after the last page is turned.
                 </p>
+                <button class="search-button" onclick="searchBooks()">
+                    🔍 Search Books
+                </button>
             </div>
         </div>
     </section>
@@ -895,6 +931,12 @@
             requestAnimationFrame(updateCounters);
         }
 
+        // ===== SEARCH BUTTON FUNCTION =====
+        function searchBooks() {
+            alert('Search books feature coming soon! 🔍');
+            // In a real implementation, this would open a search modal or redirect to search page
+        }
+
         // ===== CAROUSEL CONTROLS =====
         function scrollCarousel(amount) {
             const carousel = document.getElementById('bookCarousel');
@@ -1007,6 +1049,18 @@
                     this.style.transform = 'translateY(0)';
                 });
             });
+            
+            // Add hover effect to search button
+            const searchButton = document.querySelector('.search-button');
+            if (searchButton) {
+                searchButton.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-3px)';
+                });
+                
+                searchButton.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            }
         });
 
         // ===== PAUSE AUTOSCROLL ON HOVER =====
