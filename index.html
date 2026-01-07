@@ -6,21 +6,25 @@
     <title>Yomu Kiroku</title>
     <link rel="icon" type="image/svg+xml" href="image/logo.svg">
     
+    <!-- Adobe Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/example.css">
     <style>
         /* ===== FONT DECLARATIONS ===== */
+        @import url("https://use.typekit.net/example.css");
+        
+        /* RixCutecat Pro (Weight: 500) */
         @font-face {
-            font-family: 'Sigher';
-            src: url('font/Sigher-Regular.woff2') format('woff2'),
-                 url('font/Sigher-Regular.woff') format('woff');
-            font-weight: normal;
+            font-family: 'RixCutecatPro';
+            src: url('https://use.typekit.net/af/example/example.css');
+            font-weight: 500;
             font-style: normal;
         }
         
+        /* Playwrite CC DE Grund (Weight: 100) */
         @font-face {
-            font-family: 'Garet';
-            src: url('font/Garet-Regular.woff2') format('woff2'),
-                 url('font/Garet-Regular.woff') format('woff');
-            font-weight: normal;
+            font-family: 'PlaywriteCCDEGrund';
+            src: url('https://use.typekit.net/af/example/example.css');
+            font-weight: 100;
             font-style: normal;
         }
         
@@ -48,15 +52,17 @@
         }
         
         body {
-            font-family: 'Garet', sans-serif;
+            font-family: 'PlaywriteCCDEGrund', sans-serif;
+            font-weight: 100;
             color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
         }
         
         h1, h2, h3, .logo-text {
-            font-family: 'Sigher', serif;
-            font-weight: normal;
+            font-family: 'RixCutecatPro', sans-serif;
+            font-weight: 500;
+            font-style: normal;
         }
         
         /* ===== NAVBAR ===== */
@@ -162,17 +168,10 @@
             animation: floatInLeft 1s ease-out;
         }
         
-        .hero-image-placeholder {
+        .hero-image svg {
             width: 100%;
             max-width: 400px;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(220, 79, 108, 0.05), rgba(148, 163, 141, 0.05));
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--green-dark);
+            height: auto;
         }
         
         .hero-text {
@@ -190,6 +189,7 @@
             font-size: 1.1rem;
             color: var(--green-dark);
             max-width: 500px;
+            font-weight: 100;
         }
         
         /* ===== HERO SECTION 2 ===== */
@@ -214,7 +214,7 @@
         }
         
         .stats-container {
-            max-width: 1000px;
+            max-width: 1200px;
             width: 100%;
             background: var(--off-white);
             border-radius: 20px;
@@ -233,6 +233,7 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 100;
         }
         
         .stats-grid {
@@ -259,31 +260,37 @@
             font-size: 3.5rem;
             color: var(--green-dark);
             margin-bottom: 0.5rem;
-            font-family: 'Sigher', serif;
+            font-family: 'RixCutecatPro', sans-serif;
+            font-weight: 500;
         }
         
         .stat-label {
             color: var(--text-dark);
             font-size: 1.1rem;
+            font-weight: 100;
         }
         
         .chart-container {
             margin-top: 2rem;
             height: 300px;
             position: relative;
+            width: 100%;
         }
         
         .bar-chart {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 4rem;
+            gap: 6rem;
             height: 100%;
             padding: 2rem 0;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
         }
         
         .bar {
-            width: 60px;
+            width: 80px;
             background: var(--green-dark);
             border-radius: 8px 8px 0 0;
             position: relative;
@@ -318,6 +325,7 @@
             text-align: center;
             color: var(--green-dark);
             font-size: 0.95rem;
+            font-weight: 100;
         }
         
         .bar-value {
@@ -327,7 +335,8 @@
             right: 0;
             text-align: center;
             color: var(--green-dark);
-            font-family: 'Sigher', serif;
+            font-family: 'RixCutecatPro', sans-serif;
+            font-weight: 500;
             font-size: 1.3rem;
         }
         
@@ -425,7 +434,8 @@
             font-size: 1.3rem;
             color: var(--green-dark);
             margin-bottom: 0.5rem;
-            font-family: 'Garet', sans-serif;
+            font-family: 'PlaywriteCCDEGrund', sans-serif;
+            font-weight: 100;
         }
         
         .book-author {
@@ -433,6 +443,7 @@
             margin-bottom: 1rem;
             font-size: 0.95rem;
             opacity: 0.8;
+            font-weight: 100;
         }
         
         .book-rating {
@@ -565,13 +576,12 @@
                 order: -1;
             }
             
-            .hero-image-placeholder {
+            .hero-image svg {
                 max-width: 300px;
-                height: 400px;
             }
             
             .bar-chart {
-                gap: 2.5rem;
+                gap: 4rem;
             }
         }
         
@@ -618,11 +628,11 @@
             }
             
             .bar-chart {
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .bar {
-                width: 45px;
+                width: 60px;
             }
             
             .carousel-wrapper {
@@ -648,11 +658,11 @@
             }
             
             .bar-chart {
-                gap: 1rem;
+                gap: 1.5rem;
             }
             
             .bar {
-                width: 35px;
+                width: 45px;
             }
             
             .bar-label {
@@ -682,9 +692,7 @@
     <section class="hero-1" id="hero1">
         <div class="hero-1-content">
             <div class="hero-image">
-                <div class="hero-image-placeholder">
-                    <img src="image/girlread.svg" alt="Girl reading book" style="max-width: 100%; height: auto;">
-                </div>
+                <img src="image/girlread.svg" alt="Girl reading book">
             </div>
             <div class="hero-text">
                 <h1 class="hero-title">Welcome to Yomu Kiroku</h1>
