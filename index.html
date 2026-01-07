@@ -3,1078 +3,900 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yomu Kiroku | Perpustakaan & Komunitas Baca Pribadi</title>
+    <title>Yomu Kiroku</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
+        /* ===== VARIABLES & RESET ===== */
         :root {
-            --primary: #4A6FA5; /* Biru buku yang tenang */
-            --primary-light: #E8EEF7;
-            --secondary: #FFB7C5; /* Aksen sakura */
-            --accent: #8DB580; /* Hijau matcha */
-            --dark: #2C3E50;
-            --light: #F8F9FA;
-            --gray: #6C757D;
-            --gray-light: #E9ECEF;
-            --radius: 12px;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
+            --soft-pink: #FFB6C1;
+            --mint: #98FFC7;
+            --lavender: #D8C3FF;
+            --sky: #B5E8FF;
+            --cream: #FFFCF5;
+            --gray-light: #F8F9FA;
+            --gray-medium: #E9ECEF;
+            --gray-dark: #6C757D;
+            --text: #2D3748;
+            --accent: #FF9AA2;
         }
-
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: 'Inter', sans-serif;
-            color: var(--dark);
+            background-color: var(--cream);
+            color: var(--text);
             line-height: 1.6;
-            background-color: var(--light);
-            overflow-x: hidden;
+            min-height: 100vh;
         }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        
+        h1, h2, h3, h4, .logo {
+            font-family: 'Playwrite DE Grund', cursive;
+            font-weight: 400;
         }
-
-        /* Header */
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* ===== HEADER ===== */
         header {
-            background-color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background: white;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--gray-medium);
             position: sticky;
             top: 0;
-            z-index: 1000;
-            padding: 18px 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
-
-        .navbar {
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            font-size: 2.2rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        .logo .book-icon {
+            color: var(--accent);
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .user-avatar {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--soft-pink), var(--lavender));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .user-avatar:hover {
+            transform: rotate(8deg);
+            animation: gentlePulse 1s infinite;
+        }
+        
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--gray-dark);
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--gray-light);
+            color: var(--text);
+        }
+        
+        .nav-btn.active {
+            background: var(--soft-pink);
+            color: white;
+        }
+        
+        /* ===== MAIN CONTENT ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* ===== WELCOME SECTION ===== */
+        .welcome-section {
+            text-align: center;
+            padding: 2rem 0 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-text {
+            font-size: 1.1rem;
+            color: var(--gray-dark);
+            max-width: 600px;
+            margin: 1rem auto;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, var(--mint) 0%, transparent 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        /* ===== STATS CARDS ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin: 2.5rem 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--gray-medium);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border-color: var(--soft-pink);
+        }
+        
+        .stat-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: var(--text);
+            margin: 0.5rem 0;
+        }
+        
+        .stat-label {
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+        
+        /* ===== BOOKS SECTION ===== */
+        .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin: 3rem 0 1.5rem;
         }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
+        
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--text);
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
-        .logo i {
-            color: var(--secondary);
+        
+        .section-title i {
+            color: var(--accent);
         }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            color: var(--dark);
+        
+        .view-all {
+            color: var(--accent);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 16px;
-            transition: var(--transition);
-            padding: 8px 0;
-            position: relative;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: gap 0.2s ease;
         }
-
-        .nav-links a:hover {
-            color: var(--primary);
+        
+        .view-all:hover {
+            gap: 8px;
         }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
         }
-
-        .nav-links a:hover::after {
-            width: 100%;
+        
+        .book-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--gray-medium);
+            transition: all 0.3s ease;
+            animation: fadeIn 0.5s ease-out;
         }
-
-        .btn-header {
-            background-color: var(--primary);
+        
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+        
+        .book-cover {
+            height: 160px;
+            background: linear-gradient(135deg, var(--sky), var(--lavender));
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            padding: 10px 24px;
-            border-radius: 30px;
-            font-weight: 600;
-            transition: var(--transition);
-            border: 2px solid var(--primary);
+            font-size: 3.5rem;
         }
-
-        .btn-header:hover {
-            background-color: white;
-            color: var(--primary);
+        
+        .book-content {
+            padding: 1.5rem;
+        }
+        
+        .book-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+            line-height: 1.4;
+        }
+        
+        .book-author {
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--gray-dark);
+            margin-bottom: 1.2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--gray-medium);
+        }
+        
+        .book-status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 1.2rem;
+        }
+        
+        .status-available {
+            background: rgba(152, 255, 199, 0.2);
+            color: #2E8B57;
+            border: 1px solid var(--mint);
+        }
+        
+        .status-reading {
+            background: rgba(255, 182, 193, 0.2);
+            color: #C2185B;
+            border: 1px solid var(--soft-pink);
+        }
+        
+        .status-borrowed {
+            background: rgba(216, 195, 255, 0.2);
+            color: #6A1B9A;
+            border: 1px solid var(--lavender);
+        }
+        
+        .book-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #FF7B8A;
             transform: translateY(-2px);
         }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 24px;
-            color: var(--dark);
+        
+        .btn-outline {
+            background: white;
+            color: var(--text);
+            border: 1px solid var(--gray-medium);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        
+        .btn-full {
+            width: 100%;
+        }
+        
+        /* ===== QUICK ACTIONS ===== */
+        .quick-actions {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid var(--gray-medium);
+        }
+        
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .action-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--gray-medium);
+            transition: all 0.3s ease;
             cursor: pointer;
         }
-
-        /* Hero Section */
-        .hero {
-            padding: 100px 0;
-            background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255, 255, 255, 1) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(255, 183, 197, 0.15) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 0;
-        }
-
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-text h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 52px;
-            line-height: 1.1;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .hero-text h1 span {
-            color: var(--primary);
-        }
-
-        .hero-text p {
-            font-size: 18px;
-            color: var(--gray);
-            margin-bottom: 35px;
-            max-width: 500px;
-        }
-
-        .btn-hero {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 16px 36px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 17px;
-            transition: var(--transition);
-            border: 2px solid var(--primary);
-            box-shadow: 0 8px 20px rgba(74, 111, 165, 0.25);
-        }
-
-        .btn-hero:hover {
-            background-color: white;
-            color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(74, 111, 165, 0.3);
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--primary);
-            display: block;
-            line-height: 1;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            color: var(--gray);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 5px;
-        }
-
-        .hero-visual {
-            position: relative;
-        }
-
-        .book-pile {
-            position: relative;
-            width: 100%;
-            max-width: 500px;
-            height: 400px;
-            margin: 0 auto;
-        }
-
-        .book {
-            position: absolute;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 20px;
-            transition: transform 0.5s ease;
-        }
-
-        .book:hover {
-            transform: translateY(-10px) rotate(5deg);
-            z-index: 10;
-        }
-
-        .book-1 {
-            width: 180px;
-            height: 260px;
-            background: linear-gradient(135deg, #4A6FA5, #6B93D6);
-            top: 20px;
-            left: 20px;
-            z-index: 3;
-        }
-
-        .book-2 {
-            width: 160px;
-            height: 240px;
-            background: linear-gradient(135deg, #8DB580, #A8C99D);
-            top: 40px;
-            left: 160px;
-            z-index: 2;
-        }
-
-        .book-3 {
-            width: 170px;
-            height: 250px;
-            background: linear-gradient(135deg, #FFB7C5, #FFD1DA);
-            top: 60px;
-            left: 80px;
-            z-index: 1;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 100px 0;
-            background-color: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-family: 'Playfair Display', serif;
-            font-size: 40px;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .section-subtitle {
-            text-align: center;
-            font-size: 18px;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 60px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .feature-card {
-            background-color: white;
-            border-radius: var(--radius);
-            padding: 40px 30px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid var(--gray-light);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background-color: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 32px;
-            color: var(--primary);
-        }
-
-        .feature-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--dark);
-        }
-
-        .feature-card p {
-            color: var(--gray);
-            font-size: 16px;
-        }
-
-        /* Showcase Section */
-        .showcase {
-            padding: 100px 0;
-            background-color: var(--light);
-        }
-
-        .showcase-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .book-showcase {
-            position: relative;
-            max-width: 500px;
-            margin: 0 auto;
-        }
-
-        .book-cover {
-            width: 100%;
-            max-width: 300px;
-            height: 400px;
-            background: linear-gradient(135deg, var(--primary), #6B93D6);
-            border-radius: 10px 20px 20px 10px;
-            box-shadow: 15px 15px 30px rgba(0, 0, 0, 0.15);
-            position: relative;
-            overflow: hidden;
-            margin: 0 auto;
-            transform: perspective(1000px) rotateY(-15deg);
-            transition: transform 0.5s ease;
-        }
-
-        .book-cover:hover {
-            transform: perspective(1000px) rotateY(-10deg);
-        }
-
-        .book-cover::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 20px;
-            height: 100%;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.1), transparent);
-        }
-
-        .book-spine {
-            position: absolute;
-            left: -15px;
-            top: 20px;
-            width: 30px;
-            height: 360px;
-            background: linear-gradient(to right, #2C3E50, #4A6FA5);
-            border-radius: 5px 0 0 5px;
-            transform: rotateY(70deg);
-        }
-
-        .book-details {
-            position: absolute;
-            bottom: 30px;
-            left: 40px;
-            right: 30px;
-            color: white;
-        }
-
-        .book-details h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 24px;
-            margin-bottom: 10px;
-            line-height: 1.2;
-        }
-
-        .book-details p {
-            font-size: 16px;
-            opacity: 0.9;
-        }
-
-        .review-card {
-            background-color: white;
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-top: 30px;
-            position: relative;
-        }
-
-        .review-card::before {
-            content: '"';
-            position: absolute;
-            top: 10px;
-            left: 20px;
-            font-size: 80px;
-            color: var(--primary-light);
-            font-family: 'Playfair Display', serif;
-            line-height: 1;
-            opacity: 0.5;
-        }
-
-        .review-text {
-            font-size: 18px;
-            color: var(--dark);
-            font-style: italic;
-            line-height: 1.7;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .reviewer {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .reviewer-avatar {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            color: var(--primary);
-        }
-
-        .reviewer-info h4 {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .reviewer-info p {
-            font-size: 14px;
-            color: var(--gray);
-        }
-
-        /* Stats Section */
-        .stats {
-            padding: 80px 0;
-            background-color: var(--primary);
-            color: white;
-            text-align: center;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-        }
-
-        .stat-box {
-            padding: 30px 20px;
-        }
-
-        .stat-box .number {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .stat-box .label {
-            font-size: 16px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.9;
-        }
-
-        /* CTA Section */
-        .cta {
-            padding: 100px 0;
-            background-color: white;
-            text-align: center;
-        }
-
-        .cta-box {
-            background: linear-gradient(135deg, var(--primary-light) 0%, rgba(255, 255, 255, 1) 100%);
-            border-radius: var(--radius);
-            padding: 80px 40px;
-            max-width: 800px;
-            margin: 0 auto;
-            box-shadow: var(--shadow);
-        }
-
-        .cta-box h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 42px;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .cta-box p {
-            font-size: 18px;
-            color: var(--gray);
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .btn-cta {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 18px 40px;
-            border-radius: 30px;
-            font-weight: 600;
-            text-decoration: none;
-            font-size: 18px;
-            transition: var(--transition);
-            border: 2px solid var(--primary);
-            box-shadow: 0 8px 20px rgba(74, 111, 165, 0.3);
-        }
-
-        .btn-cta:hover {
-            background-color: white;
-            color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(74, 111, 165, 0.4);
-        }
-
-        /* Footer */
-        footer {
-            background-color: var(--dark);
-            color: white;
-            padding: 70px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 50px;
-            margin-bottom: 50px;
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-about p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-        }
-
-        .social-links a {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary);
+        
+        .action-card:hover {
+            border-color: var(--accent);
             transform: translateY(-3px);
         }
-
-        .footer-links h4 {
-            font-size: 18px;
-            margin-bottom: 25px;
-            color: white;
+        
+        .action-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
         }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: white;
-            padding-left: 5px;
-        }
-
-        .footer-bottom {
+        
+        /* ===== FOOTER ===== */
+        footer {
             text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 14px;
+            padding: 3rem 2rem 2rem;
+            color: var(--gray-dark);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--gray-medium);
+            margin-top: 3rem;
         }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .hero-content, .showcase-content {
-                grid-template-columns: 1fr;
-                gap: 50px;
+        
+        .footer-heart {
+            color: var(--accent);
+            animation: gentlePulse 1.5s infinite;
+        }
+        
+        /* ===== UTILITY ===== */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        
+        /* ===== TOAST NOTIFICATION ===== */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: white;
+            padding: 16px 24px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            border-left: 4px solid var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            transform: translateX(0);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        
+        .toast.hidden {
+            transform: translateX(100px);
+            opacity: 0;
+        }
+        
+        .toast-icon {
+            font-size: 1.2rem;
+            color: var(--accent);
+        }
+        
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
             }
             
-            .features-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .user-menu {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
             }
             
             .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 40px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-text h1 {
-                font-size: 42px;
-            }
-            
-            .features-grid {
                 grid-template-columns: 1fr;
             }
             
-            .footer-content {
+            .action-grid {
                 grid-template-columns: 1fr;
             }
         }
-
-        @media (max-width: 576px) {
-            .hero {
-                padding: 70px 0;
-            }
-            
-            .section-title {
-                font-size: 32px;
-            }
-            
-            .hero-stats, .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            
-            .book-pile {
-                height: 300px;
-            }
-            
-            .book-1, .book-2, .book-3 {
-                transform: scale(0.8);
-            }
+        
+        /* ===== LOADING ANIMATION ===== */
+        .loading-shimmer {
+            background: linear-gradient(90deg, 
+                var(--gray-light) 0%, 
+                white 50%, 
+                var(--gray-light) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden">
+        <div class="toast-icon">📚</div>
+        <div class="toast-message">Selamat datang di Yomu Kiroku!</div>
+    </div>
+    
+    <!-- HEADER -->
     <header>
-        <div class="container">
-            <nav class="navbar">
-                <a href="#" class="logo">
-                    <i class="fas fa-book-open"></i> Yomu Kiroku
-                </a>
-                <div class="nav-links">
-                    <a href="#home">Beranda</a>
-                    <a href="#library">Perpustakaan</a>
-                    <a href="#reviews">Ulasan</a>
-                    <a href="#borrow">Pinjam Buku</a>
-                    <a href="#about">Tentang</a>
-                    <a href="#" class="btn-header">Masuk / Daftar</a>
+        <div class="header-content">
+            <div class="logo">
+                <span class="book-icon">📚</span>
+                <span>Yomu Kiroku</span>
+            </div>
+            
+            <div class="user-menu">
+                <button class="nav-btn active"><i class="fas fa-home"></i> Beranda</button>
+                <button class="nav-btn"><i class="fas fa-book"></i> Koleksi</button>
+                <button class="nav-btn"><i class="fas fa-exchange-alt"></i> Pinjaman</button>
+                <button class="nav-btn"><i class="fas fa-user"></i> Profil</button>
+                <div class="user-avatar" onclick="showToast('Hai, Bookworm! 📖')">
+                    <i class="fas fa-user"></i>
                 </div>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
+            </div>
         </div>
     </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>Perpustakaan & Komunitas <span>Baca Pribadi</span></h1>
-                    <p>Jelajahi koleksi buku pribadiku, baca ulasan mendalam, dan pinjam buku favorit untuk memperkaya petualangan membacamu. Semua dalam satu tempat yang ramah dan personal.</p>
-                    <a href="#library" class="btn-hero">
-                        <i class="fas fa-book-reader"></i> Jelajahi Koleksi Buku
-                    </a>
-                    <div class="hero-stats">
-                        <div class="stat-item">
-                            <span class="stat-number">250+</span>
-                            <span class="stat-label">Buku dalam Koleksi</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">120+</span>
-                            <span class="stat-label">Ulasan Mendalam</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">85%</span>
-                            <span class="stat-label">Tingkat Kepuasan</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="book-pile">
-                        <div class="book book-1">Fiksi</div>
-                        <div class="book book-2">Non-Fiksi</div>
-                        <div class="book book-3">Fantasi</div>
-                    </div>
-                </div>
+    
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- WELCOME SECTION -->
+        <section class="welcome-section">
+            <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Halo, Pembaca! 👋</h1>
+            <p class="welcome-text">
+                Selamat datang di <span class="highlight">Yomu Kiroku</span>, tempat mencatat dan berbagi 
+                petualangan membaca yang menyenangkan. Mari simpan kenangan dari setiap halaman yang kamu baca.
+            </p>
+        </section>
+        
+        <!-- STATS -->
+        <section class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--soft-pink);">📖</div>
+                <div class="stat-number">128</div>
+                <div class="stat-label">Total Buku</div>
             </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="library">
-        <div class="container">
-            <h2 class="section-title">Mengapa Jelajahi Yomu Kiroku?</h2>
-            <p class="section-subtitle">Sebuah pengalaman perpustakaan pribadi yang dirancang untuk para pecinta buku sepertimu</p>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-book"></i>
-                    </div>
-                    <h3>Koleksi Terkurasi</h3>
-                    <p>Setiap buku dipilih dengan cermat berdasarkan genre, kualitas, dan nilai yang dapat dibagikan. Bukan sekadar kumpulan, tapi cerita yang berarti.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-pen-fancy"></i>
-                    </div>
-                    <h3>Ulasan Mendalam</h3>
-                    <p>Dapatkan insight yang jujur dan detail dari setiap buku yang sudah dibaca. Lebih dari sekadar rating, tapi pembahasan tema, karakter, dan pesan.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Sistem Pinjam Mudah</h3>
-                    <p>Ingin meminjam buku? Prosesnya sederhana dan transparan. Lacak status peminjaman dan atur pengembalian dengan fitur reminder.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-tags"></i>
-                    </div>
-                    <h3>Kategori Terorganisir</h3>
-                    <p>Temukan buku berdasarkan genre, mood, tingkat kesulitan, atau rekomendasi khusus. Sistem tag membantu kamu menemukan bacaan yang tepat.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-user-friends"></i>
-                    </div>
-                    <h3>Komunitas Pembaca</h3>
-                    <p>Berinteraksi dengan pembaca lain, diskusikan buku yang sama, dan bagikan perspektifmu. Membaca jadi pengalaman sosial yang menyenangkan.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <h3>Rekomendasi Personal</h3>
-                    <p>Dapatkan rekomendasi buku berdasarkan minat dan riwayat bacamu. Sistem belajar preferensimu untuk saran yang semakin relevan.</p>
-                </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--mint);">👁️</div>
+                <div class="stat-number">15</div>
+                <div class="stat-label">Sedang Dibaca</div>
             </div>
-        </div>
-    </section>
-
-    <!-- Book Showcase -->
-    <section class="showcase" id="reviews">
-        <div class="container">
-            <div class="showcase-content">
-                <div class="book-showcase">
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--lavender);">🤝</div>
+                <div class="stat-number">23</div>
+                <div class="stat-label">Dipinjamkan</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon" style="color: var(--sky);">⭐</div>
+                <div class="stat-number">89</div>
+                <div class="stat-label">Selesai Dibaca</div>
+            </div>
+        </section>
+        
+        <!-- RECENTLY ADDED BOOKS -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-clock"></i> Baru Ditambahkan</h2>
+                <a href="#" class="view-all">Lihat Semua <i class="fas fa-chevron-right"></i></a>
+            </div>
+            
+            <div class="books-grid">
+                <!-- BOOK 1 -->
+                <div class="book-card">
                     <div class="book-cover">
-                        <div class="book-spine"></div>
-                        <div class="book-details">
-                            <h3>Petualangan di Negeri Awan</h3>
-                            <p>oleh Mira Susanto</p>
-                        </div>
+                        <i class="fas fa-feather-alt"></i>
                     </div>
-                    
-                    <div class="review-card">
-                        <div class="review-text">
-                            Buku ini membawaku pada petualangan imajinasi yang luar biasa. Karakter utamanya tumbuh dengan cara yang sangat menyentuh, dan pesan tentang persahabatan mengena sekali. Salah satu bacaan terbaik tahun ini!
+                    <div class="book-content">
+                        <h3 class="book-title">Angin dan Ranting</h3>
+                        <p class="book-author">Maya Pratama</p>
+                        <div class="book-meta">
+                            <span>Fiksi</span>
+                            <span>320 halaman</span>
                         </div>
-                        <div class="reviewer">
-                            <div class="reviewer-avatar">
-                                <i class="fas fa-user"></i>
-                            </div>
-                            <div class="reviewer-info">
-                                <h4>Review dari Pemilik Koleksi</h4>
-                                <p>⭐️⭐️⭐️⭐️⭐️ | Rating: 5/5</p>
-                            </div>
+                        <div class="book-status status-available">Tersedia</div>
+                        <div class="book-actions">
+                            <button class="btn btn-primary btn-full" onclick="borrowBook(this)">
+                                <i class="fas fa-handshake"></i> Pinjam
+                            </button>
                         </div>
                     </div>
                 </div>
                 
-                <div>
-                    <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">Ulasan Jujur & <span style="color: var(--primary);">Mendalam</span></h2>
-                    <p style="color: var(--gray); margin-bottom: 30px; font-size: 18px;">
-                        Setiap buku di koleksiku mendapatkan ulasan komprehensif yang mencakup kekuatan, kelemahan, dan siapa yang akan paling menikmatinya. Bukan sekadar ringkasan, tapi percakapan antar pecinta buku.
-                    </p>
-                    <p style="color: var(--gray); margin-bottom: 40px;">
-                        Ulasanku fokus pada pengalaman membaca: bagaimana buku itu membuatku merasa, pertanyaan yang diajukan, dan mengapa buku itu layak (atau tidak layak) untuk waktu berharganu.
-                    </p>
-                    <a href="#reviews" class="btn-hero">
-                        <i class="fas fa-scroll"></i> Lihat Semua Ulasan
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-box">
-                    <span class="number">500+</span>
-                    <span class="label">Buku Telah Dibaca</span>
-                </div>
-                <div class="stat-box">
-                    <span class="number">98%</span>
-                    <span class="label">Buku Tersedia Dipinjam</span>
-                </div>
-                <div class="stat-box">
-                    <span class="number">150+</span>
-                    <span class="label">Anggota Komunitas</span>
-                </div>
-                <div class="stat-box">
-                    <span class="number">4.8</span>
-                    <span class="label">Rating Ulasan (Rata-rata)</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta" id="borrow">
-        <div class="container">
-            <div class="cta-box">
-                <h2>Siap Meminjam Buku Pertamamu?</h2>
-                <p>Bergabunglah dengan komunitas pembaca Yomu Kiroku. Jelajahi koleksi, baca ulasan, dan pinjam buku favorit dengan proses yang mudah dan transparan. Gratis untuk anggota komunitas.</p>
-                <a href="#" class="btn-cta">
-                    <i class="fas fa-user-plus"></i> Daftar Sekarang & Mulai Menjelajah
-                </a>
-                <p style="margin-top: 20px; font-size: 14px; color: var(--gray);">
-                    <i class="fas fa-shield-alt"></i> Sistem pinjam aman dengan pengingat pengembalian otomatis
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-about">
-                    <div class="footer-logo">Yomu Kiroku</div>
-                    <p>Sebuah perpustakaan pribadi dan komunitas baca yang dibangun dengan cinta untuk berbagi kegembiraan membaca. Setiap buku punya cerita, dan setiap pembaca punya tempat di sini.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-goodreads"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                <!-- BOOK 2 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">Malam Seribu Bintang</h3>
+                        <p class="book-author">Ario Wicaksono</p>
+                        <div class="book-meta">
+                            <span>Fantasi</span>
+                            <span>412 halaman</span>
+                        </div>
+                        <div class="book-status status-reading">Sedang Dibaca</div>
+                        <div class="book-actions">
+                            <button class="btn btn-outline btn-full">
+                                <i class="fas fa-book-open"></i> Lanjut Baca
+                            </button>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="footer-links">
-                    <h4>Koleksi</h4>
-                    <ul>
-                        <li><a href="#">Fiksi Sastra</a></li>
-                        <li><a href="#">Fantasi & Sci-Fi</a></li>
-                        <li><a href="#">Non-Fiksi</a></li>
-                        <li><a href="#">Buku Lokal</a></li>
-                        <li><a href="#">Koleksi Langka</a></li>
-                    </ul>
+                <!-- BOOK 3 -->
+                <div class="book-card">
+                    <div class="book-cover">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="book-content">
+                        <h3 class="book-title">Musim yang Hilang</h3>
+                        <p class="book-author">Sari Dewi</p>
+                        <div class="book-meta">
+                            <span>Drama</span>
+                            <span>285 halaman</span>
+                        </div>
+                        <div class="book-status status-borrowed">Dipinjam</div>
+                        <div class="book-actions">
+                            <button class="btn btn-outline btn-full" disabled>
+                                <i class="fas fa-clock"></i> Tersedia 5 Hari Lagi
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- QUICK ACTIONS -->
+        <section class="quick-actions">
+            <h2 class="section-title" style="margin: 0;"><i class="fas fa-bolt"></i> Aksi Cepat</h2>
+            <p style="color: var(--gray-dark); margin-top: 0.5rem;">Kelola koleksi bukumu dengan mudah</p>
+            
+            <div class="action-grid">
+                <div class="action-card" onclick="addBook()">
+                    <div class="action-icon"><i class="fas fa-plus-circle"></i></div>
+                    <h3>Tambah Buku</h3>
+                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Tambahkan buku baru ke koleksi</p>
                 </div>
                 
-                <div class="footer-links">
-                    <h4>Layanan</h4>
-                    <ul>
-                        <li><a href="#">Pinjam Buku</a></li>
-                        <li><a href="#">Baca Ulasan</a></li>
-                        <li><a href="#">Rekomendasi</a></li>
-                        <li><a href="#">Diskusi Buku</a></li>
-                        <li><a href="#">Status Pinjaman</a></li>
-                    </ul>
+                <div class="action-card" onclick="showToast('Fitur pencarian dibuka! 🔍')">
+                    <div class="action-icon"><i class="fas fa-search"></i></div>
+                    <h3>Cari Buku</h3>
+                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Temukan buku yang kamu cari</p>
                 </div>
                 
-                <div class="footer-links">
-                    <h4>Kontak</h4>
-                    <ul>
-                        <li><a href="#"><i class="fas fa-envelope"></i> hello@yomukiroku.id</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</a></li>
-                        <li><a href="#"><i class="fas fa-clock"></i> Buka Setiap Hari</a></li>
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Bantuan & FAQ</a></li>
-                    </ul>
+                <div class="action-card" onclick="scanISBN()">
+                    <div class="action-icon"><i class="fas fa-barcode"></i></div>
+                    <h3>Scan ISBN</h3>
+                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Scan barcode buku</p>
                 </div>
+                
+                <div class="action-card" onclick="showToast('Membuka pengaturan notifikasi! 🔔')">
+                    <div class="action-icon"><i class="fas fa-bell"></i></div>
+                    <h3>Notifikasi</h3>
+                    <p style="color: var(--gray-dark); font-size: 0.9rem; margin-top: 0.5rem;">Atur pengingat membaca</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- READING PROGRESS -->
+        <section>
+            <div class="section-header">
+                <h2 class="section-title"><i class="fas fa-chart-line"></i> Progress Membaca</h2>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2023 Yomu Kiroku. Dibuat dengan <i class="fas fa-heart" style="color: var(--secondary);"></i> untuk komunitas pembaca Indonesia.</p>
+            <div class="stat-card" style="text-align: left;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+                    <div style="font-size: 2rem; color: var(--accent);">📊</div>
+                    <div>
+                        <h3 style="margin-bottom: 0.25rem;">Target Membaca 2024</h3>
+                        <p style="color: var(--gray-dark); font-size: 0.9rem;">12 buku sudah dibaca dari target 24 buku</p>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div style="background: var(--gray-medium); height: 10px; border-radius: 5px; overflow: hidden;">
+                    <div style="width: 50%; height: 100%; background: linear-gradient(90deg, var(--mint), var(--sky)); border-radius: 5px;"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-top: 0.5rem; font-size: 0.9rem; color: var(--gray-dark);">
+                    <span>50% selesai</span>
+                    <span>12/24 buku</span>
+                </div>
             </div>
+        </section>
+    </main>
+    
+    <!-- FOOTER -->
+    <footer>
+        <p>Dibuat dengan <span class="footer-heart">❤️</span> untuk para pencinta buku</p>
+        <p class="mt-1" style="font-size: 0.85rem;">Yomu Kiroku © 2024 - Setiap halaman adalah petualangan baru</p>
+        <div class="mt-1" style="font-size: 1.2rem; letter-spacing: 10px; color: var(--accent); opacity: 0.7;">
+            📚✨📖
         </div>
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            const navLinks = document.querySelector('.nav-links');
-            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        // ===== TOAST NOTIFICATION =====
+        let toastTimeout;
+        
+        function showToast(message = "Aksi berhasil! ✨") {
+            const toast = document.getElementById('toast');
+            const toastMessage = toast.querySelector('.toast-message');
             
-            if (window.innerWidth <= 768) {
-                if (navLinks.style.display === 'flex') {
-                    navLinks.style.flexDirection = 'column';
-                    navLinks.style.position = 'absolute';
-                    navLinks.style.top = '70px';
-                    navLinks.style.left = '0';
-                    navLinks.style.right = '0';
-                    navLinks.style.background = 'white';
-                    navLinks.style.padding = '20px';
-                    navLinks.style.boxShadow = '0 10px 30px rgba(0,0,0,0.1)';
-                    navLinks.style.zIndex = '1000';
-                }
-            }
-        });
-
-        // Smooth Scroll for Anchor Links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu after clicking a link
-                    if (window.innerWidth <= 768) {
-                        document.querySelector('.nav-links').style.display = 'none';
-                    }
-                }
-            });
-        });
-
-        // Animate Stats Counter
-        function animateCounter(element, start, end, duration) {
-            let startTimestamp = null;
-            const step = (timestamp) => {
-                if (!startTimestamp) startTimestamp = timestamp;
-                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-                element.innerHTML = Math.floor(progress * (end - start) + start);
-                if (progress < 1) {
-                    window.requestAnimationFrame(step);
-                }
-            };
-            window.requestAnimationFrame(step);
-        }
-
-        // Trigger counter animation when stats section is in view
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Animate all stat numbers
-                    document.querySelectorAll('.stat-box .number').forEach(stat => {
-                        const target = parseInt(stat.textContent);
-                        animateCounter(stat, 0, target, 2000);
-                    });
-                    
-                    // Unobserve after animation
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe stats section
-        const statsSection = document.querySelector('.stats');
-        if (statsSection) {
-            observer.observe(statsSection);
-        }
-
-        // Book hover effects
-        document.querySelectorAll('.book').forEach(book => {
-            book.addEventListener('mouseenter', function() {
-                this.style.zIndex = '100';
-            });
+            // Clear any existing timeout
+            if (toastTimeout) clearTimeout(toastTimeout);
             
-            book.addEventListener('mouseleave', function() {
-                this.style.zIndex = '';
-            });
-        });
-
-        // Add current year to footer
+            // Update message
+            toastMessage.textContent = message;
+            
+            // Show toast
+            toast.classList.remove('hidden');
+            
+            // Auto hide after 3 seconds
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+        
+        // ===== BORROW BOOK FUNCTION =====
+        function borrowBook(button) {
+            const bookCard = button.closest('.book-card');
+            const bookTitle = bookCard.querySelector('.book-title').textContent;
+            const statusBadge = bookCard.querySelector('.book-status');
+            
+            // Update button state
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            button.disabled = true;
+            
+            // Simulate API call
+            setTimeout(() => {
+                // Update status
+                statusBadge.className = 'book-status status-borrowed';
+                statusBadge.textContent = 'Menunggu Konfirmasi';
+                
+                // Update button
+                button.innerHTML = '<i class="fas fa-check"></i> Permintaan Dikirim';
+                button.className = 'btn btn-outline btn-full';
+                button.disabled = true;
+                
+                // Show success toast
+                showToast(`Permintaan pinjam "${bookTitle}" berhasil dikirim! 🤝`);
+            }, 800);
+        }
+        
+        // ===== ADD BOOK FUNCTION =====
+        function addBook() {
+            showToast("Membuka form tambah buku baru! 📖");
+            
+            // In a real app, you would show a modal here
+            setTimeout(() => {
+                showToast('Fitur lengkap akan tersedia di versi berikutnya! ✨');
+            }, 500);
+        }
+        
+        // ===== SCAN ISBN FUNCTION =====
+        function scanISBN() {
+            showToast("Membuka kamera untuk scan ISBN... 📷");
+            
+            // Simulate scanning
+            setTimeout(() => {
+                showToast("ISBN berhasil di-scan! Buku ditambahkan. ✅");
+            }, 1500);
+        }
+        
+        // ===== NAVIGATION =====
         document.addEventListener('DOMContentLoaded', function() {
-            const yearSpan = document.querySelector('#current-year');
-            if (yearSpan) {
-                yearSpan.textContent = new Date().getFullYear();
+            // Initialize
+            setTimeout(() => {
+                showToast("Selamat membaca! Setiap halaman adalah petualangan baru ✨");
+            }, 1000);
+            
+            // Navigation buttons
+            const navButtons = document.querySelectorAll('.nav-btn');
+            navButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active state
+                    navButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show toast for navigation
+                    const icon = this.querySelector('i').className;
+                    let message = "Beranda Yomu Kiroku";
+                    
+                    if (icon.includes('fa-book')) message = "Membuka koleksi buku";
+                    if (icon.includes('fa-exchange-alt')) message = "Status peminjaman";
+                    if (icon.includes('fa-user')) message = "Profil pengguna";
+                    
+                    showToast(message);
+                });
+            });
+            
+            // Book card hover effect
+            const bookCards = document.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+            
+            // Stat cards animation on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+            
+            // Observe stat cards
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                observer.observe(card);
+            });
+            
+            // Animate stat numbers
+            function animateValue(element, start, end, duration) {
+                let startTimestamp = null;
+                const step = (timestamp) => {
+                    if (!startTimestamp) startTimestamp = timestamp;
+                    const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                    element.textContent = Math.floor(progress * (end - start) + start);
+                    if (progress < 1) {
+                        window.requestAnimationFrame(step);
+                    }
+                };
+                window.requestAnimationFrame(step);
+            }
+            
+            // Animate main stats
+            setTimeout(() => {
+                const statNumbers = document.querySelectorAll('.stat-number');
+                statNumbers.forEach(stat => {
+                    const finalValue = parseInt(stat.textContent);
+                    animateValue(stat, 0, finalValue, 1500);
+                });
+            }, 500);
+        });
+        
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + N to add new book
+            if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+                e.preventDefault();
+                addBook();
+            }
+            
+            // Ctrl/Cmd + K to search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                showToast("Membuka pencarian buku... 🔍");
+            }
+            
+            // Escape to close any open modals (in future implementation)
+            if (e.key === 'Escape') {
+                showToast("Menu ditutup");
             }
         });
     </script>
