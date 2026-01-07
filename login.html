@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Yomu Kiroku</title>
+    <link rel="icon" type="image/svg+xml" href="image/logo.svg">
+    
+    <!-- Adobe Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/eqz4czn.css">
+    <style>
+        /* ===== FONT DECLARATIONS ===== */
+        body {
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-weight: 500;
+            color: #333333;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: #fefcf9;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2, h3, .logo-text, .login-title {
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+        }
+        
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --pink-primary: #dc4f6c;
+            --pink-light: #fec6e0;
+            --green-dark: #4b6967;
+            --green-light: #94a38d;
+            --white: #ffffff;
+            --off-white: #fefcf9;
+            --text-dark: #333333;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-img {
+            height: 32px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: rotate(-5deg);
+        }
+        
+        .logo-text {
+            font-size: 1.6rem;
+            color: var(--pink-primary);
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-link {
+            color: var(--green-dark);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--pink-primary);
+        }
+        
+        .nav-link.active {
+            color: var(--pink-primary);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--pink-primary);
+        }
+        
+        /* ===== LOGIN CONTAINER ===== */
+        .login-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--pink-light) 0%, var(--white) 50%, var(--green-light) 100%);
+        }
+        
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 4rem 3rem;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.8s ease-out;
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .login-logo {
+            font-size: 4rem;
+            color: var(--pink-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .login-title {
+            font-size: 2.5rem;
+            color: var(--pink-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .login-subtitle {
+            color: var(--green-dark);
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+        
+        /* ===== LOGIN FORM ===== */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-label {
+            color: var(--green-dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .form-label i {
+            font-size: 1.2rem;
+        }
+        
+        .form-input {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid var(--green-light);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--pink-primary);
+            box-shadow: 0 0 0 4px rgba(220, 79, 108, 0.1);
+        }
+        
+        .form-input.error {
+            border-color: #ff4757;
+            background: rgba(255, 71, 87, 0.05);
+        }
+        
+        .password-wrapper {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--green-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0.5rem;
+        }
+        
+        .toggle-password:hover {
+            color: var(--pink-primary);
+        }
+        
+        /* ===== LOGIN BUTTON ===== */
+        .login-btn {
+            padding: 1rem;
+            background: var(--pink-primary);
+            border: none;
+            border-radius: 12px;
+            color: var(--white);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .login-btn:hover {
+            background: #c43f5c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 79, 108, 0.3);
+        }
+        
+        .login-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        /* ===== ERROR MESSAGE ===== */
+        .error-message {
+            background: rgba(255, 71, 87, 0.1);
+            border: 1px solid rgba(255, 71, 87, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: #ff4757;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            animation: shake 0.5s ease;
+        }
+        
+        .error-message.active {
+            display: flex;
+        }
+        
+        /* ===== SUCCESS MESSAGE ===== */
+        .success-message {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            color: #2e7d32;
+            font-size: 0.95rem;
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        .success-message.active {
+            display: flex;
+        }
+        
+        /* ===== CREDENTIALS HINT ===== */
+        .credentials-hint {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(148, 163, 141, 0.1);
+            border-radius: 15px;
+            border-left: 4px solid var(--green-light);
+        }
+        
+        .credentials-title {
+            color: var(--green-dark);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .credentials-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .credentials-item {
+            color: var(--text-dark);
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .credentials-item::before {
+            content: "•";
+            color: var(--pink-primary);
+            font-size: 1.2rem;
+        }
+        
+        /* ===== FOOTER ===== */
+        .login-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(148, 163, 141, 0.2);
+            color: var(--green-light);
+            font-size: 0.9rem;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            10%, 30%, 50%, 70%, 90% {
+                transform: translateX(-5px);
+            }
+            20%, 40%, 60%, 80% {
+                transform: translateX(5px);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(220, 79, 108, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(220, 79, 108, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(220, 79, 108, 0);
+            }
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+            }
+            
+            .login-container {
+                padding: 5rem 1rem 2rem;
+            }
+            
+            .login-card {
+                padding: 3rem 2rem;
+            }
+            
+            .login-title {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .login-card {
+                padding: 2.5rem 1.5rem;
+            }
+            
+            .login-title {
+                font-size: 1.8rem;
+            }
+            
+            .login-subtitle {
+                font-size: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+            
+            .nav-link {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .login-container {
+                padding: 6rem 1rem 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <a href="index.html" class="logo-container">
+            <img src="image/logo.svg" alt="Yomu Kiroku Logo" class="logo-img" id="logo-img">
+            <div class="logo-text">Yomu Kiroku</div>
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="collection.html" class="nav-link">Collection</a></li>
+            <li><a href="login.html" class="nav-link active">Login</a></li>
+        </ul>
+    </nav>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <div class="login-logo">🔐</div>
+                <h1 class="login-title">Login</h1>
+                <p class="login-subtitle">Access the dashboard to manage book collection</p>
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="error-message" id="errorMessage">
+                    <span>⚠️</span>
+                    <span id="errorText">Invalid username or password</span>
+                </div>
+                
+                <div class="success-message" id="successMessage">
+                    <span>✅</span>
+                    <span id="successText">Login successful! Redirecting...</span>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="username">
+                        <span>👤</span> Username
+                    </label>
+                    <input type="text" 
+                           class="form-input" 
+                           id="username" 
+                           name="username"
+                           placeholder="Enter admin username"
+                           autocomplete="username"
+                           required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="password">
+                        <span>🔒</span> Password
+                    </label>
+                    <div class="password-wrapper">
+                        <input type="password" 
+                               class="form-input" 
+                               id="password" 
+                               name="password"
+                               placeholder="Enter password"
+                               autocomplete="current-password"
+                               required>
+                        <button type="button" class="toggle-password" id="togglePassword">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginButton" disabled>
+                    <span id="buttonText">Login</span>
+                    <span id="buttonLoading" style="display: none;">⌛</span>
+                </button>
+            </form>
+            
+            <div class="credentials-hint">
+                <h3 class="credentials-title">
+                    <span>ℹ️</span> Admin Credentials
+                </h3>
+                <ul class="credentials-list">
+                    <li class="credentials-item">
+                        <strong>Caca:</strong> Username: <code>caca</code> | Password: <code>2001</code>
+                    </li>
+                    <li class="credentials-item">
+                        <strong>Azam:</strong> Username: <code>azam</code> | Password: <code>2009</code>
+                    </li>
+                </ul>
+                <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--green-light);">
+                    Only these two accounts can access the admin dashboard.
+                </p>
+            </div>
+            
+            <div class="login-footer">
+                <p>This login is restricted to authorized administrators only.</p>
+                <p>For access requests, please contact the system owner.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== ADMIN CREDENTIALS =====
+        const ADMIN_CREDENTIALS = {
+            'caca': '2001',
+            'azam': '2009'
+        };
+
+        // ===== DOM ELEMENTS =====
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const loginButton = document.getElementById('loginButton');
+        const buttonText = document.getElementById('buttonText');
+        const buttonLoading = document.getElementById('buttonLoading');
+        const errorMessage = document.getElementById('errorMessage');
+        const errorText = document.getElementById('errorText');
+        const successMessage = document.getElementById('successMessage');
+        const successText = document.getElementById('successText');
+        const logoImg = document.getElementById('logo-img');
+
+        // ===== FORM VALIDATION =====
+        function validateForm() {
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value.trim();
+            
+            // Enable login button only if both fields are filled
+            loginButton.disabled = !(username && password);
+            
+            // Clear error message when user starts typing
+            if (username || password) {
+                errorMessage.classList.remove('active');
+                usernameInput.classList.remove('error');
+                passwordInput.classList.remove('error');
+            }
+        }
+
+        // ===== TOGGLE PASSWORD VISIBILITY =====
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            
+            // Change eye icon
+            this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+        });
+
+        // ===== LOGIN FUNCTION =====
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value.trim();
+            
+            // Show loading state
+            buttonText.style.display = 'none';
+            buttonLoading.style.display = 'inline';
+            loginButton.disabled = true;
+            
+            // Hide any previous messages
+            errorMessage.classList.remove('active');
+            successMessage.classList.remove('active');
+            
+            // Simulate network delay (for better UX)
+            setTimeout(() => {
+                // Check if username exists in credentials
+                if (!ADMIN_CREDENTIALS[username]) {
+                    showError('Username not found. Please check and try again.');
+                    resetFormState();
+                    return;
+                }
+                
+                // Check if password matches
+                if (ADMIN_CREDENTIALS[username] !== password) {
+                    showError('Incorrect password. Please try again.');
+                    resetFormState();
+                    return;
+                }
+                
+                // Successful login
+                showSuccess('Login successful! Redirecting to dashboard...');
+                
+                // Create session object
+                const session = {
+                    username: username,
+                    fullname: username === 'caca' ? 'Caca' : 'Azam',
+                    role: 'admin',
+                    loginTime: new Date().toISOString(),
+                    loginIP: '127.0.0.1' // In production, get real IP
+                };
+                
+                // Store session in localStorage
+                localStorage.setItem('yomuKirokuAdminSession', JSON.stringify(session));
+                
+                // Store login timestamp for session management
+                localStorage.setItem('lastLogin', Date.now().toString());
+                
+                // Add login to history (optional)
+                const loginHistory = JSON.parse(localStorage.getItem('loginHistory') || '[]');
+                loginHistory.unshift({
+                    username: username,
+                    timestamp: new Date().toISOString(),
+                    success: true
+                });
+                
+                // Keep only last 10 logins
+                if (loginHistory.length > 10) loginHistory.pop();
+                localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
+                
+                // Redirect to dashboard after 1.5 seconds
+                setTimeout(() => {
+                    window.location.href = 'dashboard.html';
+                }, 1500);
+                
+            }, 1000); // 1 second delay for realistic feel
+        }
+
+        // ===== RESET FORM STATE =====
+        function resetFormState() {
+            buttonText.style.display = 'inline';
+            buttonLoading.style.display = 'none';
+            
+            // Re-enable form validation
+            setTimeout(() => {
+                validateForm();
+                
+                // Clear password field on error (security practice)
+                passwordInput.value = '';
+                
+                // Focus back to password field
+                passwordInput.focus();
+            }, 100);
+        }
+
+        // ===== ERROR HANDLING =====
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('active');
+            
+            // Add error styling to inputs
+            usernameInput.classList.add('error');
+            passwordInput.classList.add('error');
+            
+            // Shake animation for error
+            loginForm.style.animation = 'shake 0.5s ease';
+            setTimeout(() => {
+                loginForm.style.animation = '';
+            }, 500);
+            
+            // Auto-hide error after 5 seconds
+            setTimeout(() => {
+                errorMessage.classList.remove('active');
+            }, 5000);
+        }
+
+        // ===== SUCCESS HANDLING =====
+        function showSuccess(message) {
+            successText.textContent = message;
+            successMessage.classList.add('active');
+            
+            // Disable form inputs
+            usernameInput.disabled = true;
+            passwordInput.disabled = true;
+            togglePassword.disabled = true;
+        }
+
+        // ===== KEYPRESS HANDLER =====
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !loginButton.disabled) {
+                handleLogin(event);
+            }
+        }
+
+        // ===== ATTEMPT COUNTER (SECURITY) =====
+        function trackLoginAttempt(username, success) {
+            const attempts = JSON.parse(localStorage.getItem('loginAttempts') || '{}');
+            
+            if (!attempts[username]) {
+                attempts[username] = {
+                    count: 0,
+                    lastAttempt: null,
+                    lockedUntil: null
+                };
+            }
+            
+            if (success) {
+                // Reset on successful login
+                attempts[username].count = 0;
+                attempts[username].lockedUntil = null;
+            } else {
+                // Increment on failed attempt
+                attempts[username].count++;
+                attempts[username].lastAttempt = Date.now();
+                
+                // Lock after 5 failed attempts (optional)
+                if (attempts[username].count >= 5) {
+                    attempts[username].lockedUntil = Date.now() + (15 * 60 * 1000); // 15 minutes
+                }
+            }
+            
+            localStorage.setItem('loginAttempts', JSON.stringify(attempts));
+        }
+
+        // ===== CHECK IF ACCOUNT IS LOCKED =====
+        function isAccountLocked(username) {
+            const attempts = JSON.parse(localStorage.getItem('loginAttempts') || '{}');
+            
+            if (attempts[username] && attempts[username].lockedUntil) {
+                if (Date.now() < attempts[username].lockedUntil) {
+                    const minutesLeft = Math.ceil((attempts[username].lockedUntil - Date.now()) / (60 * 1000));
+                    return `Account locked. Try again in ${minutesLeft} minutes.`;
+                }
+            }
+            
+            return null;
+        }
+
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is already logged in
+            const session = localStorage.getItem('yomuKirokuAdminSession');
+            if (session) {
+                try {
+                    const sessionData = JSON.parse(session);
+                    // Check if session is still valid (less than 8 hours old)
+                    const loginTime = new Date(sessionData.loginTime);
+                    const now = new Date();
+                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                    
+                    if (hoursDiff < 8) {
+                        // Redirect to dashboard if session is still valid
+                        window.location.href = 'dashboard.html';
+                        return;
+                    } else {
+                        // Clear expired session
+                        localStorage.removeItem('yomuKirokuAdminSession');
+                    }
+                } catch (e) {
+                    // Clear invalid session
+                    localStorage.removeItem('yomuKirokuAdminSession');
+                }
+            }
+            
+            // Add event listeners for real-time validation
+            usernameInput.addEventListener('input', validateForm);
+            passwordInput.addEventListener('input', validateForm);
+            
+            // Form submission
+            loginForm.addEventListener('submit', handleLogin);
+            
+            // Enter key support
+            loginForm.addEventListener('keypress', handleKeyPress);
+            
+            // Handle logo image error
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.parentElement.innerHTML = '<div style="font-size: 2rem; color: #dc4f6c;">📚</div><div class="logo-text">Yomu Kiroku</div>';
+                };
+            }
+            
+            // Auto-focus on username field
+            setTimeout(() => {
+                usernameInput.focus();
+            }, 300);
+            
+            // Clear any leftover error states
+            validateForm();
+        });
+
+        // ===== PAGE VISIBILITY =====
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                // Page became visible again, re-validate form
+                validateForm();
+            }
+        });
+
+        // ===== SECURITY MEASURES =====
+        // Prevent form autofill from browser
+        loginForm.setAttribute('autocomplete', 'off');
+        
+        // Prevent paste in username field (optional)
+        usernameInput.addEventListener('paste', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Prevent copy from password field
+        passwordInput.addEventListener('copy', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Prevent drag and drop
+        passwordInput.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Prevent right-click context menu on password field
+        passwordInput.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+    </script>
+</body>
+</html>
