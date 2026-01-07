@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Collection - Yomu Kiroku</title>
+    <link rel="icon" type="image/svg+xml" href="image/logo.svg">
+    
+    <!-- Adobe Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/eqz4czn.css">
+    <style>
+        /* ===== FONT DECLARATIONS ===== */
+        body {
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-weight: 500;
+            color: #333333;
+            overflow-x: hidden;
+            line-height: 1.6;
+            background: #fefcf9;
+        }
+
+        h1, h2, h3, .logo-text, .section-title, .page-title {
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+        }
+        
+        /* ===== CSS VARIABLES ===== */
+        :root {
+            --pink-primary: #dc4f6c;
+            --pink-light: #fec6e0;
+            --green-dark: #4b6967;
+            --green-light: #94a38d;
+            --white: #ffffff;
+            --off-white: #fefcf9;
+            --text-dark: #333333;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* ===== RESET & BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        /* ===== NAVBAR (UPDATED) ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-img {
+            height: 32px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-img {
+            transform: rotate(-5deg);
+        }
+        
+        .logo-text {
+            font-size: 1.6rem;
+            color: var(--pink-primary);
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-center {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .search-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.8rem 1.2rem 0.8rem 3rem;
+            border-radius: 25px;
+            border: 2px solid var(--green-light);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--pink-primary);
+            box-shadow: 0 0 0 3px rgba(220, 79, 108, 0.1);
+        }
+        
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--green-light);
+            font-size: 1.2rem;
+        }
+        
+        .nav-right {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--green-dark);
+            font-size: 1rem;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: var(--pink-primary);
+        }
+        
+        .nav-link.active {
+            color: var(--pink-primary);
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--pink-primary);
+        }
+        
+        /* ===== COLLECTION HEADER ===== */
+        .collection-header {
+            padding: 8rem 2rem 3rem;
+            background: linear-gradient(to right, var(--pink-light), var(--white));
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .page-title {
+            font-size: 3.5rem;
+            color: var(--pink-primary);
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+        }
+        
+        .page-subtitle {
+            color: var(--green-dark);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 500;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
+        }
+        
+        /* ===== FILTERS SECTION ===== */
+        .filters-section {
+            max-width: 1400px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+        
+        .filters-container {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .filter-label {
+            color: var(--green-dark);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+        
+        .filter-select, .filter-input {
+            padding: 0.6rem 1rem;
+            border-radius: 10px;
+            border: 1px solid var(--green-light);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .filter-select:focus, .filter-input:focus {
+            outline: none;
+            border-color: var(--pink-primary);
+            box-shadow: 0 0 0 2px rgba(220, 79, 108, 0.1);
+        }
+        
+        .reset-btn {
+            padding: 0.6rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--green-light);
+            border-radius: 10px;
+            color: var(--green-dark);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .reset-btn:hover {
+            background: var(--green-light);
+            color: var(--white);
+        }
+        
+        .stats-info {
+            color: var(--green-dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+        
+        /* ===== BOOKS GRID SECTION ===== */
+        .books-section {
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            padding: 0 2rem;
+        }
+        
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .book-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: all 0.4s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .book-card:nth-child(1) { animation-delay: 0.1s; }
+        .book-card:nth-child(2) { animation-delay: 0.2s; }
+        .book-card:nth-child(3) { animation-delay: 0.3s; }
+        .book-card:nth-child(4) { animation-delay: 0.4s; }
+        .book-card:nth-child(5) { animation-delay: 0.5s; }
+        .book-card:nth-child(6) { animation-delay: 0.6s; }
+        .book-card:nth-child(7) { animation-delay: 0.7s; }
+        .book-card:nth-child(8) { animation-delay: 0.8s; }
+        
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .book-cover {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--green-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--pink-primary), var(--green-light));
+        }
+        
+        .book-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-read {
+            background: rgba(76, 175, 80, 0.2);
+            color: #2e7d32;
+        }
+        
+        .status-unread {
+            background: rgba(244, 67, 54, 0.2);
+            color: #c62828;
+        }
+        
+        .status-borrowed {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ff8f00;
+        }
+        
+        .book-info {
+            padding: 1.5rem;
+        }
+        
+        .book-title {
+            font-size: 1.2rem;
+            color: var(--green-dark);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .book-author {
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+        
+        .book-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(148, 163, 141, 0.2);
+        }
+        
+        .book-rating {
+            display: flex;
+            gap: 0.2rem;
+        }
+        
+        .star {
+            color: #ffc107;
+            font-size: 1rem;
+        }
+        
+        .star.empty {
+            color: #e0e0e0;
+        }
+        
+        .book-year {
+            color: var(--green-light);
+            font-size: 0.9rem;
+        }
+        
+        .book-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .book-genre {
+            padding: 0.3rem 0.8rem;
+            background: var(--pink-light);
+            border-radius: 15px;
+            color: var(--pink-primary);
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .book-location {
+            color: var(--green-light);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        /* ===== PAGINATION ===== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding: 2rem 0;
+        }
+        
+        .page-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--green-light);
+            background: var(--white);
+            color: var(--green-dark);
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-btn:hover {
+            background: var(--green-light);
+            color: var(--white);
+            border-color: var(--green-light);
+        }
+        
+        .page-btn.active {
+            background: var(--pink-primary);
+            color: var(--white);
+            border-color: var(--pink-primary);
+        }
+        
+        .page-dots {
+            color: var(--green-light);
+            font-size: 1.2rem;
+        }
+        
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1200px) {
+            .books-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .filters-container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filter-group {
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 0.8rem 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+            
+            .nav-center {
+                order: 3;
+                flex: 0 0 100%;
+                margin-top: 0.5rem;
+            }
+            
+            .nav-right {
+                gap: 1.5rem;
+            }
+            
+            .collection-header {
+                padding: 6rem 1rem 2rem;
+            }
+            
+            .page-title {
+                font-size: 2.5rem;
+            }
+            
+            .page-subtitle {
+                font-size: 1rem;
+            }
+            
+            .filters-section, .books-section {
+                padding: 0 1rem;
+            }
+            
+            .filters-container {
+                padding: 1.5rem;
+            }
+            
+            .books-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .book-cover {
+                height: 200px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .books-grid {
+                grid-template-columns: 1fr;
+                max-width: 350px;
+                margin: 0 auto;
+            }
+            
+            .book-cover {
+                height: 250px;
+            }
+            
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            
+            .search-input {
+                padding: 0.7rem 1rem 0.7rem 2.5rem;
+                font-size: 0.95rem;
+            }
+            
+            .search-icon {
+                left: 0.8rem;
+                font-size: 1.1rem;
+            }
+            
+            .nav-link {
+                font-size: 0.95rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+            
+            .filter-select, .filter-input {
+                width: 100%;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            .filter-label {
+                width: 100%;
+            }
+        }
+        
+        /* ===== LOADING ANIMATION ===== */
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: var(--green-light);
+            font-size: 1.1rem;
+        }
+        
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--green-light);
+            border-top-color: var(--pink-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo-container">
+            <img src="image/logo.svg" alt="Yomu Kiroku Logo" class="logo-img" id="logo-img">
+            <div class="logo-text">Yomu Kiroku</div>
+        </a>
+        
+        <div class="nav-center">
+            <div class="search-container">
+                <span class="search-icon">🔍</span>
+                <input type="text" 
+                       class="search-input" 
+                       id="searchInput"
+                       placeholder="Search books by title or author..."
+                       autocomplete="off">
+            </div>
+        </div>
+        
+        <div class="nav-right">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="collection.html" class="nav-link active">Collection</a>
+            <a href="#login" class="nav-link">Login</a>
+        </div>
+    </nav>
+
+    <!-- Collection Header -->
+    <section class="collection-header">
+        <h1 class="page-title">Book Collection</h1>
+        <p class="page-subtitle">
+            Browse through Caca's personal library of carefully curated books. 
+            Each title tells a story of discovery, inspiration, and adventure.
+        </p>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="filters-container">
+            <div class="filter-group">
+                <span class="filter-label">Genre:</span>
+                <select class="filter-select" id="genreFilter">
+                    <option value="all">All Genres</option>
+                    <option value="fiction">Fiction</option>
+                    <option value="nonfiction">Non-Fiction</option>
+                    <option value="fantasy">Fantasy</option>
+                    <option value="sci-fi">Science Fiction</option>
+                    <option value="mystery">Mystery</option>
+                    <option value="romance">Romance</option>
+                    <option value="biography">Biography</option>
+                    <option value="self-help">Self-Help</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Status:</span>
+                <select class="filter-select" id="statusFilter">
+                    <option value="all">All Books</option>
+                    <option value="read">Read</option>
+                    <option value="unread">Unread</option>
+                    <option value="borrowed">Borrowed</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <span class="filter-label">Sort by:</span>
+                <select class="filter-select" id="sortFilter">
+                    <option value="title-asc">Title (A-Z)</option>
+                    <option value="title-desc">Title (Z-A)</option>
+                    <option value="year-desc">Year (Newest)</option>
+                    <option value="year-asc">Year (Oldest)</option>
+                    <option value="rating-desc">Rating (High to Low)</option>
+                    <option value="rating-asc">Rating (Low to High)</option>
+                </select>
+            </div>
+            
+            <button class="reset-btn" id="resetFilters">Reset Filters</button>
+            
+            <div class="stats-info">
+                Showing <span id="booksCount">20</span> of <span id="totalBooks">298</span> books
+            </div>
+        </div>
+    </section>
+
+    <!-- Books Grid Section -->
+    <section class="books-section">
+        <div class="books-grid" id="booksGrid">
+            <!-- Book cards will be generated by JavaScript -->
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="pagination">
+            <button class="page-btn prev-btn" disabled>
+                ←
+            </button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <span class="page-dots">...</span>
+            <button class="page-btn">10</button>
+            <button class="page-btn next-btn">
+                →
+            </button>
+        </div>
+    </section>
+
+    <script>
+        // ===== BOOKS DATA =====
+        const booksData = [
+            {
+                id: 1,
+                title: "The Midnight Library",
+                author: "Matt Haig",
+                genre: "fiction",
+                year: 2020,
+                rating: 4,
+                status: "read",
+                location: "Living Room Shelf A",
+                cover: "📖"
+            },
+            {
+                id: 2,
+                title: "Klara and the Sun",
+                author: "Kazuo Ishiguro",
+                genre: "sci-fi",
+                year: 2021,
+                rating: 5,
+                status: "read",
+                location: "Bedroom Shelf B",
+                cover: "🤖"
+            },
+            {
+                id: 3,
+                title: "Project Hail Mary",
+                author: "Andy Weir",
+                genre: "sci-fi",
+                year: 2021,
+                rating: 4,
+                status: "read",
+                location: "Office Shelf C",
+                cover: "🚀"
+            },
+            {
+                id: 4,
+                title: "The Invisible Life of Addie Larue",
+                author: "V.E. Schwab",
+                genre: "fantasy",
+                year: 2020,
+                rating: 3,
+                status: "read",
+                location: "Living Room Shelf A",
+                cover: "👻"
+            },
+            {
+                id: 5,
+                title: "Before the Coffee Gets Cold",
+                author: "Toshikazu Kawaguchi",
+                genre: "fiction",
+                year: 2019,
+                rating: 5,
+                status: "read",
+                location: "Coffee Table",
+                cover: "☕"
+            },
+            {
+                id: 6,
+                title: "Atomic Habits",
+                author: "James Clear",
+                genre: "self-help",
+                year: 2018,
+                rating: 5,
+                status: "read",
+                location: "Office Shelf D",
+                cover: "⚛️"
+            },
+            {
+                id: 7,
+                title: "Educated",
+                author: "Tara Westover",
+                genre: "biography",
+                year: 2018,
+                rating: 4,
+                status: "unread",
+                location: "Bedroom Shelf C",
+                cover: "🎓"
+            },
+            {
+                id: 8,
+                title: "The Silent Patient",
+                author: "Alex Michaelides",
+                genre: "mystery",
+                year: 2019,
+                rating: 4,
+                status: "read",
+                location: "Living Room Shelf B",
+                cover: "🎭"
+            },
+            {
+                id: 9,
+                title: "Circe",
+                author: "Madeline Miller",
+                genre: "fantasy",
+                year: 2018,
+                rating: 5,
+                status: "read",
+                location: "Bedroom Shelf A",
+                cover: "🧙‍♀️"
+            },
+            {
+                id: 10,
+                title: "Normal People",
+                author: "Sally Rooney",
+                genre: "fiction",
+                year: 2018,
+                rating: 4,
+                status: "borrowed",
+                location: "Lent to Friend",
+                cover: "👫"
+            },
+            {
+                id: 11,
+                title: "The Seven Husbands of Evelyn Hugo",
+                author: "Taylor Jenkins Reid",
+                genre: "fiction",
+                year: 2017,
+                rating: 5,
+                status: "read",
+                location: "Living Room Shelf C",
+                cover: "🎬"
+            },
+            {
+                id: 12,
+                title: "Dune",
+                author: "Frank Herbert",
+                genre: "sci-fi",
+                year: 1965,
+                rating: 5,
+                status: "read",
+                location: "Office Shelf A",
+                cover: "🏜️"
+            },
+            {
+                id: 13,
+                title: "Thinking, Fast and Slow",
+                author: "Daniel Kahneman",
+                genre: "nonfiction",
+                year: 2011,
+                rating: 4,
+                status: "unread",
+                location: "Office Shelf D",
+                cover: "🧠"
+            },
+            {
+                id: 14,
+                title: "The Hobbit",
+                author: "J.R.R. Tolkien",
+                genre: "fantasy",
+                year: 1937,
+                rating: 5,
+                status: "read",
+                location: "Living Room Shelf A",
+                cover: "🐉"
+            },
+            {
+                id: 15,
+                title: "Sapiens: A Brief History of Humankind",
+                author: "Yuval Noah Harari",
+                genre: "nonfiction",
+                year: 2011,
+                rating: 5,
+                status: "read",
+                location: "Office Shelf B",
+                cover: "👨‍👩‍👧‍👦"
+            },
+            {
+                id: 16,
+                title: "The Night Circus",
+                author: "Erin Morgenstern",
+                genre: "fantasy",
+                year: 2011,
+                rating: 4,
+                status: "read",
+                location: "Bedroom Shelf D",
+                cover: "🎪"
+            },
+            {
+                id: 17,
+                title: "Where the Crawdads Sing",
+                author: "Delia Owens",
+                genre: "fiction",
+                year: 2018,
+                rating: 4,
+                status: "read",
+                location: "Living Room Shelf B",
+                cover: "🦀"
+            },
+            {
+                id: 18,
+                title: "Becoming",
+                author: "Michelle Obama",
+                genre: "biography",
+                year: 2018,
+                rating: 5,
+                status: "read",
+                location: "Office Shelf C",
+                cover: "👩‍💼"
+            },
+            {
+                id: 19,
+                title: "The Alchemist",
+                author: "Paulo Coelho",
+                genre: "fiction",
+                year: 1988,
+                rating: 5,
+                status: "read",
+                location: "Bedside Table",
+                cover: "⚗️"
+            },
+            {
+                id: 20,
+                title: "1984",
+                author: "George Orwell",
+                genre: "fiction",
+                year: 1949,
+                rating: 5,
+                status: "read",
+                location: "Office Shelf A",
+                cover: "👁️"
+            }
+        ];
+
+        // ===== STATE MANAGEMENT =====
+        let currentPage = 1;
+        const booksPerPage = 12;
+        let filteredBooks = [...booksData];
+        let searchTerm = '';
+        let currentGenre = 'all';
+        let currentStatus = 'all';
+        let currentSort = 'title-asc';
+
+        // ===== DOM ELEMENTS =====
+        const booksGrid = document.getElementById('booksGrid');
+        const searchInput = document.getElementById('searchInput');
+        const genreFilter = document.getElementById('genreFilter');
+        const statusFilter = document.getElementById('statusFilter');
+        const sortFilter = document.getElementById('sortFilter');
+        const resetFilters = document.getElementById('resetFilters');
+        const booksCount = document.getElementById('booksCount');
+        const totalBooks = document.getElementById('totalBooks');
+        const pagination = document.getElementById('pagination');
+
+        // ===== BOOK CARD TEMPLATE =====
+        function createBookCard(book) {
+            const statusText = book.status === 'read' ? 'Read' : 
+                             book.status === 'unread' ? 'Unread' : 'Borrowed';
+            const statusClass = `status-${book.status}`;
+            
+            // Create star rating HTML
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += `<span class="star ${i > book.rating ? 'empty' : ''}">★</span>`;
+            }
+            
+            return `
+                <div class="book-card" data-id="${book.id}">
+                    <div class="book-cover">
+                        <span>${book.cover}</span>
+                        <span class="book-status ${statusClass}">${statusText}</span>
+                    </div>
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-author">${book.author}</p>
+                        <div class="book-meta">
+                            <div class="book-rating">
+                                ${starsHtml}
+                            </div>
+                            <span class="book-year">${book.year}</span>
+                        </div>
+                        <div class="book-details">
+                            <span class="book-genre">${book.genre}</span>
+                            <span class="book-location">
+                                📍 ${book.location}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ===== FILTER FUNCTIONS =====
+        function filterBooks() {
+            let result = [...booksData];
+            
+            // Search filter
+            if (searchTerm) {
+                const term = searchTerm.toLowerCase();
+                result = result.filter(book => 
+                    book.title.toLowerCase().includes(term) ||
+                    book.author.toLowerCase().includes(term)
+                );
+            }
+            
+            // Genre filter
+            if (currentGenre !== 'all') {
+                result = result.filter(book => book.genre === currentGenre);
+            }
+            
+            // Status filter
+            if (currentStatus !== 'all') {
+                result = result.filter(book => book.status === currentStatus);
+            }
+            
+            // Sort books
+            result.sort((a, b) => {
+                switch (currentSort) {
+                    case 'title-asc':
+                        return a.title.localeCompare(b.title);
+                    case 'title-desc':
+                        return b.title.localeCompare(a.title);
+                    case 'year-desc':
+                        return b.year - a.year;
+                    case 'year-asc':
+                        return a.year - b.year;
+                    case 'rating-desc':
+                        return b.rating - a.rating;
+                    case 'rating-asc':
+                        return a.rating - b.rating;
+                    default:
+                        return 0;
+                }
+            });
+            
+            filteredBooks = result;
+            updateBooksCount();
+            renderBooks();
+            renderPagination();
+        }
+
+        // ===== RENDER FUNCTIONS =====
+        function renderBooks() {
+            const startIndex = (currentPage - 1) * booksPerPage;
+            const endIndex = startIndex + booksPerPage;
+            const booksToShow = filteredBooks.slice(startIndex, endIndex);
+            
+            booksGrid.innerHTML = '';
+            
+            if (booksToShow.length === 0) {
+                booksGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                        <div style="font-size: 4rem; color: var(--green-light); margin-bottom: 1rem;">📚</div>
+                        <h3 style="color: var(--green-dark); margin-bottom: 0.5rem;">No books found</h3>
+                        <p style="color: var(--text-dark); opacity: 0.8;">Try adjusting your search or filters</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            booksToShow.forEach(book => {
+                booksGrid.innerHTML += createBookCard(book);
+            });
+            
+            // Add click event to book cards
+            document.querySelectorAll('.book-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const bookId = this.getAttribute('data-id');
+                    showBookDetails(bookId);
+                });
+            });
+        }
+
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
+            
+            if (totalPages <= 1) {
+                pagination.style.display = 'none';
+                return;
+            }
+            
+            pagination.style.display = 'flex';
+            
+            let paginationHtml = `
+                <button class="page-btn prev-btn" ${currentPage === 1 ? 'disabled' : ''}>
+                    ←
+                </button>
+            `;
+            
+            // Always show first page
+            paginationHtml += `
+                <button class="page-btn ${currentPage === 1 ? 'active' : ''}" data-page="1">
+                    1
+                </button>
+            `;
+            
+            // Calculate page range to show
+            let startPage = Math.max(2, currentPage - 1);
+            let endPage = Math.min(totalPages - 1, currentPage + 1);
+            
+            // Add dots if needed
+            if (startPage > 2) {
+                paginationHtml += '<span class="page-dots">...</span>';
+            }
+            
+            // Add middle pages
+            for (let i = startPage; i <= endPage; i++) {
+                if (i === 1 || i === totalPages) continue; // Skip first and last
+                paginationHtml += `
+                    <button class="page-btn ${currentPage === i ? 'active' : ''}" data-page="${i}">
+                        ${i}
+                    </button>
+                `;
+            }
+            
+            // Add dots if needed
+            if (endPage < totalPages - 1) {
+                paginationHtml += '<span class="page-dots">...</span>';
+            }
+            
+            // Always show last page if there is more than one page
+            if (totalPages > 1) {
+                paginationHtml += `
+                    <button class="page-btn ${currentPage === totalPages ? 'active' : ''}" data-page="${totalPages}">
+                        ${totalPages}
+                    </button>
+                `;
+            }
+            
+            paginationHtml += `
+                <button class="page-btn next-btn" ${currentPage === totalPages ? 'disabled' : ''}>
+                    →
+                </button>
+            `;
+            
+            pagination.innerHTML = paginationHtml;
+            
+            // Add event listeners to pagination buttons
+            document.querySelectorAll('.page-btn:not(.prev-btn):not(.next-btn)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (!this.hasAttribute('disabled')) {
+                        currentPage = parseInt(this.getAttribute('data-page'));
+                        renderBooks();
+                        renderPagination();
+                        window.scrollTo({ top: 500, behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            document.querySelector('.prev-btn').addEventListener('click', function() {
+                if (!this.hasAttribute('disabled')) {
+                    currentPage--;
+                    renderBooks();
+                    renderPagination();
+                    window.scrollTo({ top: 500, behavior: 'smooth' });
+                }
+            });
+            
+            document.querySelector('.next-btn').addEventListener('click', function() {
+                if (!this.hasAttribute('disabled')) {
+                    currentPage++;
+                    renderBooks();
+                    renderPagination();
+                    window.scrollTo({ top: 500, behavior: 'smooth' });
+                }
+            });
+        }
+
+        function updateBooksCount() {
+            const showing = Math.min(filteredBooks.length, currentPage * booksPerPage);
+            booksCount.textContent = showing;
+            totalBooks.textContent = booksData.length;
+        }
+
+        // ===== BOOK DETAILS MODAL =====
+        function showBookDetails(bookId) {
+            const book = booksData.find(b => b.id === parseInt(bookId));
+            if (!book) return;
+            
+            // Create modal
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 2000;
+                padding: 2rem;
+                backdrop-filter: blur(5px);
+            `;
+            
+            const statusText = book.status === 'read' ? 'Read' : 
+                             book.status === 'unread' ? 'Unread' : 'Borrowed';
+            const statusClass = `status-${book.status}`;
+            
+            // Create star rating HTML
+            let starsHtml = '';
+            for (let i = 1; i <= 5; i++) {
+                starsHtml += `<span style="color: ${i > book.rating ? '#e0e0e0' : '#ffc107'}; font-size: 1.5rem;">★</span>`;
+            }
+            
+            modal.innerHTML = `
+                <div style="background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto;">
+                    <div style="position: relative;">
+                        <div style="padding: 3rem 3rem 2rem; background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));">
+                            <button style="position: absolute; top: 1rem; right: 1rem; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">×</button>
+                            <div style="text-align: center; margin-bottom: 2rem;">
+                                <div style="font-size: 5rem; margin-bottom: 1rem;">${book.cover}</div>
+                                <span style="padding: 0.5rem 1.5rem; border-radius: 20px; background: ${statusClass === 'status-read' ? 'rgba(76, 175, 80, 0.2)' : statusClass === 'status-unread' ? 'rgba(244, 67, 54, 0.2)' : 'rgba(255, 193, 7, 0.2)'}; color: ${statusClass === 'status-read' ? '#2e7d32' : statusClass === 'status-unread' ? '#c62828' : '#ff8f00'}; font-weight: 500;">${statusText}</span>
+                            </div>
+                        </div>
+                        
+                        <div style="padding: 2rem 3rem 3rem;">
+                            <h2 style="color: #4b6967; margin-bottom: 0.5rem; font-size: 1.8rem;">${book.title}</h2>
+                            <p style="color: #666; margin-bottom: 1.5rem; font-size: 1.1rem;">by ${book.author}</p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Year</div>
+                                    <div style="color: #4b6967; font-weight: 500;">${book.year}</div>
+                                </div>
+                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Genre</div>
+                                    <div style="color: #4b6967; font-weight: 500;">${book.genre}</div>
+                                </div>
+                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Location</div>
+                                    <div style="color: #4b6967; font-weight: 500;">${book.location}</div>
+                                </div>
+                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
+                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Rating</div>
+                                    <div style="color: #4b6967; font-weight: 500;">${starsHtml}</div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
+                                <h3 style="color: #4b6967; margin-bottom: 1rem; font-size: 1.2rem;">Description</h3>
+                                <p style="color: #666; line-height: 1.6;">
+                                    This book is part of Caca's personal collection. 
+                                    ${book.status === 'read' ? 'Has been read and reviewed.' : book.status === 'unread' ? 'Currently on the reading list.' : 'Currently borrowed by someone.'}
+                                </p>
+                            </div>
+                            
+                            <button style="width: 100%; padding: 1rem; background: #dc4f6c; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: background 0.3s;" 
+                                    onmouseover="this.style.background='#c43f5c'" 
+                                    onmouseout="this.style.background='#dc4f6c'">
+                                View Full Review
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // Close modal events
+            const closeBtn = modal.querySelector('button');
+            closeBtn.addEventListener('click', () => {
+                document.body.removeChild(modal);
+            });
+            
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    document.body.removeChild(modal);
+                }
+            });
+            
+            // Escape key to close
+            document.addEventListener('keydown', function closeOnEscape(e) {
+                if (e.key === 'Escape') {
+                    document.body.removeChild(modal);
+                    document.removeEventListener('keydown', closeOnEscape);
+                }
+            });
+        }
+
+        // ===== EVENT LISTENERS =====
+        searchInput.addEventListener('input', function(e) {
+            searchTerm = e.target.value.trim().toLowerCase();
+            currentPage = 1;
+            filterBooks();
+        });
+
+        genreFilter.addEventListener('change', function(e) {
+            currentGenre = e.target.value;
+            currentPage = 1;
+            filterBooks();
+        });
+
+        statusFilter.addEventListener('change', function(e) {
+            currentStatus = e.target.value;
+            currentPage = 1;
+            filterBooks();
+        });
+
+        sortFilter.addEventListener('change', function(e) {
+            currentSort = e.target.value;
+            currentPage = 1;
+            filterBooks();
+        });
+
+        resetFilters.addEventListener('click', function() {
+            searchInput.value = '';
+            genreFilter.value = 'all';
+            statusFilter.value = 'all';
+            sortFilter.value = 'title-asc';
+            
+            searchTerm = '';
+            currentGenre = 'all';
+            currentStatus = 'all';
+            currentSort = 'title-asc';
+            currentPage = 1;
+            
+            filterBooks();
+        });
+
+        // ===== INITIALIZE =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update total books count
+            totalBooks.textContent = booksData.length;
+            
+            // Initial render
+            filterBooks();
+            
+            // Handle logo image error
+            const logoImg = document.getElementById('logo-img');
+            if (logoImg) {
+                logoImg.onerror = function() {
+                    this.parentElement.innerHTML = '<div style="font-size: 2rem; color: #dc4f6c;">📚</div><div class="logo-text">Yomu Kiroku</div>';
+                };
+            }
+            
+            // Add search debouncing
+            let searchTimeout;
+            searchInput.addEventListener('input', function(e) {
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    searchTerm = e.target.value.trim().toLowerCase();
+                    currentPage = 1;
+                    filterBooks();
+                }, 300);
+            });
+            
+            // Add animation to book cards on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            // Observe book cards after they're rendered
+            setTimeout(() => {
+                document.querySelectorAll('.book-card').forEach(card => {
+                    observer.observe(card);
+                });
+            }, 100);
+        });
+
+        // ===== WINDOW RESIZE HANDLER =====
+        window.addEventListener('resize', function() {
+            // Re-render pagination on resize
+            renderPagination();
+        });
+    </script>
+</body>
+</html>
