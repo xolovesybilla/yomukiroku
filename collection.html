@@ -300,17 +300,26 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
         
+        /* ===== UPDATED BOOK COVER STYLES ===== */
         .book-cover {
             width: 100%;
-            height: 250px;
-            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
+            height: 320px; /* Increased height for portrait ratio */
+            position: relative;
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 4rem;
-            color: var(--green-dark);
-            position: relative;
-            overflow: hidden;
+        }
+        
+        .book-cover-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .book-card:hover .book-cover-image {
+            transform: scale(1.05);
         }
         
         .book-cover::before {
@@ -321,6 +330,18 @@
             right: 0;
             height: 4px;
             background: linear-gradient(to right, var(--pink-primary), var(--green-light));
+            z-index: 2;
+        }
+        
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 30%);
+            z-index: 1;
         }
         
         .book-status {
@@ -333,21 +354,22 @@
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            z-index: 3;
         }
         
         .status-read {
-            background: rgba(76, 175, 80, 0.2);
-            color: #2e7d32;
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
         }
         
         .status-unread {
-            background: rgba(244, 67, 54, 0.2);
-            color: #c62828;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
         }
         
         .status-borrowed {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ff8f00;
+            background: rgba(255, 193, 7, 0.9);
+            color: #333;
         }
         
         .book-info {
@@ -556,14 +578,17 @@
         }
         
         .borrow-book-cover {
-            font-size: 3rem;
             width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
-            border-radius: 10px;
+            height: 100px;
+            overflow: hidden;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .borrow-book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         
         .borrow-book-details h4 {
@@ -797,7 +822,7 @@
             }
             
             .book-cover {
-                height: 200px;
+                height: 280px;
             }
             
             .borrow-modal {
@@ -817,7 +842,7 @@
             }
             
             .book-cover {
-                height: 250px;
+                height: 320px;
             }
             
             .logo-text {
@@ -1090,7 +1115,7 @@
     </div>
 
     <script>
-        // ===== BOOKS DATA =====
+        // ===== BOOKS DATA WITH IMAGE URLS =====
         const booksData = [
             {
                 id: 1,
@@ -1101,7 +1126,7 @@
                 rating: 4,
                 status: "read",
                 location: "Living Room Shelf A",
-                cover: "📖",
+                cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1113,7 +1138,7 @@
                 rating: 5,
                 status: "read",
                 location: "Bedroom Shelf B",
-                cover: "🤖",
+                cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1125,7 +1150,7 @@
                 rating: 4,
                 status: "read",
                 location: "Office Shelf C",
-                cover: "🚀",
+                cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: false
             },
             {
@@ -1137,7 +1162,7 @@
                 rating: 3,
                 status: "read",
                 location: "Living Room Shelf A",
-                cover: "👻",
+                cover: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1149,7 +1174,7 @@
                 rating: 5,
                 status: "read",
                 location: "Coffee Table",
-                cover: "☕",
+                cover: "https://images.unsplash.com/photo-1531346688376-ab6275c4725e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1161,7 +1186,7 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf D",
-                cover: "⚛️",
+                cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: false
             },
             {
@@ -1173,7 +1198,7 @@
                 rating: 4,
                 status: "unread",
                 location: "Bedroom Shelf C",
-                cover: "🎓",
+                cover: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1185,7 +1210,7 @@
                 rating: 4,
                 status: "read",
                 location: "Living Room Shelf B",
-                cover: "🎭",
+                cover: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1197,7 +1222,7 @@
                 rating: 5,
                 status: "read",
                 location: "Bedroom Shelf A",
-                cover: "🧙‍♀️",
+                cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1209,7 +1234,7 @@
                 rating: 4,
                 status: "borrowed",
                 location: "Lent to Friend",
-                cover: "👫",
+                cover: "https://images.unsplash.com/photo-1524578271613-d550eacf6090?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: false
             },
             {
@@ -1221,7 +1246,7 @@
                 rating: 5,
                 status: "read",
                 location: "Living Room Shelf C",
-                cover: "🎬",
+                cover: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1233,7 +1258,7 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf A",
-                cover: "🏜️",
+                cover: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1245,7 +1270,7 @@
                 rating: 4,
                 status: "unread",
                 location: "Office Shelf D",
-                cover: "🧠",
+                cover: "https://images.unsplash.com/photo-1506880018603-83d5b814b5a6?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1257,7 +1282,7 @@
                 rating: 5,
                 status: "read",
                 location: "Living Room Shelf A",
-                cover: "🐉",
+                cover: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: false
             },
             {
@@ -1269,7 +1294,7 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf B",
-                cover: "👨‍👩‍👧‍👦",
+                cover: "https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1281,7 +1306,7 @@
                 rating: 4,
                 status: "read",
                 location: "Bedroom Shelf D",
-                cover: "🎪",
+                cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1293,7 +1318,7 @@
                 rating: 4,
                 status: "read",
                 location: "Living Room Shelf B",
-                cover: "🦀",
+                cover: "https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1305,7 +1330,7 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf C",
-                cover: "👩‍💼",
+                cover: "https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: false
             },
             {
@@ -1317,7 +1342,7 @@
                 rating: 5,
                 status: "read",
                 location: "Bedside Table",
-                cover: "⚗️",
+                cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             },
             {
@@ -1329,7 +1354,7 @@
                 rating: 5,
                 status: "read",
                 location: "Office Shelf A",
-                cover: "👁️",
+                cover: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80",
                 available: true
             }
         ];
@@ -1386,10 +1411,16 @@
                 starsHtml += `<span class="star ${i > book.rating ? 'empty' : ''}">★</span>`;
             }
             
+            // Fallback if image fails to load
+            const fallbackCover = `https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80`;
+            
             return `
                 <div class="book-card" data-id="${book.id}" data-available="${book.available}">
                     <div class="book-cover">
-                        <span>${book.cover}</span>
+                        <img src="${book.cover}" 
+                             alt="${book.title}" 
+                             class="book-cover-image"
+                             onerror="this.src='${fallbackCover}'">
                         <span class="book-status ${statusClass}">${statusText}</span>
                         ${!canBorrow ? '<div style="position: absolute; top: 1rem; left: 1rem; background: rgba(0,0,0,0.7); color: white; padding: 0.2rem 0.5rem; border-radius: 5px; font-size: 0.7rem;">UNAVAILABLE</div>' : ''}
                     </div>
@@ -1607,7 +1638,8 @@
             // Set book info in modal
             borrowBookInfo.innerHTML = `
                 <div class="borrow-book-cover">
-                    ${book.cover}
+                    <img src="${book.cover}" alt="${book.title}" 
+                         onerror="this.src='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'">
                 </div>
                 <div class="borrow-book-details">
                     <h4>${book.title}</h4>
@@ -1781,16 +1813,19 @@
             modal.innerHTML = `
                 <div style="background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto;">
                     <div style="position: relative;">
-                        <div style="padding: 3rem 3rem 2rem; background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));">
+                        <div style="padding: 2rem 2rem 1rem; background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1)); text-align: center;">
                             <button style="position: absolute; top: 1rem; right: 1rem; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">×</button>
-                            <div style="text-align: center; margin-bottom: 2rem;">
-                                <div style="font-size: 5rem; margin-bottom: 1rem;">${book.cover}</div>
-                                <span style="padding: 0.5rem 1.5rem; border-radius: 20px; background: ${statusClass === 'status-read' ? 'rgba(76, 175, 80, 0.2)' : statusClass === 'status-unread' ? 'rgba(244, 67, 54, 0.2)' : 'rgba(255, 193, 7, 0.2)'}; color: ${statusClass === 'status-read' ? '#2e7d32' : statusClass === 'status-unread' ? '#c62828' : '#ff8f00'}; font-weight: 500;">${statusText}</span>
-                                ${!book.available ? '<div style="margin-top: 0.5rem; padding: 0.3rem 1rem; background: rgba(0,0,0,0.7); color: white; border-radius: 15px; font-size: 0.9rem; display: inline-block;">CURRENTLY UNAVAILABLE</div>' : ''}
+                            <div style="margin-bottom: 1rem;">
+                                <div style="width: 150px; height: 200px; margin: 0 auto; overflow: hidden; border-radius: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                                    <img src="${book.cover}" alt="${book.title}" style="width: 100%; height: 100%; object-fit: cover;" 
+                                         onerror="this.src='https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80'">
+                                </div>
                             </div>
+                            <span style="padding: 0.5rem 1.5rem; border-radius: 20px; background: ${statusClass === 'status-read' ? 'rgba(76, 175, 80, 0.2)' : statusClass === 'status-unread' ? 'rgba(244, 67, 54, 0.2)' : 'rgba(255, 193, 7, 0.2)'}; color: ${statusClass === 'status-read' ? '#2e7d32' : statusClass === 'status-unread' ? '#c62828' : '#ff8f00'}; font-weight: 500;">${statusText}</span>
+                            ${!book.available ? '<div style="margin-top: 0.5rem; padding: 0.3rem 1rem; background: rgba(0,0,0,0.7); color: white; border-radius: 15px; font-size: 0.9rem; display: inline-block;">CURRENTLY UNAVAILABLE</div>' : ''}
                         </div>
                         
-                        <div style="padding: 2rem 3rem 3rem;">
+                        <div style="padding: 2rem 2rem 3rem;">
                             <h2 style="color: #4b6967; margin-bottom: 0.5rem; font-size: 1.8rem;">${book.title}</h2>
                             <p style="color: #666; margin-bottom: 1.5rem; font-size: 1.1rem;">by ${book.author}</p>
                             
