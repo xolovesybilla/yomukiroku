@@ -335,13 +335,13 @@
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            margin-bottom: 4rem;
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
         
         .stat-card {
             text-align: center;
-            padding: 2.5rem;
+            padding: 2rem;
             border-radius: 20px;
             background: linear-gradient(135deg, var(--white), var(--off-white));
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
@@ -350,6 +350,11 @@
             overflow: hidden;
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .stat-card.large {
+            grid-column: 1 / -1;
+            padding: 2.5rem;
         }
         
         .stat-card::before {
@@ -374,9 +379,9 @@
         }
         
         .stat-number {
-            font-size: 4rem;
+            font-size: 3.5rem;
             color: var(--green-dark);
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem;
             font-family: "playwrite-cc-de-grund", serif;
             font-weight: 100;
             transition: all 0.3s ease;
@@ -398,94 +403,75 @@
             color: var(--green-dark);
         }
         
-        .chart-container {
-            margin-top: 2rem;
-            height: 350px;
-            position: relative;
-            width: 100%;
+        .stat-description {
+            color: var(--green-light);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+        
+        .total-spending {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
+            border-radius: 20px;
+            border: 2px solid var(--pink-light);
+        }
+        
+        .spending-amount {
+            font-size: 3rem;
+            color: var(--pink-primary);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-family: "playwrite-cc-de-grund", serif;
+        }
+        
+        .spending-label {
+            color: var(--green-dark);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .spending-period {
+            color: var(--green-light);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* ===== HERO SECTION 3 (NEW - Why Yomu Kiroku) ===== */
+        .hero-3 {
+            min-height: 100vh;
+            background: var(--pink-light); /* Full pink color */
             display: flex;
-            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .hero-3-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
             align-items: center;
         }
         
-        .bar-chart {
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            gap: 8rem;
-            height: 100%;
-            padding: 2rem 0;
-            width: 100%;
-            max-width: 900px;
-            margin: 0 auto;
+        /* Reverse order - text on left, image on right */
+        .hero-3-content .hero-text {
+            order: 1;
+            animation: floatInLeft 1.2s ease-out 0.2s both;
         }
         
-        .bar {
-            width: 90px;
-            background: linear-gradient(to top, var(--green-dark), var(--green-light));
-            border-radius: 12px 12px 0 0;
-            position: relative;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 6px 20px rgba(75, 105, 103, 0.3);
-            cursor: pointer;
+        .hero-3-content .hero-image {
+            order: 2;
+            animation: floatInRight 1.2s ease-out;
         }
         
-        .bar:hover {
-            transform: translateY(-15px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(75, 105, 103, 0.4);
-            background: linear-gradient(to top, var(--pink-primary), var(--green-light));
-        }
-        
-        .bar.fiction {
-            height: 180px;
-            animation: growBar 1.5s ease-out 0.7s both;
-        }
-        
-        .bar.nonfiction {
-            height: 160px;
-            animation: growBar 1.5s ease-out 0.9s both;
-        }
-        
-        .bar.read {
-            height: 220px;
-            animation: growBar 1.5s ease-out 1.1s both;
-        }
-        
-        .bar-label {
-            position: absolute;
-            bottom: -50px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: var(--green-dark);
-            font-size: 1.1rem;
-            font-weight: 600;
-            transition: color 0.3s ease;
-        }
-        
-        .bar:hover .bar-label {
-            color: var(--pink-primary);
-        }
-        
-        .bar-value {
-            position: absolute;
-            top: -45px;
-            left: 0;
-            right: 0;
-            text-align: center;
-            color: var(--green-dark);
-            font-family: "playwrite-cc-de-grund", serif;
-            font-weight: 100;
-            font-size: 1.6rem;
-            transition: color 0.3s ease;
-        }
-        
-        .bar:hover .bar-value {
-            color: var(--pink-primary);
-        }
-        
-        /* ===== HERO SECTION 3 (NEW) ===== */
-        .hero-3 {
+        /* ===== HERO SECTION 4 ===== */
+        .hero-4 {
             min-height: 100vh;
             background: linear-gradient(to bottom, var(--pink-light), var(--green-light));
             padding: 2rem 2rem 4rem;
@@ -628,8 +614,76 @@
             color: var(--text-dark);
         }
         
-        /* ===== HERO SECTION 4 (FORMER HERO 3) ===== */
-        .hero-4 {
+        /* ===== HERO SECTION 5 (NEW - How to Borrow) ===== */
+        .hero-5 {
+            min-height: 100vh;
+            background: var(--green-light); /* Full green color */
+            display: flex;
+            align-items: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .hero-5-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .step-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .step-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--pink-primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .step-content h4 {
+            color: var(--white);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-family: "playwrite-cc-de-grund", serif;
+        }
+        
+        .step-content p {
+            color: var(--off-white);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        /* ===== HERO SECTION 6 ===== */
+        .hero-6 {
             min-height: 100vh;
             background: var(--green-light);
             padding: 2rem 2rem 4rem;
@@ -642,15 +696,9 @@
             overflow: hidden;
         }
         
-        .hero-4::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 100%;
-            background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none;
+        /* REMOVED SHADOW BETWEEN SECTIONS */
+        .hero-6::before {
+            content: none;
         }
         
         .carousel-title {
@@ -711,7 +759,7 @@
         
         .book-card {
             min-width: 300px;
-            background: var(--white); /* DIUBAH: dari --off-white ke --white */
+            background: var(--white);
             border-radius: 20px;
             padding: 2rem;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -753,7 +801,6 @@
         .book-card:nth-child(4) { animation-delay: 0.7s; }
         .book-card:nth-child(5) { animation-delay: 0.8s; }
         
-        /* PERBAIKAN: Book cover tanpa shadow */
         .book-cover {
             width: 100%;
             height: 300px;
@@ -764,10 +811,9 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            /* DIHAPUS: box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); */
             transition: all 0.4s ease;
             position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05); /* Border tipis untuk definisi */
+            border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
         .book-cover img {
@@ -783,8 +829,6 @@
         .book-card:hover .book-cover img {
             transform: scale(1.05);
         }
-        
-        /* DIHAPUS: .book-card:hover .book-cover { box-shadow } */
         
         .book-info {
             text-align: center;
@@ -924,18 +968,6 @@
             }
         }
         
-        @keyframes growBar {
-            from {
-                height: 0;
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
         @keyframes starGlow {
             0%, 100% {
                 opacity: 1;
@@ -960,7 +992,9 @@
         
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 1024px) {
-            .hero-1-content {
+            .hero-1-content,
+            .hero-3-content,
+            .hero-5-content {
                 grid-template-columns: 1fr;
                 text-align: center;
                 gap: 3rem;
@@ -970,16 +1004,21 @@
                 font-size: 3.2rem;
             }
             
-            .hero-image {
+            .hero-1-content .hero-image,
+            .hero-5-content .hero-image {
                 order: -1;
+            }
+            
+            .hero-3-content .hero-image {
+                order: -1; /* Image on top for mobile */
+            }
+            
+            .hero-3-content .hero-text {
+                order: 2; /* Text below image for mobile */
             }
             
             .hero-image img {
                 max-width: 350px;
-            }
-            
-            .bar-chart {
-                gap: 5rem;
             }
             
             .concept-container {
@@ -988,11 +1027,15 @@
             }
             
             .stats-grid {
-                gap: 2rem;
+                gap: 1.5rem;
             }
             
             .book-cover {
                 height: 280px;
+            }
+            
+            .step-list {
+                margin-top: 1.5rem;
             }
         }
         
@@ -1014,7 +1057,9 @@
                 font-size: 0.95rem;
             }
             
-            .hero-1 {
+            .hero-1,
+            .hero-3,
+            .hero-5 {
                 padding: 5rem 1rem 1rem;
             }
             
@@ -1036,19 +1081,11 @@
             
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
+                gap: 1.5rem;
             }
             
             .stat-number {
-                font-size: 3.5rem;
-            }
-            
-            .bar-chart {
-                gap: 3rem;
-            }
-            
-            .bar {
-                width: 70px;
+                font-size: 3rem;
             }
             
             .carousel-wrapper, .concept-card {
@@ -1089,6 +1126,25 @@
             .concept-image img {
                 max-width: 180px;
             }
+            
+            .step-item {
+                padding: 1.2rem;
+                gap: 1rem;
+            }
+            
+            .step-number {
+                width: 35px;
+                height: 35px;
+                font-size: 1.1rem;
+            }
+            
+            .step-content h4 {
+                font-size: 1.2rem;
+            }
+            
+            .step-content p {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1102,27 +1158,15 @@
             }
             
             .stat-number {
-                font-size: 3rem;
+                font-size: 2.5rem;
+            }
+            
+            .spending-amount {
+                font-size: 2.5rem;
             }
             
             .stat-label {
                 font-size: 1.1rem;
-            }
-            
-            .bar-chart {
-                gap: 2rem;
-            }
-            
-            .bar {
-                width: 55px;
-            }
-            
-            .bar-label {
-                font-size: 0.9rem;
-            }
-            
-            .bar-value {
-                font-size: 1.2rem;
             }
             
             .concept-card {
@@ -1175,16 +1219,9 @@
             .nav-links.active {
                 display: flex;
             }
-            
-            .menu-toggle {
-                display: block;
-                font-size: 1.5rem;
-                cursor: pointer;
-                color: var(--green-dark);
-            }
         }
         
-        /* ===== FALLBACK STYLES UNTUK GAMBAR ERROR ===== */
+        /* ===== FALLBACK STYLES ===== */
         .book-cover.fallback {
             background: linear-gradient(135deg, var(--pink-light), var(--green-light));
             display: flex;
@@ -1232,48 +1269,75 @@
         </div>
     </section>
 
-    <!-- Hero Section 2 -->
+    <!-- Hero Section 2 - Statistics -->
     <section class="hero-2" id="hero2">
-        <h2 class="section-title">My Reading Journey</h2>
+        <h2 class="section-title">My Reading Collection</h2>
         
         <div class="stats-container">
             <p class="stats-intro">
-                A curated collection of stories and knowledge, carefully selected and lovingly read. 
-                Every book here has been part of my journey through different worlds and ideas.
+                A carefully curated collection built over years of passionate reading. Every book tells a story not just through its pages, but through the journey of how it came to be part of this library.
             </p>
             
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number" id="fictionCount">0</div>
-                    <div class="stat-label">Fiction Books</div>
+                    <div class="stat-number" id="totalBooks">0</div>
+                    <div class="stat-label">Total Books</div>
+                    <div class="stat-description">Complete collection</div>
                 </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="fictionCount">0</div>
+                    <div class="stat-label">Fiction</div>
+                    <div class="stat-description">Novels & Stories</div>
+                </div>
+                
                 <div class="stat-card">
                     <div class="stat-number" id="nonfictionCount">0</div>
-                    <div class="stat-label">Non-Fiction Books</div>
+                    <div class="stat-label">Non-Fiction</div>
+                    <div class="stat-description">Knowledge & Learning</div>
+                </div>
+                
+                <div class="stat-card large">
+                    <div class="stat-number">121</div>
+                    <div class="stat-label">Purchased Books</div>
+                    <div class="stat-description">Bought with love over the years</div>
+                </div>
+                
+                <div class="stat-card large">
+                    <div class="stat-number">26</div>
+                    <div class="stat-label">Gifted Books</div>
+                    <div class="stat-description">From friends & family</div>
                 </div>
             </div>
             
-            <div class="chart-container">
-                <div class="bar-chart">
-                    <div class="bar fiction">
-                        <div class="bar-value">149</div>
-                        <div class="bar-label">Fiction</div>
-                    </div>
-                    <div class="bar nonfiction">
-                        <div class="bar-value">69</div>
-                        <div class="bar-label">Non-Fiction</div>
-                    </div>
-                    <div class="bar read">
-                        <div class="bar-value">200+</div>
-                        <div class="bar-label">Read</div>
-                    </div>
-                </div>
+            <div class="total-spending">
+                <div class="spending-amount" id="spendingAmount">Rp 0</div>
+                <div class="spending-label">Total Investment in Knowledge</div>
+                <div class="spending-period">Accumulated from 2018 to 2026</div>
             </div>
         </div>
     </section>
 
-    <!-- Hero Section 3 (NEW) -->
+    <!-- Hero Section 3 - Why Yomu Kiroku -->
     <section class="hero-3" id="hero3">
+        <div class="hero-3-content">
+            <div class="hero-text">
+                <h2 class="hero-title">Why Yomu Kiroku Exists</h2>
+                <p class="hero-subtitle">
+                    This library is born from a lifelong love of reading shared by Caca and Azam. While Azam enjoys reading, Caca has a passion for both buying and reading books. Since childhood, their father regularly took them book shopping, nurturing their love for reading that continues to this day.
+                </p>
+                <p class="hero-subtitle" style="margin-top: 1.5rem;">
+                    For us, reading is more than just a hobby—it's our form of refreshment and escape. Yomu Kiroku is our way of sharing this passion with others, creating a space where book lovers can discover, borrow, and connect through stories.
+                </p>
+            </div>
+            <div class="hero-image">
+                <img src="image/boyread.svg" alt="Boy reading book" type="image/svg+xml">
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section 4 - The Meaning Behind -->
+    <section class="hero-4" id="hero4">
         <h2 class="concept-title">The Meaning Behind</h2>
         
         <div class="concept-container">
@@ -1301,8 +1365,61 @@
         </div>
     </section>
 
-    <!-- Hero Section 4 (Former Hero 3) -->
-    <section class="hero-4" id="hero4">
+    <!-- Hero Section 5 - How to Borrow -->
+    <section class="hero-5" id="hero5">
+        <div class="hero-5-content">
+            <div class="hero-image">
+                <img src="image/logo.svg" alt="Yomu Kiroku Logo" type="image/svg+xml">
+            </div>
+            <div class="hero-text">
+                <h2 class="hero-title">How to Borrow Books</h2>
+                <p class="hero-subtitle">
+                    Borrowing books from our collection is simple and straightforward. Follow these easy steps to get started on your reading journey with us!
+                </p>
+                
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Find Your Book</h4>
+                            <p>Browse through our collection and find the book you'd love to read.</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Check Availability</h4>
+                            <p>Make sure the book is available for borrowing (not currently loaned out).</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Fill Borrow Form</h4>
+                            <p>Provide your details: name, phone number, preferred borrow date, and duration.</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Wait for Confirmation</h4>
+                            <p>Caca or Azam will contact you via WhatsApp to confirm your borrow request.</p>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>Pick Up & Enjoy!</h4>
+                            <p>Once confirmed, arrange pickup and enjoy your reading journey!</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section 6 - Books of Month -->
+    <section class="hero-6" id="hero6">
         <h2 class="carousel-title">Books of Month</h2>
         
         <div class="carousel-container">
@@ -1434,26 +1551,40 @@
 
         // ===== ANIMATED COUNTERS =====
         function animateCounters() {
+            const totalBooks = document.getElementById('totalBooks');
             const fictionCount = document.getElementById('fictionCount');
             const nonfictionCount = document.getElementById('nonfictionCount');
+            const spendingAmount = document.getElementById('spendingAmount');
             
-            const targets = [69, 149];
+            const targets = {
+                total: 147,
+                fiction: 99,
+                nonfiction: 48,
+                spending: 10848400
+            };
+            
             const duration = 2000;
             const startTime = Date.now();
+            
+            function formatCurrency(amount) {
+                return 'Rp ' + amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            }
             
             function updateCounters() {
                 const elapsed = Date.now() - startTime;
                 const progress = Math.min(elapsed / duration, 1);
                 
-                // Easing function
                 const easeOut = 1 - Math.pow(1 - progress, 3);
                 
-                fictionCount.textContent = Math.floor(targets[0] * easeOut);
-                nonfictionCount.textContent = Math.floor(targets[1] * easeOut);
+                totalBooks.textContent = Math.floor(targets.total * easeOut);
+                fictionCount.textContent = Math.floor(targets.fiction * easeOut);
+                nonfictionCount.textContent = Math.floor(targets.nonfiction * easeOut);
+                spendingAmount.textContent = formatCurrency(Math.floor(targets.spending * easeOut));
                 
-                // Add animation class
-                fictionCount.style.animation = 'countUp 0.5s ease-out';
-                nonfictionCount.style.animation = 'countUp 0.5s ease-out 0.1s';
+                totalBooks.style.animation = 'countUp 0.5s ease-out';
+                fictionCount.style.animation = 'countUp 0.5s ease-out 0.1s';
+                nonfictionCount.style.animation = 'countUp 0.5s ease-out 0.2s';
+                spendingAmount.style.animation = 'countUp 0.5s ease-out 0.3s';
                 
                 if (progress < 1) {
                     requestAnimationFrame(updateCounters);
@@ -1478,17 +1609,14 @@
         function startAutoScroll() {
             autoScrollInterval = setInterval(() => {
                 const carousel = document.getElementById('bookCarousel');
-                const scrollAmount = 320; // card width + gap
+                const scrollAmount = 320;
                 
-                // Check if we've reached the end
                 if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
-                    // Scroll back to start
                     carousel.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
-                    // Scroll right
                     carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                 }
-            }, 5000); // Scroll every 5 seconds
+            }, 5000);
         }
 
         // ===== INITIALIZE ON LOAD =====
@@ -1509,12 +1637,10 @@
             // Start auto-scroll for carousel
             setTimeout(startAutoScroll, 2000);
             
-            // Handle image loading
+            // Handle image loading errors
             const logoImg = document.getElementById('logo-img');
             if (logoImg) {
                 logoImg.onerror = function() {
-                    console.log('Logo image not found at image/logo.svg');
-                    // Show placeholder
                     this.parentElement.innerHTML = '<div style="font-size: 2rem; color: #dc4f6c;">📚</div><div class="logo-text">Yomu Kiroku</div>';
                 };
             }
@@ -1523,23 +1649,32 @@
             const conceptImages = document.querySelectorAll('.concept-image img');
             conceptImages.forEach(img => {
                 img.onerror = function() {
-                    console.log('Concept image not found');
-                    // Show placeholder emoji
                     if (this.alt.includes('Laptop')) {
                         this.outerHTML = '<div style="font-size: 5rem; color: #dc4f6c;">💻</div>';
                     }
                 };
             });
             
-            // Handle book cover images dengan fallback yang lebih baik
+            // Handle hero section images
+            const heroImages = document.querySelectorAll('.hero-image img');
+            heroImages.forEach(img => {
+                img.onerror = function() {
+                    const altText = this.alt.toLowerCase();
+                    if (altText.includes('boy') || altText.includes('girl') || altText.includes('read')) {
+                        this.outerHTML = '<div style="font-size: 10rem; color: #dc4f6c;">📖</div>';
+                    } else if (altText.includes('logo')) {
+                        this.outerHTML = '<div style="font-size: 8rem; color: #dc4f6c;">📚</div>';
+                    }
+                };
+            });
+            
+            // Handle book cover images
             const bookCovers = document.querySelectorAll('.book-cover img');
             bookCovers.forEach(img => {
                 img.onerror = function() {
-                    console.log('Book cover image not found:', this.src);
                     const bookCover = this.closest('.book-cover');
                     const bookTitle = this.closest('.book-card').querySelector('.book-title').textContent;
                     
-                    // Buat placeholder yang lebih menarik
                     bookCover.classList.add('fallback');
                     bookCover.innerHTML = `
                         <div style="
@@ -1588,67 +1723,7 @@
                 imageObserver.observe(img);
             });
             
-            // Animate bars on scroll
-            const barObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const bars = entry.target.querySelectorAll('.bar');
-                        bars.forEach(bar => {
-                            bar.style.animationPlayState = 'running';
-                        });
-                        barObserver.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.3 });
-            
-            const chartContainer = document.querySelector('.chart-container');
-            if (chartContainer) barObserver.observe(chartContainer);
-            
-            // Add click effect to hero image
-            const heroImage = document.querySelector('.hero-image img');
-            if (heroImage) {
-                heroImage.addEventListener('click', function() {
-                    this.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1.05)';
-                    }, 300);
-                });
-            }
-            
-            // Add click effect to stat cards
-            const statCards = document.querySelectorAll('.stat-card');
-            statCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-15px) scale(1.05)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-8px) scale(1.02)';
-                    }, 200);
-                });
-            });
-            
-            // Add click effect to concept cards
-            const conceptCards = document.querySelectorAll('.concept-card');
-            conceptCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-20px) scale(1.05)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-15px) scale(1.03)';
-                    }, 200);
-                });
-            });
-            
-            // Add click effect to book cards
-            const bookCards = document.querySelectorAll('.book-card');
-            bookCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    this.style.transform = 'translateY(-20px) scale(1.1)';
-                    setTimeout(() => {
-                        this.style.transform = 'translateY(-15px) scale(1.05)';
-                    }, 200);
-                });
-            });
-            
-            // Add click animation to search button
+            // Add click effects to interactive elements
             const searchButton = document.querySelector('.search-button');
             if (searchButton) {
                 searchButton.addEventListener('click', function() {
@@ -1661,6 +1736,50 @@
                     }, 150);
                 });
             }
+            
+            // Add hover effects to stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Add hover effects to concept cards
+            const conceptCards = document.querySelectorAll('.concept-card');
+            conceptCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.03)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Add hover effects to book cards
+            const bookCards = document.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.05)';
+                });
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+            
+            // Add hover effects to step items
+            const stepItems = document.querySelectorAll('.step-item');
+            stepItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateX(10px)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateX(0)';
+                });
+            });
         });
 
         // ===== PAUSE AUTOSCROLL ON HOVER =====
