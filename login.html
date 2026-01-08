@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collection - Yomu Kiroku</title>
+    <title>Login - Yomu Kiroku</title>
     <link rel="icon" type="image/svg+xml" href="image/logo.svg">
     
     <!-- Adobe Fonts -->
@@ -17,6 +17,10 @@
             overflow-x: hidden;
             line-height: 1.6;
             background: #fefcf9;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
         }
 
         h1, h2, h3, .logo-text, .section-title, .page-title {
@@ -35,6 +39,8 @@
             --text-dark: #333333;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            --error-red: #f44336;
+            --success-green: #4CAF50;
         }
         
         /* ===== RESET & BASE STYLES ===== */
@@ -53,7 +59,7 @@
             color: inherit;
         }
         
-        /* ===== NAVBAR (UPDATED) ===== */
+        /* ===== NAVBAR (SAMA DENGAN COLLECTION) ===== */
         .navbar {
             position: fixed;
             top: 0;
@@ -162,514 +168,90 @@
             background: var(--pink-primary);
         }
         
-        /* ===== COLLECTION HEADER ===== */
-        .collection-header {
-            padding: 8rem 2rem 3rem;
-            background: linear-gradient(to right, var(--pink-light), var(--white));
+        /* ===== LOGIN PAGE STYLES ===== */
+        .login-page {
+            display: flex;
+            min-height: 100vh;
+            background: var(--off-white);
+        }
+        
+        .login-left {
+            flex: 1;
+            background: linear-gradient(135deg, var(--pink-light) 0%, rgba(254, 198, 224, 0.5) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-logo-container {
             text-align: center;
             margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease-out;
         }
         
-        .page-title {
-            font-size: 3.5rem;
+        .login-logo {
+            height: 120px;
+            width: auto;
+            margin-bottom: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .login-welcome {
             color: var(--pink-primary);
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out 0.3s forwards;
-        }
-        
-        .page-subtitle {
-            color: var(--green-dark);
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            font-weight: 500;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.8s ease-out 0.5s forwards;
-        }
-        
-        /* ===== SUMMARY STATS ===== */
-        .summary-stats {
-            max-width: 1400px;
-            margin: 0 auto 3rem;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-        }
-        
-        .stat-card {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-        }
-        
-        .stat-title {
-            color: var(--green-dark);
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-        }
-        
-        .stat-value {
-            font-size: 2rem;
-            color: var(--pink-primary);
-            font-family: "playwrite-cc-de-grund", serif;
-            font-weight: 100;
-        }
-        
-        .stat-subtitle {
-            color: var(--text-dark);
-            opacity: 0.7;
-            font-size: 0.9rem;
-            margin-top: 0.5rem;
-        }
-        
-        /* ===== FILTERS SECTION ===== */
-        .filters-section {
-            max-width: 1400px;
-            margin: 0 auto 3rem;
-            padding: 0 2rem;
-        }
-        
-        .filters-container {
-            background: var(--white);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            align-items: center;
-            justify-content: space-between;
-        }
-        
-        .filter-group {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .filter-label {
-            color: var(--green-dark);
-            font-weight: 500;
-            white-space: nowrap;
-        }
-        
-        .filter-select, .filter-input {
-            padding: 0.6rem 1rem;
-            border-radius: 10px;
-            border: 1px solid var(--green-light);
-            font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 0.95rem;
-            color: var(--text-dark);
-            background: var(--white);
-            transition: all 0.3s ease;
-        }
-        
-        .filter-select:focus, .filter-input:focus {
-            outline: none;
-            border-color: var(--pink-primary);
-            box-shadow: 0 0 0 2px rgba(220, 79, 108, 0.1);
-        }
-        
-        .reset-btn {
-            padding: 0.6rem 1.5rem;
-            background: transparent;
-            border: 2px solid var(--green-light);
-            border-radius: 10px;
-            color: var(--green-dark);
-            font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .reset-btn:hover {
-            background: var(--green-light);
-            color: var(--white);
-        }
-        
-        .stats-info {
-            color: var(--green-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        
-        /* ===== BOOKS GRID SECTION ===== */
-        .books-section {
-            max-width: 1400px;
-            margin: 0 auto 4rem;
-            padding: 0 2rem;
-        }
-        
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2rem;
-        }
-        
-        .book-card {
-            background: var(--white);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: var(--card-shadow);
-            transition: all 0.4s ease;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 0.6s ease-out forwards;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        
-        .book-card:nth-child(1) { animation-delay: 0.1s; }
-        .book-card:nth-child(2) { animation-delay: 0.2s; }
-        .book-card:nth-child(3) { animation-delay: 0.3s; }
-        .book-card:nth-child(4) { animation-delay: 0.4s; }
-        .book-card:nth-child(5) { animation-delay: 0.5s; }
-        .book-card:nth-child(6) { animation-delay: 0.6s; }
-        .book-card:nth-child(7) { animation-delay: 0.7s; }
-        .book-card:nth-child(8) { animation-delay: 0.8s; }
-        
-        .book-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        
-        .book-cover {
-            width: 100%;
-            height: 320px;
-            background: var(--white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 1rem;
-        }
-        
-        .book-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            object-position: center;
-            transition: transform 0.5s ease;
-            background: var(--white);
-        }
-        
-        .book-card:hover .book-cover img {
-            transform: scale(1.05);
-        }
-        
-        .book-status {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            z-index: 2;
-        }
-        
-        .status-available {
-            background: rgba(76, 175, 80, 0.2);
-            color: #2e7d32;
-        }
-        
-        .status-unavailable {
-            background: rgba(244, 67, 54, 0.2);
-            color: #c62828;
-        }
-        
-        .status-borrowed {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ff8f00;
-        }
-        
-        .type-badge {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            z-index: 2;
-        }
-        
-        .type-collection {
-            background: rgba(220, 79, 108, 0.2);
-            color: var(--pink-primary);
-        }
-        
-        .type-gift {
-            background: rgba(148, 163, 141, 0.2);
-            color: var(--green-dark);
-        }
-        
-        .book-info {
-            padding: 1.5rem;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .book-title {
-            font-size: 1.2rem;
-            color: var(--green-dark);
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            min-height: 3.4rem;
-        }
-        
-        .book-author {
-            color: var(--text-dark);
-            font-size: 0.95rem;
-            margin-bottom: 1rem;
-            opacity: 0.8;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        
-        .book-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(148, 163, 141, 0.2);
-        }
-        
-        .book-rating {
-            display: flex;
-            gap: 0.2rem;
-        }
-        
-        .star {
-            color: #ffc107;
-            font-size: 1rem;
-        }
-        
-        .star.empty {
-            color: #e0e0e0;
-        }
-        
-        .book-country {
-            color: var(--green-light);
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        .book-details {
-            margin-top: auto;
-        }
-        
-        .book-genre {
-            padding: 0.3rem 0.8rem;
-            background: var(--pink-light);
-            border-radius: 15px;
-            color: var(--pink-primary);
-            font-size: 0.8rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-        }
-        
-        .book-price {
-            color: var(--green-dark);
-            font-weight: 500;
-            font-size: 0.95rem;
-        }
-        
-        .book-price.free {
-            color: var(--green-light);
-        }
-        
-        /* ===== PAGINATION ===== */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 3rem;
-            padding: 2rem 0;
-        }
-        
-        .page-btn {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--green-light);
-            background: var(--white);
-            color: var(--green-dark);
-            font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .page-btn:hover {
-            background: var(--green-light);
-            color: var(--white);
-            border-color: var(--green-light);
-        }
-        
-        .page-btn.active {
-            background: var(--pink-primary);
-            color: var(--white);
-            border-color: var(--pink-primary);
-        }
-        
-        .page-dots {
-            color: var(--green-light);
-            font-size: 1.2rem;
-        }
-        
-        /* ===== BORROW FORM MODAL ===== */
-        .borrow-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 3000;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .borrow-modal.active {
-            display: flex;
-        }
-        
-        .borrow-modal-content {
-            background: var(--white);
-            border-radius: 20px;
-            max-width: 500px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            animation: slideUp 0.4s ease;
-            position: relative;
-        }
-        
-        .borrow-modal-header {
-            padding: 2rem 2rem 1.5rem;
-            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
-            border-radius: 20px 20px 0 0;
             text-align: center;
         }
         
-        .borrow-modal-close {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: var(--white);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .borrow-modal-close:hover {
-            background: var(--pink-primary);
-            color: var(--white);
-        }
-        
-        .borrow-modal-title {
-            color: var(--pink-primary);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            font-family: "playwrite-cc-de-grund", serif;
-            font-weight: 100;
-        }
-        
-        .borrow-modal-subtitle {
+        .login-subtitle {
             color: var(--green-dark);
+            font-size: 1.1rem;
+            max-width: 400px;
+            text-align: center;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+        
+        .login-right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3rem;
+            background: var(--white);
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .login-title {
+            color: var(--green-dark);
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+        
+        .login-description {
+            color: var(--green-light);
+            text-align: center;
+            margin-bottom: 2rem;
             font-size: 1rem;
         }
         
-        .borrow-modal-body {
-            padding: 2rem;
-        }
-        
-        .borrow-book-info {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid rgba(148, 163, 141, 0.2);
-        }
-        
-        .borrow-book-cover {
-            width: 100px;
-            height: 140px;
+        .login-form {
             background: var(--white);
-            border-radius: 10px;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        
-        .borrow-book-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .borrow-book-details h4 {
-            color: var(--green-dark);
-            font-size: 1.3rem;
-            margin-bottom: 0.3rem;
-        }
-        
-        .borrow-book-details p {
-            color: var(--text-dark);
-            opacity: 0.8;
-            font-size: 0.95rem;
-            margin-bottom: 0.3rem;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(148, 163, 141, 0.1);
         }
         
         .form-group {
@@ -681,13 +263,14 @@
             color: var(--green-dark);
             margin-bottom: 0.5rem;
             font-weight: 500;
+            font-size: 0.95rem;
         }
         
         .form-input {
             width: 100%;
-            padding: 0.8rem 1rem;
-            border-radius: 10px;
-            border: 1px solid var(--green-light);
+            padding: 0.9rem 1.2rem;
+            border-radius: 12px;
+            border: 2px solid rgba(148, 163, 141, 0.3);
             font-family: "rix-cutecat-pro", sans-serif;
             font-size: 1rem;
             color: var(--text-dark);
@@ -701,65 +284,92 @@
             box-shadow: 0 0 0 3px rgba(220, 79, 108, 0.1);
         }
         
-        .form-textarea {
-            min-height: 100px;
-            resize: vertical;
+        .form-input.error {
+            border-color: var(--error-red);
         }
         
-        .form-hint {
-            font-size: 0.85rem;
+        .form-input.success {
+            border-color: var(--success-green);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
             color: var(--green-light);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-password:hover {
+            color: var(--pink-primary);
+        }
+        
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.85rem;
             margin-top: 0.5rem;
+            display: none;
+        }
+        
+        .error-message.show {
             display: block;
         }
         
-        .borrow-modal-footer {
-            padding: 1.5rem 2rem 2rem;
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            border-top: 1px solid rgba(148, 163, 141, 0.2);
-        }
-        
-        .btn-secondary {
-            padding: 0.8rem 1.5rem;
-            background: transparent;
-            border: 2px solid var(--green-light);
-            border-radius: 10px;
-            color: var(--green-dark);
-            font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-secondary:hover {
-            background: var(--green-light);
-            color: var(--white);
-        }
-        
-        .btn-primary {
-            padding: 0.8rem 1.5rem;
+        .login-button {
+            width: 100%;
+            padding: 1rem;
             background: var(--pink-primary);
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: var(--white);
             font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 0.5rem;
         }
         
-        .btn-primary:hover {
+        .login-button:hover:not(:disabled) {
             background: #c43f5c;
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(220, 79, 108, 0.3);
+            box-shadow: 0 6px 20px rgba(220, 79, 108, 0.3);
         }
         
-        .btn-primary:disabled {
-            opacity: 0.5;
+        .login-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+        
+        .login-button:disabled {
+            opacity: 0.6;
             cursor: not-allowed;
-            transform: none;
+        }
+        
+        .login-footer {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--green-light);
+            font-size: 0.9rem;
+        }
+        
+        .login-footer a {
+            color: var(--pink-primary);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .login-footer a:hover {
+            color: #c43f5c;
+            text-decoration: underline;
         }
         
         /* ===== SUCCESS MESSAGE ===== */
@@ -768,7 +378,7 @@
             position: fixed;
             top: 1rem;
             right: 1rem;
-            background: #4caf50;
+            background: var(--success-green);
             color: white;
             padding: 1rem 1.5rem;
             border-radius: 10px;
@@ -780,6 +390,51 @@
         
         .success-message.active {
             display: block;
+        }
+        
+        /* ===== BOOK ANIMATIONS ===== */
+        .floating-books {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .book-icon {
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(220, 79, 108, 0.2);
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .book-icon:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+        
+        .book-icon:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+        
+        .book-icon:nth-child(3) {
+            bottom: 15%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+        
+        .book-icon:nth-child(4) {
+            bottom: 25%;
+            right: 10%;
+            animation-delay: 3s;
+        }
+        
+        .book-icon:nth-child(5) {
+            top: 40%;
+            left: 5%;
+            animation-delay: 4s;
         }
         
         /* ===== ANIMATIONS ===== */
@@ -794,23 +449,12 @@
             }
         }
         
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
             }
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            50% {
+                transform: translateY(-20px) rotate(5deg);
             }
         }
         
@@ -825,49 +469,37 @@
             }
         }
         
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        
         /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 1400px) {
-            .books-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        @media (max-width: 1200px) {
-            .books-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1.5rem;
-            }
-            
-            .book-cover {
-                height: 280px;
-            }
-        }
-        
         @media (max-width: 992px) {
-            .books-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .summary-stats {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-            }
-            
-            .stat-card {
-                padding: 1.5rem;
-            }
-            
-            .filters-container {
+            .login-page {
                 flex-direction: column;
-                align-items: stretch;
             }
             
-            .filter-group {
-                flex-wrap: wrap;
+            .login-left {
+                padding: 2rem;
+                min-height: 40vh;
             }
             
-            .book-cover {
-                height: 320px;
+            .login-right {
+                padding: 2rem;
+                min-height: 60vh;
+            }
+            
+            .login-logo {
+                height: 80px;
+            }
+            
+            .login-welcome {
+                font-size: 2rem;
             }
         }
         
@@ -888,58 +520,20 @@
                 gap: 1.5rem;
             }
             
-            .collection-header {
-                padding: 6rem 1rem 2rem;
-            }
-            
-            .page-title {
-                font-size: 2.5rem;
-            }
-            
-            .page-subtitle {
-                font-size: 1rem;
-            }
-            
-            .summary-stats {
-                grid-template-columns: 1fr;
-                max-width: 400px;
-            }
-            
-            .filters-section, .books-section {
-                padding: 0 1rem;
-            }
-            
-            .filters-container {
+            .login-left {
                 padding: 1.5rem;
             }
             
-            .books-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1rem;
+            .login-right {
+                padding: 1.5rem;
             }
             
-            .book-cover {
-                height: 280px;
+            .login-form {
+                padding: 1.5rem;
             }
             
-            .borrow-modal {
-                padding: 1rem;
-            }
-            
-            .borrow-modal-content {
-                max-height: 95vh;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .books-grid {
-                grid-template-columns: 1fr;
-                max-width: 350px;
-                margin: 0 auto;
-            }
-            
-            .book-cover {
-                height: 350px;
+            .login-title {
+                font-size: 1.8rem;
             }
             
             .logo-text {
@@ -959,96 +553,36 @@
             .nav-link {
                 font-size: 0.95rem;
             }
-            
-            .borrow-book-info {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .borrow-modal-body {
-                padding: 1.5rem;
-            }
-            
-            .borrow-modal-footer {
-                padding: 1.5rem;
-                flex-direction: column;
-            }
-            
-            .btn-primary, .btn-secondary {
-                width: 100%;
-            }
         }
         
         @media (max-width: 480px) {
-            .page-title {
-                font-size: 2rem;
+            .login-left {
+                padding: 1rem;
             }
             
-            .filter-select, .filter-input {
-                width: 100%;
+            .login-right {
+                padding: 1rem;
             }
             
-            .filter-group {
-                width: 100%;
+            .login-welcome {
+                font-size: 1.6rem;
             }
             
-            .filter-label {
-                width: 100%;
+            .login-subtitle {
+                font-size: 0.95rem;
             }
             
-            .book-cover {
-                height: 300px;
+            .login-title {
+                font-size: 1.5rem;
             }
-        }
-        
-        /* ===== LOADING ANIMATION ===== */
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            color: var(--green-light);
-            font-size: 1.1rem;
-        }
-        
-        .loading::after {
-            content: '';
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--green-light);
-            border-top-color: var(--pink-primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin-left: 10px;
-        }
-        
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
+            
+            .login-form {
+                padding: 1.2rem;
             }
-        }
-        
-        /* ===== IMAGE ERROR FALLBACK ===== */
-        .image-error {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--pink-light), var(--green-light));
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            text-align: center;
-            padding: 1rem;
-        }
-        
-        .image-error-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .image-error-text {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            
+            .form-input {
+                padding: 0.8rem 1rem;
+            }
         }
     </style>
 </head>
@@ -1073,1183 +607,337 @@
         
         <div class="nav-right">
             <a href="index.html" class="nav-link">Home</a>
-            <a href="collection.html" class="nav-link active">Collection</a>
-            <a href="login.html" class="nav-link">Login</a>
+            <a href="collection.html" class="nav-link">Collection</a>
+            <a href="login.html" class="nav-link active">Login</a>
         </div>
     </nav>
 
-    <!-- Collection Header -->
-    <section class="collection-header">
-        <h1 class="page-title">Book Collection</h1>
-        <p class="page-subtitle">
-            Browse through Caca's personal library of carefully curated books. 
-            Each title tells a story of discovery, inspiration, and adventure.
-        </p>
-    </section>
-
-    <!-- Summary Stats -->
-    <section class="summary-stats">
-        <div class="stat-card">
-            <div class="stat-icon">📚</div>
-            <div class="stat-title">Total Books</div>
-            <div class="stat-value" id="totalBooksCount">147</div>
-            <div class="stat-subtitle">In Caca's Library</div>
+    <!-- Login Page Content -->
+    <div class="login-page">
+        <!-- Left Side: Logo and Welcome -->
+        <div class="login-left">
+            <div class="floating-books">
+                <div class="book-icon">📚</div>
+                <div class="book-icon">📖</div>
+                <div class="book-icon">✨</div>
+                <div class="book-icon">📚</div>
+                <div class="book-icon">📖</div>
+            </div>
+            
+            <div class="login-logo-container">
+                <img src="image/logo.svg" alt="Yomu Kiroku Logo" class="login-logo" id="loginLogo">
+                <h1 class="login-welcome">Welcome Back!</h1>
+                <p class="login-subtitle">
+                    Access Caca's personal library collection. 
+                    Please login with your authorized credentials to continue.
+                </p>
+            </div>
         </div>
         
-        <div class="stat-card">
-            <div class="stat-icon">📕</div>
-            <div class="stat-title">Fiction Books</div>
-            <div class="stat-value" id="fictionBooksCount">99</div>
-            <div class="stat-subtitle">Rp 7,010,500</div>
-        </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon">📘</div>
-            <div class="stat-title">Non-Fiction Books</div>
-            <div class="stat-value" id="nonFictionBooksCount">48</div>
-            <div class="stat-subtitle">Rp 3,837,900</div>
-        </div>
-    </section>
-
-    <!-- Filters Section -->
-    <section class="filters-section">
-        <div class="filters-container">
-            <div class="filter-group">
-                <span class="filter-label">Type:</span>
-                <select class="filter-select" id="typeFilter">
-                    <option value="all">All Types</option>
-                    <option value="collection">Collection</option>
-                    <option value="gift">Gift</option>
-                    <option value="souvenir">Souvenir</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
-                <span class="filter-label">Status:</span>
-                <select class="filter-select" id="statusFilter">
-                    <option value="all">All Books</option>
-                    <option value="available">Available</option>
-                    <option value="unavailable">Unavailable</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
-                <span class="filter-label">Sort by:</span>
-                <select class="filter-select" id="sortFilter">
-                    <option value="title-asc">Title (A-Z)</option>
-                    <option value="title-desc">Title (Z-A)</option>
-                    <option value="rating-desc">Rating (High to Low)</option>
-                    <option value="rating-asc">Rating (Low to High)</option>
-                </select>
-            </div>
-            
-            <button class="reset-btn" id="resetFilters">Reset Filters</button>
-            
-            <div class="stats-info">
-                Showing <span id="booksCount">12</span> of <span id="totalFilteredBooks">147</span> books
-            </div>
-        </div>
-    </section>
-
-    <!-- Books Grid Section -->
-    <section class="books-section">
-        <div class="books-grid" id="booksGrid">
-            <!-- Book cards will be generated by JavaScript -->
-        </div>
-        
-        <!-- Pagination -->
-        <div class="pagination" id="pagination">
-            <!-- Pagination will be generated by JavaScript -->
-        </div>
-    </section>
-
-    <!-- Borrow Form Modal -->
-    <div class="borrow-modal" id="borrowModal">
-        <div class="borrow-modal-content">
-            <div class="borrow-modal-header">
-                <button class="borrow-modal-close" id="closeBorrowModal">×</button>
-                <h3 class="borrow-modal-title">Borrow This Book</h3>
-                <p class="borrow-modal-subtitle">Fill out the form to request this book</p>
-            </div>
-            
-            <div class="borrow-modal-body">
-                <div class="borrow-book-info" id="borrowBookInfo">
-                    <!-- Book info will be inserted here -->
-                </div>
+        <!-- Right Side: Login Form -->
+        <div class="login-right">
+            <div class="login-container">
+                <h2 class="login-title">Login to Yomu Kiroku</h2>
+                <p class="login-description">
+                    Enter your username and password to access the book collection
+                </p>
                 
-                <form id="borrowForm">
+                <form class="login-form" id="loginForm">
                     <div class="form-group">
-                        <label class="form-label" for="borrowerName">Your Name *</label>
+                        <label class="form-label" for="username">Username</label>
                         <input type="text" 
                                class="form-input" 
-                               id="borrowerName" 
-                               name="borrowerName"
-                               placeholder="Enter your full name"
+                               id="username" 
+                               name="username"
+                               placeholder="Enter your username"
+                               autocomplete="username"
                                required>
+                        <div class="error-message" id="usernameError">
+                            Please enter a valid username
+                        </div>
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label" for="borrowerPhone">Phone Number *</label>
-                        <input type="tel" 
-                               class="form-input" 
-                               id="borrowerPhone" 
-                               name="borrowerPhone"
-                               placeholder="Enter your WhatsApp number"
-                               required>
-                        <span class="form-hint">Admin will contact you via WhatsApp for confirmation</span>
+                        <label class="form-label" for="password">Password</label>
+                        <div class="password-container">
+                            <input type="password" 
+                                   class="form-input" 
+                                   id="password" 
+                                   name="password"
+                                   placeholder="Enter your password"
+                                   autocomplete="current-password"
+                                   required>
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                👁️
+                            </button>
+                        </div>
+                        <div class="error-message" id="passwordError">
+                            Please enter a valid password
+                        </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label class="form-label" for="borrowDate">Preferred Borrow Date</label>
-                        <input type="date" 
-                               class="form-input" 
-                               id="borrowDate" 
-                               name="borrowDate">
-                        <span class="form-hint">When would you like to pick up the book?</span>
-                    </div>
+                    <button type="submit" class="login-button" id="loginButton">
+                        <span id="loginButtonText">Login</span>
+                        <span id="loginButtonLoading" style="display: none;">Authenticating...</span>
+                    </button>
                     
-                    <div class="form-group">
-                        <label class="form-label" for="borrowDuration">Borrow Duration</label>
-                        <select class="form-input" id="borrowDuration" name="borrowDuration">
-                            <option value="1-week">1 Week</option>
-                            <option value="2-weeks" selected>2 Weeks</option>
-                            <option value="3-weeks">3 Weeks</option>
-                            <option value="1-month">1 Month</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label class="form-label" for="additionalNotes">Additional Notes (Optional)</label>
-                        <textarea class="form-input form-textarea" 
-                                  id="additionalNotes" 
-                                  name="additionalNotes"
-                                  placeholder="Any specific requests or questions?"></textarea>
+                    <div class="login-footer">
+                        <p>
+                            Only authorized users (Caca & Azam) can access this system.<br>
+                            Having trouble? Contact admin directly.
+                        </p>
+                        <p style="margin-top: 1rem;">
+                            <a href="collection.html">← Back to Collection</a>
+                        </p>
                     </div>
                 </form>
-            </div>
-            
-            <div class="borrow-modal-footer">
-                <button type="button" class="btn-secondary" id="cancelBorrow">Cancel</button>
-                <button type="button" class="btn-primary" id="sendBorrowRequest" disabled>
-                    <span id="sendButtonText">Send Borrow Request</span>
-                    <span id="sendButtonLoading" style="display: none;">Sending...</span>
-                </button>
             </div>
         </div>
     </div>
 
     <!-- Success Message -->
     <div class="success-message" id="successMessage">
-        <strong>✓ Request Sent!</strong><br>
-        Your borrow request has been sent to Caca. She will contact you via WhatsApp shortly to confirm.
+        <strong>✓ Login Successful!</strong><br>
+        Welcome back! Redirecting to collection page...
     </div>
 
     <script>
-        // ===== BOOKS DATA FROM YOUR LIST =====
-        const booksData = [
-            // Fiction Books (99 books)
-            {
-                id: 1,
-                title: "Cantik Itu Luka",
-                author: "Eka Kurniawan",
-                country: "Indonesia",
-                genre: "Romance",
-                rating: 3,
-                status: "Available",
-                price: "Rp125,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/9786020366517_Cantik-Itu-Luka-Hard-Cover---Limited-Edition.jpg"
+        // ===== AUTHORIZED USERS =====
+        const authorizedUsers = {
+            "caca": {
+                username: "caca",
+                password: "caca123",
+                name: "Caca"
             },
-            {
-                id: 2,
-                title: "Lemonade Granny",
-                author: "Hyun I Rang",
-                country: "Korea",
-                genre: "Family",
-                rating: 3,
-                status: "Available",
-                price: "Free",
-                type: "gift",
-                cover: "https://cdn.gramedia.com/uploads/picture_meta/2022/12/27/kejnoywteyrdgjh9e9mmt5.jpg"
-            },
-            {
-                id: 3,
-                title: "Book's Kitchen",
-                author: "Kim Jee Hye",
-                country: "Korea",
-                genre: "Social",
-                rating: 3,
-                status: "Available",
-                price: "Rp79,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/picture_meta/2024/5/19/o5vz9ag3myjih5jgavnn4e.jpg"
-            },
-            {
-                id: 4,
-                title: "Laut Bercerita",
-                author: "Leila S. Chudori",
-                country: "Indonesia",
-                genre: "Mystery",
-                rating: 4,
-                status: "Available",
-                price: "Rp115,000",
-                type: "collection",
-                cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsYSmzeCJbb8nHW1c2j8T8ICtahWZdO5VQnw&s"
-            },
-            {
-                id: 5,
-                title: "Marathon Bareng Pacar",
-                author: "Prof. Suo",
-                country: "Indonesia",
-                genre: "Romance",
-                rating: 2,
-                status: "Available",
-                price: "Free",
-                type: "souvenir",
-                cover: "https://telupress.telkomuniversity.ac.id/storage/cover/B250090_1762504624.png"
-            },
-            {
-                id: 6,
-                title: "The Lost Library",
-                author: "Rebecca Stead",
-                country: "United States",
-                genre: "Social",
-                rating: 4,
-                status: "Available",
-                price: "Rp69,000",
-                type: "collection",
-                cover: "https://www.gramedia.com/blog/content/images/2024/11/The-Lost-Library.jpg"
-            },
-            {
-                id: 7,
-                title: "Twenty Four Eyes",
-                author: "Sakae Tsuboi",
-                country: "Jepang",
-                genre: "Social",
-                rating: 4,
-                status: "Available",
-                price: "Rp70,000",
-                type: "collection",
-                cover: "https://ebooks.gramedia.com/ebook-covers/63435/image_highres/kre8xljokxzhj7vskjlz4tgh5lo2zt.jpg"
-            },
-            {
-                id: 8,
-                title: "Kau Aku Sepucuk Angpau Merah",
-                author: "Tere Liye",
-                country: "Indonesia",
-                genre: "Romance",
-                rating: 3,
-                status: "Available",
-                price: "Rp109,000",
-                type: "collection",
-                cover: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFb07SF1hIq_WZ15vwiTDm8JDsNf-69m68yw&s"
-            },
-            {
-                id: 9,
-                title: "Rain",
-                author: "Tere Liye",
-                country: "Indonesia",
-                genre: "Fantasy",
-                rating: 4,
-                status: "Available",
-                price: "Rp109,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/product-metas/z4-viiz96v.jpg"
-            },
-            {
-                id: 10,
-                title: "Si Anak Cahaya",
-                author: "Tere Liye",
-                country: "Indonesia",
-                genre: "Family",
-                rating: 4,
-                status: "Available",
-                price: "Rp95,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/9786239607418.jpg"
-            },
-            // Non-Fiction Books (48 books)
-            {
-                id: 101,
-                title: "Energy Vampires",
-                author: "Ardianto R. Putra",
-                country: "Indonesia",
-                genre: "Self-Development",
-                rating: 2,
-                status: "Available",
-                price: "Rp65,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/product-metas/xnrv5y53xz.jpg"
-            },
-            {
-                id: 102,
-                title: "How to Win Friends & Influence People",
-                author: "Dale Carnegie Assoc.",
-                country: "United States",
-                genre: "Self-Development",
-                rating: 3,
-                status: "Available",
-                price: "Rp89,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/picture_meta/2023/3/3/d9xcfccajqba5sbzb4lwlu.jpg"
-            },
-            {
-                id: 103,
-                title: "The Adaptive Mind",
-                author: "R. Buddy",
-                country: "Indonesia",
-                genre: "Psychology",
-                rating: 2,
-                status: "Available",
-                price: "Rp69,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/product-metas/n2-4e35h1d.jpg"
-            },
-            {
-                id: 104,
-                title: "Less Sensitive",
-                author: "Restia Ningrum",
-                country: "Indonesia",
-                genre: "Psychology",
-                rating: 2,
-                status: "Available",
-                price: "Rp60,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/product-metas/upv-aa0rth.jpg"
-            },
-            {
-                id: 105,
-                title: "A Brief History of Time",
-                author: "Stephen Hawking",
-                country: "United Kingdom",
-                genre: "History",
-                rating: 3,
-                status: "Available",
-                price: "Rp70,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/9789792292121_a-brief-history-of-time_sejarah-singkat-waktu.jpg"
-            },
-            {
-                id: 106,
-                title: "The Art of Devine Timing",
-                author: "Utami Pratiwi",
-                country: "Indonesia",
-                genre: "Self-Development",
-                rating: 2,
-                status: "Available",
-                price: "Rp65,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/product-metas/io1txt06x9.jpg"
-            },
-            {
-                id: 107,
-                title: "The Art of Stoicism",
-                author: "Adora Kinara",
-                country: "Indonesia",
-                genre: "Psychology",
-                rating: 3,
-                status: "Available",
-                price: "Rp65,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/products/hi8t0exes3.JPG"
-            },
-            {
-                id: 108,
-                title: "The Principle of Being You",
-                author: "Gunawan Mahdi",
-                country: "Indonesia",
-                genre: "Self-Development",
-                rating: 2,
-                status: "Available",
-                price: "Rp40,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/products/cfpvu1xh83.jpg"
-            },
-            {
-                id: 109,
-                title: "Filosofi Teras",
-                author: "Henry Manampiring",
-                country: "Indonesia",
-                genre: "Self-Development",
-                rating: 3,
-                status: "Available",
-                price: "Rp108,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/img20220101_11444970.jpg"
-            },
-            {
-                id: 110,
-                title: "Abnormal Psychology",
-                author: "Jeffrey S. Nevid",
-                country: "United States",
-                genre: "Psychology",
-                rating: 4,
-                status: "Available",
-                price: "Rp306,600",
-                type: "collection",
-                cover: "https://down-id.img.susercontent.com/file/id-11134207-7rbk2-m6etbijxbj3557"
-            },
-            // Add more sample books...
-            {
-                id: 111,
-                title: "Outliers",
-                author: "Malcolm Gladwell",
-                country: "United States",
-                genre: "Self-Development",
-                rating: 3,
-                status: "Available",
-                price: "Rp78,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/9789792244762_Outliers_MALCLOM_GLADWELL_C_1_4-1.jpg"
-            },
-            {
-                id: 112,
-                title: "Atomic Habits",
-                author: "James Clear",
-                country: "United States",
-                genre: "Self-Development",
-                rating: 3,
-                status: "Available",
-                price: "Rp108,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/9786020633176_.Atomic_Habit.jpg"
-            },
-            {
-                id: 113,
-                title: "Mindset",
-                author: "Carol S. Dweck, Ph.d.",
-                country: "United States",
-                genre: "Self-Development",
-                rating: 3,
-                status: "Available",
-                price: "Rp111,000",
-                type: "collection",
-                cover: "https://www.gramedia.com/blog/content/images/2021/08/mindset.jpg"
-            },
-            {
-                id: 114,
-                title: "The Psychology of Money",
-                author: "Morgan Housel",
-                country: "United States",
-                genre: "Psychology",
-                rating: 3,
-                status: "Available",
-                price: "Rp100,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/picture_meta/2024/1/20/qvjtc65vbzmexfegzrgs7u.jpg"
-            },
-            {
-                id: 115,
-                title: "I Want To Die But I Want To Eat Tteokpokki",
-                author: "Baek Se Hee",
-                country: "Korea",
-                genre: "Psychology",
-                rating: 4,
-                status: "Available",
-                price: "Rp109,000",
-                type: "collection",
-                cover: "https://cdn.gramedia.com/uploads/items/9786237351030.jpg"
-            },
-            {
-                id: 116,
-                title: "I Want To Die But I Want To Eat Tteokpokki 2",
-                author: "Baek Se Hee",
-                country: "Korea",
-                genre: "Psychology",
-                rating: 4,
-                status: "Available",
-                price: "Rp105,000",
-                type: "collection",
-                cover: "https://www.gramedia.com/blog/content/images/2022/01/adf.jpg"
-            },
-            {
-                id: 117,
-                title: "How To Respect Myself",
-                author: "Yoon Hong Gyun",
-                country: "Korea",
-                genre: "Philosophy",
-                rating: 3,
-                status: "Available",
-                price: "Rp99,000",
-                type: "collection",
-                cover: "https://www.gramedia.com/blog/content/images/2025/06/Screenshot-2025-06-04-134659.png"
-            },
-            {
-                id: 118,
-                title: "Aku Benci dan Cinta",
-                author: "Wulanfadi",
-                country: "Indonesia",
-                genre: "Romance",
-                rating: 1,
-                status: "Available",
-                price: "Rp89,000",
-                type: "collection",
-                cover: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1498391153i/28406554.jpg"
-            },
-            {
-                id: 119,
-                title: "Dilan",
-                author: "Pidi Baiq",
-                country: "Indonesia",
-                genre: "Romance",
-                rating: 3,
-                status: "Available",
-                price: "Free",
-                type: "gift",
-                cover: "https://assets.kompasiana.com/items/album/2024/01/24/id-miz2016mth03ddadt-b-65aff792de948f096a268b74.jpg?t=o&v=300"
-            },
-            {
-                id: 120,
-                title: "1984",
-                author: "George Orwell",
-                country: "United Kingdom",
-                genre: "Social",
-                rating: 3,
-                status: "Available",
-                price: "Rp106,000",
-                type: "collection",
-                cover: "https://image.gramedia.net/rs:fit:0:0/plain/https://cdn.gramedia.com/uploads/picture_meta/2023/3/5/zkppnzqigyqalgqftuzbpz.jpg"
+            "azam": {
+                username: "azam",
+                password: "azam123",
+                name: "Azam"
             }
-        ];
-
-        // ===== STATE MANAGEMENT =====
-        let currentPage = 1;
-        const booksPerPage = 12;
-        let filteredBooks = [...booksData];
-        let searchTerm = '';
-        let currentType = 'all';
-        let currentStatus = 'all';
-        let currentSort = 'title-asc';
-        let currentBookForBorrow = null;
+        };
 
         // ===== DOM ELEMENTS =====
-        const booksGrid = document.getElementById('booksGrid');
-        const searchInput = document.getElementById('searchInput');
-        const typeFilter = document.getElementById('typeFilter');
-        const statusFilter = document.getElementById('statusFilter');
-        const sortFilter = document.getElementById('sortFilter');
-        const resetFilters = document.getElementById('resetFilters');
-        const booksCount = document.getElementById('booksCount');
-        const totalFilteredBooks = document.getElementById('totalFilteredBooks');
-        const totalBooksCount = document.getElementById('totalBooksCount');
-        const fictionBooksCount = document.getElementById('fictionBooksCount');
-        const nonFictionBooksCount = document.getElementById('nonFictionBooksCount');
-        const pagination = document.getElementById('pagination');
-        
-        // Borrow Modal Elements
-        const borrowModal = document.getElementById('borrowModal');
-        const closeBorrowModal = document.getElementById('closeBorrowModal');
-        const cancelBorrow = document.getElementById('cancelBorrow');
-        const borrowBookInfo = document.getElementById('borrowBookInfo');
-        const borrowForm = document.getElementById('borrowForm');
-        const sendBorrowRequest = document.getElementById('sendBorrowRequest');
-        const borrowerName = document.getElementById('borrowerName');
-        const borrowerPhone = document.getElementById('borrowerPhone');
-        const borrowDate = document.getElementById('borrowDate');
-        const borrowDuration = document.getElementById('borrowDuration');
-        const additionalNotes = document.getElementById('additionalNotes');
-        const sendButtonText = document.getElementById('sendButtonText');
-        const sendButtonLoading = document.getElementById('sendButtonLoading');
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const loginButton = document.getElementById('loginButton');
+        const loginButtonText = document.getElementById('loginButtonText');
+        const loginButtonLoading = document.getElementById('loginButtonLoading');
+        const usernameError = document.getElementById('usernameError');
+        const passwordError = document.getElementById('passwordError');
         const successMessage = document.getElementById('successMessage');
+        const loginLogo = document.getElementById('loginLogo');
+        const logoImg = document.getElementById('logo-img');
+        
+        // Search functionality (from collection page)
+        const searchInput = document.getElementById('searchInput');
 
-        // ===== BOOK CARD TEMPLATE =====
-        function createBookCard(book) {
-            const statusClass = `status-${book.status.toLowerCase()}`;
-            const typeClass = `type-${book.type}`;
+        // ===== PASSWORD VISIBILITY TOGGLE =====
+        togglePassword.addEventListener('click', function() {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
+        });
+
+        // ===== FORM VALIDATION =====
+        function validateForm() {
+            let isValid = true;
             
-            // Create star rating HTML
-            let starsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                starsHtml += `<span class="star ${i > book.rating ? 'empty' : ''}">★</span>`;
+            // Reset errors
+            usernameError.classList.remove('show');
+            passwordError.classList.remove('show');
+            usernameInput.classList.remove('error');
+            passwordInput.classList.remove('error');
+            
+            // Validate username
+            if (!usernameInput.value.trim()) {
+                usernameError.textContent = 'Username is required';
+                usernameError.classList.add('show');
+                usernameInput.classList.add('error');
+                isValid = false;
             }
             
-            return `
-                <div class="book-card" data-id="${book.id}" data-available="${book.status === 'Available'}">
-                    <div class="book-cover">
-                        <img src="${book.cover}" 
-                             alt="${book.title}"
-                             loading="lazy"
-                             onerror="this.onerror=null; this.src=''; this.parentElement.innerHTML='<div class=\"image-error\"><div class=\"image-error-icon\">📚</div><div class=\"image-error-text\">${book.title}</div></div>';">
-                        <span class="book-status ${statusClass}">${book.status}</span>
-                        <span class="type-badge ${typeClass}">${book.type}</span>
-                    </div>
-                    <div class="book-info">
-                        <h3 class="book-title" title="${book.title}">${book.title}</h3>
-                        <p class="book-author" title="${book.author}">${book.author}</p>
-                        <div class="book-meta">
-                            <div class="book-rating" title="${book.rating} stars">
-                                ${starsHtml}
-                            </div>
-                            <span class="book-country" title="${book.country}">
-                                🌍 ${book.country}
-                            </span>
-                        </div>
-                        <div class="book-details">
-                            <span class="book-genre">${book.genre}</span>
-                            <span class="book-price ${book.price === 'Free' ? 'free' : ''}">
-                                ${book.price === 'Free' ? '🎁 Gift' : book.price}
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            `;
+            // Validate password
+            if (!passwordInput.value.trim()) {
+                passwordError.textContent = 'Password is required';
+                passwordError.classList.add('show');
+                passwordInput.classList.add('error');
+                isValid = false;
+            }
+            
+            return isValid;
         }
 
-        // ===== FILTER FUNCTIONS =====
-        function filterBooks() {
-            let result = [...booksData];
+        // ===== LOGIN FUNCTION =====
+        function handleLogin(event) {
+            event.preventDefault();
             
-            // Search filter
-            if (searchTerm) {
-                const term = searchTerm.toLowerCase();
-                result = result.filter(book => 
-                    book.title.toLowerCase().includes(term) ||
-                    book.author.toLowerCase().includes(term) ||
-                    book.genre.toLowerCase().includes(term) ||
-                    book.country.toLowerCase().includes(term)
-                );
-            }
-            
-            // Type filter
-            if (currentType !== 'all') {
-                result = result.filter(book => book.type === currentType);
-            }
-            
-            // Status filter
-            if (currentStatus !== 'all') {
-                result = result.filter(book => {
-                    if (currentStatus === 'available') {
-                        return book.status === 'Available';
-                    } else if (currentStatus === 'unavailable') {
-                        return book.status !== 'Available';
-                    }
-                    return true;
-                });
-            }
-            
-            // Sort books
-            result.sort((a, b) => {
-                switch (currentSort) {
-                    case 'title-asc':
-                        return a.title.localeCompare(b.title);
-                    case 'title-desc':
-                        return b.title.localeCompare(a.title);
-                    case 'rating-desc':
-                        return b.rating - a.rating;
-                    case 'rating-asc':
-                        return a.rating - b.rating;
-                    default:
-                        return 0;
-                }
-            });
-            
-            filteredBooks = result;
-            updateBooksCount();
-            renderBooks();
-            renderPagination();
-        }
-
-        // ===== RENDER FUNCTIONS =====
-        function renderBooks() {
-            const startIndex = (currentPage - 1) * booksPerPage;
-            const endIndex = startIndex + booksPerPage;
-            const booksToShow = filteredBooks.slice(startIndex, endIndex);
-            
-            booksGrid.innerHTML = '';
-            
-            if (booksToShow.length === 0) {
-                booksGrid.innerHTML = `
-                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
-                        <div style="font-size: 4rem; color: var(--green-light); margin-bottom: 1rem;">📚</div>
-                        <h3 style="color: var(--green-dark); margin-bottom: 0.5rem;">No books found</h3>
-                        <p style="color: var(--text-dark); opacity: 0.8;">Try adjusting your search or filters</p>
-                    </div>
-                `;
+            if (!validateForm()) {
                 return;
             }
             
-            booksToShow.forEach(book => {
-                booksGrid.innerHTML += createBookCard(book);
-            });
+            const username = usernameInput.value.trim().toLowerCase();
+            const password = passwordInput.value.trim();
             
-            // Add click event to book cards
-            document.querySelectorAll('.book-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const bookId = this.getAttribute('data-id');
-                    const isAvailable = this.getAttribute('data-available') === 'true';
-                    showBookDetails(bookId, isAvailable);
-                });
-            });
-            
-            // Add lazy loading to images
-            const imageObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        const src = img.getAttribute('data-src');
-                        if (src) {
-                            img.src = src;
-                            img.removeAttribute('data-src');
-                        }
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-            
-            document.querySelectorAll('.book-cover img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
-
-        function renderPagination() {
-            const totalPages = Math.ceil(filteredBooks.length / booksPerPage);
-            
-            if (totalPages <= 1) {
-                pagination.style.display = 'none';
+            // Check if user is authorized
+            if (!authorizedUsers[username]) {
+                usernameError.textContent = 'User not authorized';
+                usernameError.classList.add('show');
+                usernameInput.classList.add('error');
                 return;
             }
             
-            pagination.style.display = 'flex';
-            pagination.innerHTML = '';
-            
-            // Previous button
-            const prevBtn = document.createElement('button');
-            prevBtn.className = 'page-btn prev-btn';
-            prevBtn.innerHTML = '←';
-            prevBtn.disabled = currentPage === 1;
-            prevBtn.addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    renderBooks();
-                    renderPagination();
-                    window.scrollTo({ top: 500, behavior: 'smooth' });
-                }
-            });
-            pagination.appendChild(prevBtn);
-            
-            // Page numbers
-            for (let i = 1; i <= totalPages; i++) {
-                if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
-                    const pageBtn = document.createElement('button');
-                    pageBtn.className = `page-btn ${currentPage === i ? 'active' : ''}`;
-                    pageBtn.textContent = i;
-                    pageBtn.addEventListener('click', () => {
-                        currentPage = i;
-                        renderBooks();
-                        renderPagination();
-                        window.scrollTo({ top: 500, behavior: 'smooth' });
-                    });
-                    pagination.appendChild(pageBtn);
-                } else if (i === currentPage - 2 || i === currentPage + 2) {
-                    const dots = document.createElement('span');
-                    dots.className = 'page-dots';
-                    dots.textContent = '...';
-                    pagination.appendChild(dots);
-                }
+            // Check password
+            if (password !== authorizedUsers[username].password) {
+                passwordError.textContent = 'Incorrect password';
+                passwordError.classList.add('show');
+                passwordInput.classList.add('error');
+                return;
             }
             
-            // Next button
-            const nextBtn = document.createElement('button');
-            nextBtn.className = 'page-btn next-btn';
-            nextBtn.innerHTML = '→';
-            nextBtn.disabled = currentPage === totalPages;
-            nextBtn.addEventListener('click', () => {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    renderBooks();
-                    renderPagination();
-                    window.scrollTo({ top: 500, behavior: 'smooth' });
-                }
-            });
-            pagination.appendChild(nextBtn);
-        }
-
-        function updateBooksCount() {
-            const showing = Math.min(filteredBooks.length, currentPage * booksPerPage);
-            booksCount.textContent = showing;
-            totalFilteredBooks.textContent = filteredBooks.length;
-            
-            // Update summary stats
-            const fictionCount = booksData.filter(book => book.id <= 100).length;
-            const nonFictionCount = booksData.filter(book => book.id > 100).length;
-            
-            totalBooksCount.textContent = booksData.length;
-            fictionBooksCount.textContent = fictionCount;
-            nonFictionBooksCount.textContent = nonFictionCount;
-        }
-
-        // ===== BORROW MODAL FUNCTIONS =====
-        function openBorrowModal(book) {
-            currentBookForBorrow = book;
-            
-            // Set book info in modal
-            borrowBookInfo.innerHTML = `
-                <div class="borrow-book-cover">
-                    <img src="${book.cover}" alt="${book.title}" onerror="this.src=''; this.style.display='none'; this.parentElement.innerHTML='<div style=\"width:100px;height:140px;background:linear-gradient(135deg, var(--pink-light), var(--green-light));display:flex;align-items:center;justify-content:center;border-radius:10px;color:white;font-size:2rem;\">📚</div>';">
-                </div>
-                <div class="borrow-book-details">
-                    <h4>${book.title}</h4>
-                    <p>by ${book.author}</p>
-                    <p>${book.country} • ${book.genre}</p>
-                    <p><small>⭐ ${book.rating}/5 • ${book.price}</small></p>
-                </div>
-            `;
-            
-            // Set minimum date to tomorrow
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            borrowDate.min = tomorrow.toISOString().split('T')[0];
-            
-            // Reset form
-            borrowForm.reset();
-            
-            // Enable/disable send button based on form validity
-            updateSendButtonState();
-            
-            // Show modal
-            borrowModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal() {
-            borrowModal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            currentBookForBorrow = null;
-        }
-
-        function updateSendButtonState() {
-            const isFormValid = borrowerName.value.trim() !== '' && 
-                               borrowerPhone.value.trim() !== '';
-            sendBorrowRequest.disabled = !isFormValid;
-        }
-
-        function showSuccessMessage() {
-            successMessage.classList.add('active');
-            setTimeout(() => {
-                successMessage.classList.remove('active');
-            }, 5000);
-        }
-
-        function sendBorrowRequestToAdmin() {
             // Show loading state
-            sendButtonText.style.display = 'none';
-            sendButtonLoading.style.display = 'inline';
-            sendBorrowRequest.disabled = true;
+            loginButtonText.style.display = 'none';
+            loginButtonLoading.style.display = 'inline';
+            loginButton.disabled = true;
             
-            // Get form data
-            const formData = {
-                bookTitle: currentBookForBorrow.title,
-                bookAuthor: currentBookForBorrow.author,
-                borrowerName: borrowerName.value.trim(),
-                borrowerPhone: borrowerPhone.value.trim(),
-                borrowDate: borrowDate.value || 'Not specified',
-                borrowDuration: borrowDuration.value,
-                additionalNotes: additionalNotes.value.trim(),
-                timestamp: new Date().toLocaleString('id-ID')
-            };
-            
-            // Admin phone number (Caca)
-            const adminPhone = '6281234567890'; // Ganti dengan nomor WhatsApp Caca
-            const adminName = 'Caca';
-            
-            // Create WhatsApp message
-            const message = `📚 *BOOK BORROW REQUEST*\n\n` +
-                          `*Book:* ${formData.bookTitle}\n` +
-                          `*Author:* ${formData.bookAuthor}\n\n` +
-                          `*Borrower Details:*\n` +
-                          `👤 Name: ${formData.borrowerName}\n` +
-                          `📱 Phone: ${formData.borrowerPhone}\n\n` +
-                          `*Request Details:*\n` +
-                          `📅 Preferred Date: ${formData.borrowDate}\n` +
-                          `⏱️ Duration: ${formData.borrowDuration}\n` +
-                          `💭 Notes: ${formData.additionalNotes || 'None'}\n\n` +
-                          `_Requested at: ${formData.timestamp}_`;
-            
-            // Simulate sending delay
+            // Simulate API call delay
             setTimeout(() => {
-                sendButtonText.style.display = 'inline';
-                sendButtonLoading.style.display = 'none';
-                
-                // Close modal
-                closeModal();
+                // Successful login
+                usernameInput.classList.add('success');
+                passwordInput.classList.add('success');
                 
                 // Show success message
-                showSuccessMessage();
+                successMessage.innerHTML = `
+                    <strong>✓ Login Successful!</strong><br>
+                    Welcome back, ${authorizedUsers[username].name}! Redirecting...
+                `;
+                successMessage.classList.add('active');
                 
-                // For demo purposes
-                console.log('Borrow request:', formData);
-                console.log('WhatsApp message would be sent to:', adminPhone);
+                // Store login state in localStorage
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', JSON.stringify(authorizedUsers[username]));
+                
+                // Redirect to collection page after delay
+                setTimeout(() => {
+                    window.location.href = 'collection.html';
+                }, 2000);
                 
             }, 1500);
         }
 
-        // ===== BOOK DETAILS MODAL =====
-        function showBookDetails(bookId, isAvailable) {
-            const book = booksData.find(b => b.id === parseInt(bookId));
-            if (!book) return;
-            
-            // Create modal
-            const modal = document.createElement('div');
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: rgba(0, 0, 0, 0.7);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 2000;
-                padding: 2rem;
-                backdrop-filter: blur(5px);
-            `;
-            
-            // Create star rating HTML
-            let starsHtml = '';
-            for (let i = 1; i <= 5; i++) {
-                starsHtml += `<span style="color: ${i > book.rating ? '#e0e0e0' : '#ffc107'}; font-size: 1.5rem;">★</span>`;
-            }
-            
-            modal.innerHTML = `
-                <div style="background: white; border-radius: 20px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto;">
-                    <div style="position: relative;">
-                        <div style="padding: 3rem 3rem 2rem; background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));">
-                            <button style="position: absolute; top: 1rem; right: 1rem; background: white; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.2rem; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">×</button>
-                            <div style="text-align: center; margin-bottom: 2rem;">
-                                <div style="width: 200px; height: 280px; margin: 0 auto 1rem; background: white; border-radius: 10px; overflow: hidden; display: flex; align-items: center; justify-content: center;">
-                                    <img src="${book.cover}" alt="${book.title}" 
-                                         style="width: 100%; height: 100%; object-fit: contain;"
-                                         onerror="this.src=''; this.parentElement.innerHTML='<div style=\"width:100%;height:100%;background:linear-gradient(135deg, var(--pink-light), var(--green-light));display:flex;align-items:center;justify-content:center;color:white;font-size:3rem;\">📚</div>';">
-                                </div>
-                                <span style="padding: 0.5rem 1.5rem; border-radius: 20px; background: ${book.status === 'Available' ? 'rgba(76, 175, 80, 0.2)' : 'rgba(244, 67, 54, 0.2)'}; color: ${book.status === 'Available' ? '#2e7d32' : '#c62828'}; font-weight: 500;">${book.status}</span>
-                                <span style="padding: 0.5rem 1.5rem; border-radius: 20px; background: ${book.type === 'collection' ? 'rgba(220, 79, 108, 0.2)' : 'rgba(148, 163, 141, 0.2)'}; color: ${book.type === 'collection' ? 'var(--pink-primary)' : 'var(--green-dark)'}; font-weight: 500; margin-left: 0.5rem;">${book.type}</span>
-                            </div>
-                        </div>
-                        
-                        <div style="padding: 2rem 3rem 3rem;">
-                            <h2 style="color: #4b6967; margin-bottom: 0.5rem; font-size: 1.8rem;">${book.title}</h2>
-                            <p style="color: #666; margin-bottom: 1.5rem; font-size: 1.1rem;">by ${book.author}</p>
-                            
-                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
-                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
-                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Country</div>
-                                    <div style="color: #4b6967; font-weight: 500;">🌍 ${book.country}</div>
-                                </div>
-                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
-                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Genre</div>
-                                    <div style="color: #4b6967; font-weight: 500;">${book.genre}</div>
-                                </div>
-                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
-                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Price</div>
-                                    <div style="color: #4b6967; font-weight: 500;">${book.price}</div>
-                                </div>
-                                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px;">
-                                    <div style="color: #94a38d; font-size: 0.9rem; margin-bottom: 0.5rem;">Rating</div>
-                                    <div style="color: #4b6967; font-weight: 500;">${starsHtml}</div>
-                                </div>
-                            </div>
-                            
-                            <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem;">
-                                <h3 style="color: #4b6967; margin-bottom: 1rem; font-size: 1.2rem;">Book Information</h3>
-                                <p style="color: #666; line-height: 1.6;">
-                                    This book is part of Caca's ${book.type === 'collection' ? 'personal collection' : book.type}. 
-                                    ${book.status === 'Available' ? 'It is currently available for borrowing.' : 'It is currently not available.'}
-                                </p>
-                            </div>
-                            
-                            <div style="display: flex; gap: 1rem;">
-                                <button style="flex: 1; padding: 1rem; background: transparent; color: #4b6967; border: 2px solid #94a38d; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;" 
-                                        onmouseover="this.style.background='#94a38d'; this.style.color='white'" 
-                                        onmouseout="this.style.background='transparent'; this.style.color='#4b6967'"
-                                        onclick="this.closest('div').parentElement.parentElement.parentElement.remove()">
-                                    Close
-                                </button>
-                                ${book.status === 'Available' ? `
-                                    <button style="flex: 1; padding: 1rem; background: #dc4f6c; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: all 0.3s;" 
-                                            onmouseover="this.style.background='#c43f5c'" 
-                                            onmouseout="this.style.background='#dc4f6c'"
-                                            onclick="openBorrowModalFromDetails(${book.id})">
-                                        Borrow This Book
-                                    </button>
-                                ` : ''}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            document.body.appendChild(modal);
-            
-            // Close modal events
-            const closeBtn = modal.querySelector('button');
-            closeBtn.addEventListener('click', () => {
-                document.body.removeChild(modal);
-            });
-            
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                }
-            });
-            
-            // Escape key to close
-            document.addEventListener('keydown', function closeOnEscape(e) {
-                if (e.key === 'Escape') {
-                    document.body.removeChild(modal);
-                    document.removeEventListener('keydown', closeOnEscape);
-                }
-            });
+        // ===== FORM SUBMISSION =====
+        loginForm.addEventListener('submit', handleLogin);
+
+        // ===== REAL-TIME VALIDATION =====
+        usernameInput.addEventListener('input', function() {
+            usernameError.classList.remove('show');
+            this.classList.remove('error');
+        });
+        
+        passwordInput.addEventListener('input', function() {
+            passwordError.classList.remove('show');
+            this.classList.remove('error');
+        });
+
+        // ===== LOGO ERROR HANDLING =====
+        if (loginLogo) {
+            loginLogo.onerror = function() {
+                this.style.display = 'none';
+                this.parentElement.innerHTML = '<div style="font-size: 4rem; color: #dc4f6c; animation: float 6s ease-in-out infinite;">📚</div>';
+            };
+        }
+        
+        if (logoImg) {
+            logoImg.onerror = function() {
+                this.parentElement.innerHTML = '<div style="font-size: 2rem; color: #dc4f6c;">📚</div><div class="logo-text">Yomu Kiroku</div>';
+            };
         }
 
-        // Helper function to open borrow modal from details modal
-        function openBorrowModalFromDetails(bookId) {
-            const book = booksData.find(b => b.id === bookId);
-            if (book) {
-                // Close details modal
-                const modals = document.querySelectorAll('[style*="position: fixed"]');
-                modals.forEach(modal => document.body.removeChild(modal));
-                
-                // Open borrow modal
-                openBorrowModal(book);
-            }
-        }
-
-        // ===== EVENT LISTENERS =====
-        searchInput.addEventListener('input', function(e) {
-            searchTerm = e.target.value.trim().toLowerCase();
-            currentPage = 1;
-            filterBooks();
-        });
-
-        typeFilter.addEventListener('change', function(e) {
-            currentType = e.target.value;
-            currentPage = 1;
-            filterBooks();
-        });
-
-        statusFilter.addEventListener('change', function(e) {
-            currentStatus = e.target.value;
-            currentPage = 1;
-            filterBooks();
-        });
-
-        sortFilter.addEventListener('change', function(e) {
-            currentSort = e.target.value;
-            currentPage = 1;
-            filterBooks();
-        });
-
-        resetFilters.addEventListener('click', function() {
-            searchInput.value = '';
-            typeFilter.value = 'all';
-            statusFilter.value = 'all';
-            sortFilter.value = 'title-asc';
-            
-            searchTerm = '';
-            currentType = 'all';
-            currentStatus = 'all';
-            currentSort = 'title-asc';
-            currentPage = 1;
-            
-            filterBooks();
-        });
-
-        // Borrow modal event listeners
-        closeBorrowModal.addEventListener('click', closeModal);
-        cancelBorrow.addEventListener('click', closeModal);
-
-        // Close modal when clicking outside
-        borrowModal.addEventListener('click', function(e) {
-            if (e.target === borrowModal) {
-                closeModal();
-            }
-        });
-
-        // Form validation
-        borrowerName.addEventListener('input', updateSendButtonState);
-        borrowerPhone.addEventListener('input', updateSendButtonState);
-
-        // Send borrow request
-        sendBorrowRequest.addEventListener('click', sendBorrowRequestToAdmin);
-
-        // Allow form submission with Enter key
-        borrowForm.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !sendBorrowRequest.disabled) {
-                e.preventDefault();
-                sendBorrowRequestToAdmin();
-            }
-        });
-
-        // ===== INITIALIZE =====
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update total books count
-            totalFilteredBooks.textContent = booksData.length;
-            
-            // Initial render
-            filterBooks();
-            
-            // Handle logo image error
-            const logoImg = document.getElementById('logo-img');
-            if (logoImg) {
-                logoImg.onerror = function() {
-                    this.parentElement.innerHTML = '<div style="font-size: 2rem; color: #dc4f6c;">📚</div><div class="logo-text">Yomu Kiroku</div>';
-                };
-            }
-            
-            // Add search debouncing
+        // ===== SEARCH FUNCTIONALITY (from collection) =====
+        if (searchInput) {
             let searchTimeout;
             searchInput.addEventListener('input', function(e) {
                 clearTimeout(searchTimeout);
                 searchTimeout = setTimeout(() => {
-                    searchTerm = e.target.value.trim().toLowerCase();
-                    currentPage = 1;
-                    filterBooks();
+                    // Store search term for redirection
+                    const searchTerm = e.target.value.trim();
+                    if (searchTerm) {
+                        localStorage.setItem('searchRedirect', searchTerm);
+                        // You can add redirection logic here if needed
+                    }
                 }, 300);
             });
+        }
+
+        // ===== CHECK IF ALREADY LOGGED IN =====
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn === 'true') {
+                // User is already logged in, redirect to collection
+                const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+                if (currentUser.name) {
+                    successMessage.innerHTML = `
+                        <strong>✓ Already Logged In!</strong><br>
+                        You are already logged in as ${currentUser.name}. Redirecting...
+                    `;
+                    successMessage.classList.add('active');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'collection.html';
+                    }, 1000);
+                }
+            }
             
-            // Add animation to book cards on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, { threshold: 0.1 });
-            
-            // Observe book cards after they're rendered
-            setTimeout(() => {
-                document.querySelectorAll('.book-card').forEach(card => {
-                    observer.observe(card);
-                });
-            }, 100);
-            
-            // Set default borrow date to 3 days from now
-            const defaultDate = new Date();
-            defaultDate.setDate(defaultDate.getDate() + 3);
-            borrowDate.value = defaultDate.toISOString().split('T')[0];
-            
-            // Preload some images for better performance
-            const preloadImages = booksData.slice(0, 8).map(book => book.cover);
-            preloadImages.forEach(src => {
-                const img = new Image();
-                img.src = src;
-            });
+            // Set focus on username input
+            usernameInput.focus();
         });
 
-        // ===== WINDOW RESIZE HANDLER =====
-        window.addEventListener('resize', function() {
-            // Re-render pagination on resize
-            renderPagination();
-        });
-
-        // ===== ESCAPE KEY TO CLOSE MODAL =====
+        // ===== ENTER KEY TO SUBMIT FORM =====
         document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && borrowModal.classList.contains('active')) {
-                closeModal();
+            if (e.key === 'Enter' && !loginButton.disabled) {
+                // Form submission is already handled by the submit event
             }
         });
+
+        // ===== DEMO CREDENTIALS HINT (for development only) =====
+        // Remove this in production
+        console.log("Demo Credentials:");
+        console.log("Username: caca, Password: caca123");
+        console.log("Username: azam, Password: azam123");
+        
+        // Optional: Add a subtle hint for demo purposes (uncomment if needed)
+        /*
+        const demoHint = document.createElement('div');
+        demoHint.style.cssText = `
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(220, 79, 108, 0.1);
+            padding: 10px 15px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: #dc4f6c;
+            border: 1px solid rgba(220, 79, 108, 0.2);
+            display: none;
+        `;
+        demoHint.innerHTML = 'Demo: caca/caca123 or azam/azam123';
+        document.body.appendChild(demoHint);
+        
+        // Show hint on triple click
+        let clickCount = 0;
+        document.addEventListener('click', function() {
+            clickCount++;
+            if (clickCount === 3) {
+                demoHint.style.display = 'block';
+                setTimeout(() => {
+                    demoHint.style.display = 'none';
+                    clickCount = 0;
+                }, 3000);
+            }
+            setTimeout(() => { clickCount = 0; }, 1000);
+        });
+        */
     </script>
 </body>
 </html>
