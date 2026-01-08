@@ -152,26 +152,22 @@
             justify-content: center;
             align-items: center;
             animation: floatInLeft 1.2s ease-out;
-            perspective: 1000px;
         }
         
         .hero-image img {
             width: 100%;
             max-width: 420px;
             height: auto;
-            transform-style: preserve-3d;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s ease;
             cursor: pointer;
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
         }
         
         .hero-image img:hover {
-            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+            transform: scale(1.05);
         }
         
         .hero-image img:active {
-            transform: rotateY(0) rotateX(0) scale(0.98);
+            transform: scale(0.98);
             transition: all 0.2s ease;
         }
         
@@ -211,11 +207,6 @@
             margin-bottom: 2rem;
             opacity: 0.9;
             line-height: 1.8;
-            transition: transform 0.5s ease;
-        }
-        
-        .hero-1-content:hover .hero-subtitle {
-            transform: translateX(10px);
         }
         
         /* ===== SEARCH BUTTON ===== */
@@ -540,7 +531,7 @@
         }
         
         .concept-card {
-            background: var(--off-white);
+            background: var(--white);
             border-radius: 25px;
             padding: 3rem;
             box-shadow: var(--shadow);
@@ -592,20 +583,15 @@
             transition: transform 0.5s ease;
         }
         
-        .concept-image:hover {
-            transform: scale(1.1) rotate(5deg);
-        }
-        
         .concept-image img {
             width: 100%;
             max-width: 220px;
             height: auto;
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
             transition: all 0.5s ease;
         }
         
-        .concept-image:hover img {
-            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
+        .concept-card:hover .concept-image {
+            transform: scale(1.1);
         }
         
         .concept-image svg,
@@ -898,22 +884,22 @@
         @keyframes floatInLeft {
             from {
                 opacity: 0;
-                transform: translateX(-60px) rotateY(20deg);
+                transform: translateX(-60px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0) rotateY(0);
+                transform: translateX(0);
             }
         }
         
         @keyframes floatInRight {
             from {
                 opacity: 0;
-                transform: translateX(60px) rotateY(-20deg);
+                transform: translateX(60px);
             }
             to {
                 opacity: 1;
-                transform: translateX(0) rotateY(0);
+                transform: translateX(0);
             }
         }
         
@@ -959,18 +945,6 @@
             to {
                 opacity: 1;
                 transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
             }
         }
         
@@ -1365,7 +1339,7 @@
                     <!-- Book 5 -->
                     <div class="book-card">
                         <div class="book-cover">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Before the Coffee">
+                            <img src="https://share.google/F6AumPZw6lwCyFJLJ" alt="Before the Coffee">
                         </div>
                         <div class="book-info">
                             <h3 class="book-title">Before the Coffee</h3>
@@ -1536,9 +1510,9 @@
             const heroImage = document.querySelector('.hero-image img');
             if (heroImage) {
                 heroImage.addEventListener('click', function() {
-                    this.style.transform = 'scale(1.2) rotateY(20deg)';
+                    this.style.transform = 'scale(1.1)';
                     setTimeout(() => {
-                        this.style.transform = 'scale(1.05) rotateY(10deg) rotateX(5deg)';
+                        this.style.transform = 'scale(1.05)';
                     }, 300);
                 });
             }
