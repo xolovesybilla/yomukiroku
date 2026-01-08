@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Yomu Kiroku</title>
+    <title>Yomu Kiroku</title>
     <link rel="icon" type="image/svg+xml" href="image/logo.svg">
     
     <!-- Adobe Fonts -->
@@ -16,13 +16,10 @@
             color: #333333;
             overflow-x: hidden;
             line-height: 1.6;
-            background: #fefcf9;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            background-color: var(--white);
         }
 
-        h1, h2, h3, .logo-text, .login-title {
+        h1, h2, h3, .logo-text, .section-title, .carousel-title, .hero-title, .concept-title, .concept-name {
             font-family: "playwrite-cc-de-grund", serif;
             font-weight: 100;
         }
@@ -33,11 +30,12 @@
             --pink-light: #fec6e0;
             --green-dark: #4b6967;
             --green-light: #94a38d;
+            --green-light-transparent: rgba(148, 163, 141, 0.95);
             --white: #ffffff;
             --off-white: #fefcf9;
             --text-dark: #333333;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            --card-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
         /* ===== RESET & BASE STYLES ===== */
@@ -47,9 +45,8 @@
             box-sizing: border-box;
         }
         
-        a {
-            text-decoration: none;
-            color: inherit;
+        html {
+            scroll-behavior: smooth;
         }
         
         /* ===== NAVBAR ===== */
@@ -63,14 +60,22 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 0.8rem 2rem;
         }
         
         .logo-container {
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            text-decoration: none;
+            z-index: 1001;
         }
         
         .logo-img {
@@ -80,13 +85,18 @@
         }
         
         .logo-container:hover .logo-img {
-            transform: rotate(-5deg);
+            transform: rotate(-5deg) scale(1.1);
         }
         
         .logo-text {
             font-size: 1.6rem;
             color: var(--pink-primary);
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-text {
+            color: var(--green-dark);
         }
         
         .nav-links {
@@ -96,260 +106,813 @@
         }
         
         .nav-link {
+            text-decoration: none;
             color: var(--green-dark);
             font-size: 1rem;
-            padding: 0.5rem 0;
+            padding: 0.5rem 1rem;
             position: relative;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+            font-weight: 500;
         }
         
         .nav-link:hover {
-            color: var(--pink-primary);
+            color: var(--white);
+            background-color: var(--pink-primary);
+            transform: translateY(-2px);
         }
         
         .nav-link.active {
-            color: var(--pink-primary);
+            background-color: var(--green-light);
+            color: var(--white);
         }
         
-        .nav-link.active::after {
+        /* ===== HERO SECTION 1 ===== */
+        .hero-1 {
+            min-height: 100vh;
+            background: var(--white);
+            display: flex;
+            align-items: center;
+            padding: 4rem 2rem 2rem;
+            margin-bottom: 0;
+            overflow: hidden;
+        }
+        
+        .hero-1-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: floatInLeft 1.2s ease-out;
+        }
+        
+        .hero-image img {
+            width: 100%;
+            max-width: 420px;
+            height: auto;
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+        
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        .hero-image img:active {
+            transform: scale(0.98);
+            transition: all 0.2s ease;
+        }
+        
+        .hero-text {
+            animation: floatInRight 1.2s ease-out 0.2s both;
+        }
+        
+        .hero-title {
+            font-size: 3.8rem;
+            color: var(--pink-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-light));
+            transition: width 1s ease;
+        }
+        
+        .hero-1-content:hover .hero-title::after {
+            width: 100%;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--green-dark);
+            max-width: 500px;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        /* ===== SEARCH BUTTON ===== */
+        .search-button {
+            background: linear-gradient(135deg, var(--green-light), var(--green-dark));
+            color: var(--white);
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            box-shadow: 0 6px 20px rgba(148, 163, 141, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .search-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease;
+        }
+        
+        .search-button:hover {
+            background: linear-gradient(135deg, var(--green-dark), var(--pink-primary));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(220, 79, 108, 0.4);
+        }
+        
+        .search-button:hover::before {
+            left: 100%;
+        }
+        
+        /* ===== HERO SECTION 2 ===== */
+        .hero-2 {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, var(--white), var(--pink-light));
+            padding: 2rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(254, 198, 224, 0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .section-title {
+            font-size: 3.2rem;
+            color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
-            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
             height: 2px;
-            background: var(--pink-primary);
+            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
         }
         
-        /* ===== LOGIN CONTAINER ===== */
-        .login-container {
-            flex: 1;
+        .stats-container {
+            max-width: 1200px;
+            width: 100%;
+            background: var(--off-white);
+            border-radius: 25px;
+            padding: 4rem;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .stats-container:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .stats-intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--green-dark);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 500;
+            line-height: 1.8;
+            padding: 0 1rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--white), var(--off-white));
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .stat-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .stat-number {
+            font-size: 4rem;
+            color: var(--green-dark);
+            margin-bottom: 0.8rem;
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover .stat-number {
+            color: var(--pink-primary);
+            transform: scale(1.1);
+        }
+        
+        .stat-label {
+            color: var(--text-dark);
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .stat-card:hover .stat-label {
+            color: var(--green-dark);
+        }
+        
+        .chart-container {
+            margin-top: 2rem;
+            height: 350px;
+            position: relative;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 6rem 2rem 4rem;
-            background: linear-gradient(135deg, var(--pink-light) 0%, var(--white) 50%, var(--green-light) 100%);
         }
         
-        .login-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 25px;
-            padding: 4rem 3rem;
+        .bar-chart {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 8rem;
+            height: 100%;
+            padding: 2rem 0;
             width: 100%;
-            max-width: 500px;
-            box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: fadeInUp 0.8s ease-out;
+            max-width: 900px;
+            margin: 0 auto;
         }
         
-        .login-header {
+        .bar {
+            width: 90px;
+            background: linear-gradient(to top, var(--green-dark), var(--green-light));
+            border-radius: 12px 12px 0 0;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(75, 105, 103, 0.3);
+            cursor: pointer;
+        }
+        
+        .bar:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(75, 105, 103, 0.4);
+            background: linear-gradient(to top, var(--pink-primary), var(--green-light));
+        }
+        
+        .bar.fiction {
+            height: 180px;
+            animation: growBar 1.5s ease-out 0.7s both;
+        }
+        
+        .bar.nonfiction {
+            height: 160px;
+            animation: growBar 1.5s ease-out 0.9s both;
+        }
+        
+        .bar.read {
+            height: 220px;
+            animation: growBar 1.5s ease-out 1.1s both;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--green-dark);
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .bar:hover .bar-label {
+            color: var(--pink-primary);
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -45px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            color: var(--green-dark);
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+            font-size: 1.6rem;
+            transition: color 0.3s ease;
+        }
+        
+        .bar:hover .bar-value {
+            color: var(--pink-primary);
+        }
+        
+        /* ===== HERO SECTION 3 (NEW) ===== */
+        .hero-3 {
+            min-height: 100vh;
+            background: linear-gradient(to bottom, var(--pink-light), var(--green-light));
+            padding: 2rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .concept-title {
+            font-size: 3.2rem;
+            color: var(--pink-primary);
             text-align: center;
             margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            position: relative;
+            padding-bottom: 1rem;
         }
         
-        .login-logo {
-            font-size: 4rem;
+        .concept-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
+        }
+        
+        .concept-container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin: 0 auto;
+        }
+        
+        .concept-card {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-light));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
+        }
+        
+        .concept-card:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .concept-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .concept-card:nth-child(1) {
+            animation-delay: 0.4s;
+        }
+        
+        .concept-card:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+        
+        .concept-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 2rem;
+            height: 220px;
+            transition: transform 0.5s ease;
+        }
+        
+        .concept-image img {
+            width: 100%;
+            max-width: 220px;
+            height: auto;
+            transition: all 0.5s ease;
+        }
+        
+        .concept-card:hover .concept-image {
+            transform: scale(1.1);
+        }
+        
+        .concept-image svg,
+        .concept-image img[src*=".svg"] {
+            background: transparent !important;
+            background-color: transparent !important;
+        }
+        
+        .concept-name {
+            font-size: 2.5rem;
             color: var(--pink-primary);
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-family: "playwrite-cc-de-grund", serif;
+            font-weight: 100;
+            transition: color 0.3s ease;
+        }
+        
+        .concept-card:hover .concept-name {
+            color: var(--green-dark);
+        }
+        
+        .concept-description {
+            color: var(--green-dark);
+            font-size: 1.2rem;
+            line-height: 1.8;
+            text-align: center;
+            font-weight: 500;
+            padding: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .concept-card:hover .concept-description {
+            color: var(--text-dark);
+        }
+        
+        /* ===== HERO SECTION 4 (FORMER HERO 3) ===== */
+        .hero-4 {
+            min-height: 100vh;
+            background: var(--green-light);
+            padding: 2rem 2rem 4rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-4::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .carousel-title {
+            font-size: 3.2rem;
+            color: var(--off-white);
+            text-align: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .carousel-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--off-white), transparent);
+        }
+        
+        .carousel-container {
+            max-width: 1300px;
+            width: 100%;
+            padding: 2rem 0;
+        }
+        
+        .carousel-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 30px;
+            background: var(--green-light-transparent);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .carousel {
+            display: flex;
+            gap: 2.5rem;
+            overflow-x: auto;
+            padding: 1.5rem;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            scroll-snap-type: x mandatory;
+        }
+        
+        .carousel::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .book-card {
+            min-width: 300px;
+            background: var(--white); /* DIUBAH: dari --off-white ke --white */
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+            cursor: pointer;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-dark));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+        
+        .book-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .book-card:nth-child(1) { animation-delay: 0.4s; }
+        .book-card:nth-child(2) { animation-delay: 0.5s; }
+        .book-card:nth-child(3) { animation-delay: 0.6s; }
+        .book-card:nth-child(4) { animation-delay: 0.7s; }
+        .book-card:nth-child(5) { animation-delay: 0.8s; }
+        
+        /* PERBAIKAN: Book cover tanpa shadow */
+        .book-cover {
+            width: 100%;
+            height: 300px;
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            /* DIHAPUS: box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); */
+            transition: all 0.4s ease;
+            position: relative;
+            border: 1px solid rgba(0, 0, 0, 0.05); /* Border tipis untuk definisi */
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+            transition: transform 0.5s ease;
+            background-color: white;
+            padding: 10px;
+        }
+        
+        .book-card:hover .book-cover img {
+            transform: scale(1.05);
+        }
+        
+        /* DIHAPUS: .book-card:hover .book-cover { box-shadow } */
+        
+        .book-info {
+            text-align: center;
+            padding-top: 0.5rem;
+        }
+        
+        .book-title {
+            font-size: 1.5rem;
+            color: var(--green-dark);
+            margin-bottom: 0.8rem;
+            font-family: "rix-cutecat-pro", sans-serif;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            line-height: 1.3;
+            min-height: 3.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .book-card:hover .book-title {
+            color: var(--pink-primary);
+        }
+        
+        .book-author {
+            color: var(--text-dark);
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            min-height: 1.5rem;
+        }
+        
+        .book-card:hover .book-author {
+            color: var(--green-dark);
+        }
+        
+        .book-rating {
+            display: flex;
+            justify-content: center;
+            gap: 0.3rem;
             margin-bottom: 1rem;
         }
         
-        .login-title {
-            font-size: 2.5rem;
-            color: var(--pink-primary);
-            margin-bottom: 0.5rem;
+        .star {
+            color: #ffc107;
+            font-size: 1.4rem;
+            animation: starGlow 2s infinite;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
         }
         
-        .login-subtitle {
-            color: var(--green-dark);
-            font-size: 1.1rem;
-            opacity: 0.8;
-        }
+        .star:nth-child(1) { animation-delay: 0s; }
+        .star:nth-child(2) { animation-delay: 0.2s; }
+        .star:nth-child(3) { animation-delay: 0.4s; }
+        .star:nth-child(4) { animation-delay: 0.6s; }
+        .star:nth-child(5) { animation-delay: 0.8s; }
         
-        /* ===== LOGIN FORM ===== */
-        .login-form {
+        .carousel-controls {
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             gap: 1.5rem;
+            margin-top: 2.5rem;
         }
         
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .form-label {
-            color: var(--green-dark);
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .form-label i {
-            font-size: 1.2rem;
-        }
-        
-        .form-input {
-            padding: 1rem 1.5rem;
-            border-radius: 12px;
-            border: 2px solid var(--green-light);
-            font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 1rem;
-            color: var(--text-dark);
+        .carousel-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
             background: var(--white);
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--pink-primary);
-            box-shadow: 0 0 0 4px rgba(220, 79, 108, 0.1);
-        }
-        
-        .form-input.error {
-            border-color: #ff4757;
-            background: rgba(255, 71, 87, 0.05);
-        }
-        
-        .password-wrapper {
-            position: relative;
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
             border: none;
-            color: var(--green-light);
+            color: var(--green-dark);
+            font-size: 1.5rem;
             cursor: pointer;
-            font-size: 1.2rem;
-            padding: 0.5rem;
-        }
-        
-        .toggle-password:hover {
-            color: var(--pink-primary);
-        }
-        
-        /* ===== LOGIN BUTTON ===== */
-        .login-btn {
-            padding: 1rem;
-            background: var(--pink-primary);
-            border: none;
-            border-radius: 12px;
-            color: var(--white);
-            font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 1.1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.5rem;
-            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
         }
         
-        .login-btn:hover {
-            background: #c43f5c;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220, 79, 108, 0.3);
+        .carousel-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 79, 108, 0.3), transparent);
+            transition: left 0.7s ease;
         }
         
-        .login-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
+        .carousel-btn:hover {
+            background: var(--pink-primary);
+            color: var(--white);
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(220, 79, 108, 0.4);
         }
         
-        /* ===== ERROR MESSAGE ===== */
-        .error-message {
-            background: rgba(255, 71, 87, 0.1);
-            border: 1px solid rgba(255, 71, 87, 0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            color: #ff4757;
-            font-size: 0.95rem;
-            display: none;
-            align-items: center;
-            gap: 0.5rem;
-            animation: shake 0.5s ease;
-        }
-        
-        .error-message.active {
-            display: flex;
-        }
-        
-        /* ===== SUCCESS MESSAGE ===== */
-        .success-message {
-            background: rgba(76, 175, 80, 0.1);
-            border: 1px solid rgba(76, 175, 80, 0.3);
-            border-radius: 10px;
-            padding: 1rem;
-            color: #2e7d32;
-            font-size: 0.95rem;
-            display: none;
-            align-items: center;
-            gap: 0.5rem;
-            animation: fadeInUp 0.3s ease;
-        }
-        
-        .success-message.active {
-            display: flex;
-        }
-        
-        /* ===== CREDENTIALS HINT ===== */
-        .credentials-hint {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: rgba(148, 163, 141, 0.1);
-            border-radius: 15px;
-            border-left: 4px solid var(--green-light);
-        }
-        
-        .credentials-title {
-            color: var(--green-dark);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .credentials-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .credentials-item {
-            color: var(--text-dark);
-            padding: 0.3rem 0;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .credentials-item::before {
-            content: "•";
-            color: var(--pink-primary);
-            font-size: 1.2rem;
-        }
-        
-        /* ===== FOOTER ===== */
-        .login-footer {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(148, 163, 141, 0.2);
-            color: var(--green-light);
-            font-size: 0.9rem;
+        .carousel-btn:hover::before {
+            left: 100%;
         }
         
         /* ===== ANIMATIONS ===== */
+        @keyframes floatInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes floatInRight {
+            from {
+                opacity: 0;
+                transform: translateX(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -361,34 +924,81 @@
             }
         }
         
-        @keyframes shake {
-            0%, 100% {
-                transform: translateX(0);
+        @keyframes growBar {
+            from {
+                height: 0;
+                opacity: 0;
+                transform: translateY(20px);
             }
-            10%, 30%, 50%, 70%, 90% {
-                transform: translateX(-5px);
-            }
-            20%, 40%, 60%, 80% {
-                transform: translateX(5px);
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
         
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 0 0 0 rgba(220, 79, 108, 0.4);
+        @keyframes starGlow {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
             }
-            70% {
-                box-shadow: 0 0 0 10px rgba(220, 79, 108, 0);
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2);
             }
-            100% {
-                box-shadow: 0 0 0 0 rgba(220, 79, 108, 0);
+        }
+        
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
         
         /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 1024px) {
+            .hero-1-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 3rem;
+            }
+            
+            .hero-title {
+                font-size: 3.2rem;
+            }
+            
+            .hero-image {
+                order: -1;
+            }
+            
+            .hero-image img {
+                max-width: 350px;
+            }
+            
+            .bar-chart {
+                gap: 5rem;
+            }
+            
+            .concept-container {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .stats-grid {
+                gap: 2rem;
+            }
+            
+            .book-cover {
+                height: 280px;
+            }
+        }
+        
         @media (max-width: 768px) {
             .navbar {
-                padding: 0.8rem 1rem;
+                padding: 1rem;
             }
             
             .logo-text {
@@ -396,461 +1006,700 @@
             }
             
             .nav-links {
-                gap: 1.5rem;
-            }
-            
-            .login-container {
-                padding: 5rem 1rem 2rem;
-            }
-            
-            .login-card {
-                padding: 3rem 2rem;
-            }
-            
-            .login-title {
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 576px) {
-            .login-card {
-                padding: 2.5rem 1.5rem;
-            }
-            
-            .login-title {
-                font-size: 1.8rem;
-            }
-            
-            .login-subtitle {
-                font-size: 1rem;
-            }
-            
-            .nav-links {
                 gap: 1rem;
             }
             
             .nav-link {
-                font-size: 0.9rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.95rem;
+            }
+            
+            .hero-1 {
+                padding: 5rem 1rem 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title, .carousel-title, .concept-title {
+                font-size: 2.5rem;
+            }
+            
+            .stats-container {
+                padding: 2.5rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 3.5rem;
+            }
+            
+            .bar-chart {
+                gap: 3rem;
+            }
+            
+            .bar {
+                width: 70px;
+            }
+            
+            .carousel-wrapper, .concept-card {
+                padding: 2rem;
+            }
+            
+            .book-card {
+                min-width: 280px;
+                padding: 1.8rem;
+            }
+            
+            .book-cover {
+                height: 250px;
+            }
+            
+            .book-title {
+                font-size: 1.3rem;
+                min-height: 3.2rem;
+            }
+            
+            .search-button {
+                padding: 0.9rem 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .concept-name {
+                font-size: 2rem;
+            }
+            
+            .concept-description {
+                font-size: 1.1rem;
+            }
+            
+            .concept-image {
+                height: 180px;
+            }
+            
+            .concept-image img {
+                max-width: 180px;
             }
         }
         
         @media (max-width: 480px) {
-            .navbar {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title, .carousel-title, .concept-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 3rem;
+            }
+            
+            .stat-label {
+                font-size: 1.1rem;
+            }
+            
+            .bar-chart {
+                gap: 2rem;
+            }
+            
+            .bar {
+                width: 55px;
+            }
+            
+            .bar-label {
+                font-size: 0.9rem;
+            }
+            
+            .bar-value {
+                font-size: 1.2rem;
+            }
+            
+            .concept-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .concept-image img {
+                max-width: 150px;
+            }
+            
+            .concept-image {
+                height: 150px;
+            }
+            
+            .carousel-wrapper {
+                padding: 1.5rem;
+            }
+            
+            .book-card {
+                min-width: 260px;
+                padding: 1.5rem;
+            }
+            
+            .book-cover {
+                height: 220px;
+            }
+            
+            .book-title {
+                font-size: 1.2rem;
+                min-height: 3rem;
+            }
+            
+            .book-author {
+                font-size: 1rem;
             }
             
             .nav-links {
-                width: 100%;
-                justify-content: center;
+                flex-direction: column;
+                gap: 0.5rem;
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: var(--shadow);
+                display: none;
             }
             
-            .login-container {
-                padding: 6rem 1rem 2rem;
+            .nav-links.active {
+                display: flex;
             }
+            
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: var(--green-dark);
+            }
+        }
+        
+        /* ===== FALLBACK STYLES UNTUK GAMBAR ERROR ===== */
+        .book-cover.fallback {
+            background: linear-gradient(135deg, var(--pink-light), var(--green-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+        
+        .book-cover.fallback::before {
+            content: '📚';
+            font-size: 4rem;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
     </style>
 </head>
 <body>
     <!-- Navigation Bar -->
-    <nav class="navbar">
+    <nav class="navbar" id="navbar">
         <a href="index.html" class="logo-container">
             <img src="image/logo.svg" alt="Yomu Kiroku Logo" class="logo-img" id="logo-img">
             <div class="logo-text">Yomu Kiroku</div>
         </a>
-        
         <ul class="nav-links">
-            <li><a href="index.html" class="nav-link">Home</a></li>
             <li><a href="collection.html" class="nav-link">Collection</a></li>
-            <li><a href="login.html" class="nav-link active">Login</a></li>
+            <li><a href="login.html" class="nav-link">Login</a></li>
         </ul>
     </nav>
 
-    <!-- Login Container -->
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <div class="login-logo">🔐</div>
-                <h1 class="login-title">Login</h1>
-                <p class="login-subtitle">Access the dashboard to manage book collection</p>
+    <!-- Hero Section 1 -->
+    <section class="hero-1" id="hero1">
+        <div class="hero-1-content">
+            <div class="hero-image">
+                <img src="image/girlread.svg" alt="Girl reading book">
+            </div>
+            <div class="hero-text">
+                <h1 class="hero-title">Welcome to Yomu Kiroku</h1>
+                <p class="hero-subtitle">
+                    Yomu Kiroku (読む記録) is Caca's personal digital library where books are stored, read, reviewed, and shared. Here, you can see which books Caca owns, where they are placed, what she has finished reading, and which books are currently on loan. Each title carries a small review, written after the last page is turned.
+                </p>
+                <button class="search-button" onclick="window.location.href='collection.html'">
+                    🔍 Find Books
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section 2 -->
+    <section class="hero-2" id="hero2">
+        <h2 class="section-title">My Reading Journey</h2>
+        
+        <div class="stats-container">
+            <p class="stats-intro">
+                A curated collection of stories and knowledge, carefully selected and lovingly read. 
+                Every book here has been part of my journey through different worlds and ideas.
+            </p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="fictionCount">0</div>
+                    <div class="stat-label">Fiction Books</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="nonfictionCount">0</div>
+                    <div class="stat-label">Non-Fiction Books</div>
+                </div>
             </div>
             
-            <form class="login-form" id="loginForm">
-                <div class="error-message" id="errorMessage">
-                    <span>⚠️</span>
-                    <span id="errorText">Invalid username or password</span>
-                </div>
-                
-                <div class="success-message" id="successMessage">
-                    <span>✅</span>
-                    <span id="successText">Login successful! Redirecting...</span>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="username">
-                        <span>👤</span> Username
-                    </label>
-                    <input type="text" 
-                           class="form-input" 
-                           id="username" 
-                           name="username"
-                           placeholder="Enter admin username"
-                           autocomplete="username"
-                           required>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="password">
-                        <span>🔒</span> Password
-                    </label>
-                    <div class="password-wrapper">
-                        <input type="password" 
-                               class="form-input" 
-                               id="password" 
-                               name="password"
-                               placeholder="Enter password"
-                               autocomplete="current-password"
-                               required>
-                        <button type="button" class="toggle-password" id="togglePassword">
-                            👁️
-                        </button>
+            <div class="chart-container">
+                <div class="bar-chart">
+                    <div class="bar fiction">
+                        <div class="bar-value">149</div>
+                        <div class="bar-label">Fiction</div>
+                    </div>
+                    <div class="bar nonfiction">
+                        <div class="bar-value">69</div>
+                        <div class="bar-label">Non-Fiction</div>
+                    </div>
+                    <div class="bar read">
+                        <div class="bar-value">200+</div>
+                        <div class="bar-label">Read</div>
                     </div>
                 </div>
-                
-                <button type="submit" class="login-btn" id="loginButton" disabled>
-                    <span id="buttonText">Login</span>
-                    <span id="buttonLoading" style="display: none;">⌛</span>
-                </button>
-            </form>
-            
-            <div class="credentials-hint">
-                <h3 class="credentials-title">
-                    <span>ℹ️</span> Admin Credentials
-                </h3>
-                <ul class="credentials-list">
-                    <li class="credentials-item">
-                        <strong>Caca:</strong> Username: <code>caca</code> | Password: <code>2001</code>
-                    </li>
-                    <li class="credentials-item">
-                        <strong>Azam:</strong> Username: <code>azam</code> | Password: <code>2009</code>
-                    </li>
-                </ul>
-                <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--green-light);">
-                    Only these two accounts can access the admin dashboard.
+            </div>
+        </div>
+    </section>
+
+    <!-- Hero Section 3 (NEW) -->
+    <section class="hero-3" id="hero3">
+        <h2 class="concept-title">The Meaning Behind</h2>
+        
+        <div class="concept-container">
+            <!-- Yomu Card -->
+            <div class="concept-card">
+                <div class="concept-image">
+                    <img src="image/laptop.svg" alt="Laptop" style="background-color: transparent;">
+                </div>
+                <h3 class="concept-name">Yomu</h3>
+                <p class="concept-description">
+                    Yomu (読む) means to read in Japanese. This represents the core of our platform - the joy of reading, discovering new worlds through pages, and sharing those experiences with others. Every book you see here has been carefully selected, thoughtfully read, and lovingly reviewed.
                 </p>
             </div>
             
-            <div class="login-footer">
-                <p>This login is restricted to authorized administrators only.</p>
-                <p>For access requests, please contact the system owner.</p>
+            <!-- Kiroku Card -->
+            <div class="concept-card">
+                <div class="concept-image">
+                    <img src="image/laptop.svg" alt="Laptop" style="background-color: transparent;">
+                </div>
+                <h3 class="concept-name">Kiroku</h3>
+                <p class="concept-description">
+                    Kiroku (記録) means record or documentation in Japanese. This symbolizes our mission to preserve reading memories, track reading journeys, and create a personal archive of literary adventures. Each book here tells a story not just of its content, but of when and how it was read.
+                </p>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Hero Section 4 (Former Hero 3) -->
+    <section class="hero-4" id="hero4">
+        <h2 class="carousel-title">Books of Month</h2>
+        
+        <div class="carousel-container">
+            <div class="carousel-wrapper">
+                <div class="carousel" id="bookCarousel">
+                    <!-- Book 1 -->
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="https://www.gramedia.com/blog/content/images/2024/10/The-Midnight-Library.jpg" 
+                                 alt="The Midnight Library"
+                                 loading="lazy">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">The Midnight Library</h3>
+                            <p class="book-author">Matt Haig</p>
+                            <div class="book-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">☆</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 2 -->
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="https://cdn.gramedia.com/uploads/product-metas/z4-viiz96v.jpg" 
+                                 alt="Rain"
+                                 loading="lazy">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">Rain</h3>
+                            <p class="book-author">Tere Liye</p>
+                            <div class="book-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 3 -->
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="https://www.gramedia.com/blog/content/images/2024/11/The-Lost-Library.jpg" 
+                                 alt="The Lost Library"
+                                 loading="lazy">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">The Lost Library</h3>
+                            <p class="book-author">Rebecca Stead</p>
+                            <div class="book-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">☆</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 4 -->
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="https://cdn.gramedia.com/uploads/picture_meta/2024/5/19/o5vz9ag3myjih5jgavnn4e.jpg" 
+                                 alt="Books Kitchen"
+                                 loading="lazy">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">Book's Kitchen</h3>
+                            <p class="book-author">Kim Jee-Hye</p>
+                            <div class="book-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">☆</span>
+                                <span class="star">☆</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Book 5 -->
+                    <div class="book-card">
+                        <div class="book-cover">
+                            <img src="https://cdn.gramedia.com/uploads/items/9786020366517_Cantik-Itu-Luka-Hard-Cover---Limited-Edition.jpg" 
+                                 alt="Cantik Itu Luka"
+                                 loading="lazy">
+                        </div>
+                        <div class="book-info">
+                            <h3 class="book-title">Cantik Itu Luka</h3>
+                            <p class="book-author">Eka Kurniawan</p>
+                            <div class="book-rating">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="carousel-controls">
+                <button class="carousel-btn" onclick="scrollCarousel(-320)">
+                    ←
+                </button>
+                <button class="carousel-btn" onclick="scrollCarousel(320)">
+                    →
+                </button>
+            </div>
+        </div>
+    </section>
 
     <script>
-        // ===== ADMIN CREDENTIALS =====
-        const ADMIN_CREDENTIALS = {
-            'caca': '2001',
-            'azam': '2009'
-        };
-
-        // ===== DOM ELEMENTS =====
-        const loginForm = document.getElementById('loginForm');
-        const usernameInput = document.getElementById('username');
-        const passwordInput = document.getElementById('password');
-        const togglePassword = document.getElementById('togglePassword');
-        const loginButton = document.getElementById('loginButton');
-        const buttonText = document.getElementById('buttonText');
-        const buttonLoading = document.getElementById('buttonLoading');
-        const errorMessage = document.getElementById('errorMessage');
-        const errorText = document.getElementById('errorText');
-        const successMessage = document.getElementById('successMessage');
-        const successText = document.getElementById('successText');
-        const logoImg = document.getElementById('logo-img');
-
-        // ===== FORM VALIDATION =====
-        function validateForm() {
-            const username = usernameInput.value.trim();
-            const password = passwordInput.value.trim();
-            
-            // Enable login button only if both fields are filled
-            loginButton.disabled = !(username && password);
-            
-            // Clear error message when user starts typing
-            if (username || password) {
-                errorMessage.classList.remove('active');
-                usernameInput.classList.remove('error');
-                passwordInput.classList.remove('error');
+        // ===== NAVBAR SCROLL EFFECT =====
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
             }
-        }
-
-        // ===== TOGGLE PASSWORD VISIBILITY =====
-        togglePassword.addEventListener('click', function() {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            
-            // Change eye icon
-            this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
         });
 
-        // ===== LOGIN FUNCTION =====
-        function handleLogin(event) {
-            event.preventDefault();
+        // ===== ANIMATED COUNTERS =====
+        function animateCounters() {
+            const fictionCount = document.getElementById('fictionCount');
+            const nonfictionCount = document.getElementById('nonfictionCount');
             
-            const username = usernameInput.value.trim().toLowerCase();
-            const password = passwordInput.value.trim();
+            const targets = [69, 149];
+            const duration = 2000;
+            const startTime = Date.now();
             
-            // Show loading state
-            buttonText.style.display = 'none';
-            buttonLoading.style.display = 'inline';
-            loginButton.disabled = true;
-            
-            // Hide any previous messages
-            errorMessage.classList.remove('active');
-            successMessage.classList.remove('active');
-            
-            // Simulate network delay (for better UX)
-            setTimeout(() => {
-                // Check if username exists in credentials
-                if (!ADMIN_CREDENTIALS[username]) {
-                    showError('Username not found. Please check and try again.');
-                    resetFormState();
-                    return;
-                }
+            function updateCounters() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
                 
-                // Check if password matches
-                if (ADMIN_CREDENTIALS[username] !== password) {
-                    showError('Incorrect password. Please try again.');
-                    resetFormState();
-                    return;
-                }
+                // Easing function
+                const easeOut = 1 - Math.pow(1 - progress, 3);
                 
-                // Successful login
-                showSuccess('Login successful! Redirecting to dashboard...');
+                fictionCount.textContent = Math.floor(targets[0] * easeOut);
+                nonfictionCount.textContent = Math.floor(targets[1] * easeOut);
                 
-                // Create session object
-                const session = {
-                    username: username,
-                    fullname: username === 'caca' ? 'Caca' : 'Azam',
-                    role: 'admin',
-                    loginTime: new Date().toISOString(),
-                    loginIP: '127.0.0.1' // In production, get real IP
-                };
+                // Add animation class
+                fictionCount.style.animation = 'countUp 0.5s ease-out';
+                nonfictionCount.style.animation = 'countUp 0.5s ease-out 0.1s';
                 
-                // Store session in localStorage
-                localStorage.setItem('yomuKirokuAdminSession', JSON.stringify(session));
-                
-                // Store login timestamp for session management
-                localStorage.setItem('lastLogin', Date.now().toString());
-                
-                // Add login to history (optional)
-                const loginHistory = JSON.parse(localStorage.getItem('loginHistory') || '[]');
-                loginHistory.unshift({
-                    username: username,
-                    timestamp: new Date().toISOString(),
-                    success: true
-                });
-                
-                // Keep only last 10 logins
-                if (loginHistory.length > 10) loginHistory.pop();
-                localStorage.setItem('loginHistory', JSON.stringify(loginHistory));
-                
-                // Redirect to dashboard after 1.5 seconds
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1500);
-                
-            }, 1000); // 1 second delay for realistic feel
-        }
-
-        // ===== RESET FORM STATE =====
-        function resetFormState() {
-            buttonText.style.display = 'inline';
-            buttonLoading.style.display = 'none';
-            
-            // Re-enable form validation
-            setTimeout(() => {
-                validateForm();
-                
-                // Clear password field on error (security practice)
-                passwordInput.value = '';
-                
-                // Focus back to password field
-                passwordInput.focus();
-            }, 100);
-        }
-
-        // ===== ERROR HANDLING =====
-        function showError(message) {
-            errorText.textContent = message;
-            errorMessage.classList.add('active');
-            
-            // Add error styling to inputs
-            usernameInput.classList.add('error');
-            passwordInput.classList.add('error');
-            
-            // Shake animation for error
-            loginForm.style.animation = 'shake 0.5s ease';
-            setTimeout(() => {
-                loginForm.style.animation = '';
-            }, 500);
-            
-            // Auto-hide error after 5 seconds
-            setTimeout(() => {
-                errorMessage.classList.remove('active');
-            }, 5000);
-        }
-
-        // ===== SUCCESS HANDLING =====
-        function showSuccess(message) {
-            successText.textContent = message;
-            successMessage.classList.add('active');
-            
-            // Disable form inputs
-            usernameInput.disabled = true;
-            passwordInput.disabled = true;
-            togglePassword.disabled = true;
-        }
-
-        // ===== KEYPRESS HANDLER =====
-        function handleKeyPress(event) {
-            if (event.key === 'Enter' && !loginButton.disabled) {
-                handleLogin(event);
-            }
-        }
-
-        // ===== ATTEMPT COUNTER (SECURITY) =====
-        function trackLoginAttempt(username, success) {
-            const attempts = JSON.parse(localStorage.getItem('loginAttempts') || '{}');
-            
-            if (!attempts[username]) {
-                attempts[username] = {
-                    count: 0,
-                    lastAttempt: null,
-                    lockedUntil: null
-                };
-            }
-            
-            if (success) {
-                // Reset on successful login
-                attempts[username].count = 0;
-                attempts[username].lockedUntil = null;
-            } else {
-                // Increment on failed attempt
-                attempts[username].count++;
-                attempts[username].lastAttempt = Date.now();
-                
-                // Lock after 5 failed attempts (optional)
-                if (attempts[username].count >= 5) {
-                    attempts[username].lockedUntil = Date.now() + (15 * 60 * 1000); // 15 minutes
+                if (progress < 1) {
+                    requestAnimationFrame(updateCounters);
                 }
             }
             
-            localStorage.setItem('loginAttempts', JSON.stringify(attempts));
+            requestAnimationFrame(updateCounters);
         }
 
-        // ===== CHECK IF ACCOUNT IS LOCKED =====
-        function isAccountLocked(username) {
-            const attempts = JSON.parse(localStorage.getItem('loginAttempts') || '{}');
-            
-            if (attempts[username] && attempts[username].lockedUntil) {
-                if (Date.now() < attempts[username].lockedUntil) {
-                    const minutesLeft = Math.ceil((attempts[username].lockedUntil - Date.now()) / (60 * 1000));
-                    return `Account locked. Try again in ${minutesLeft} minutes.`;
+        // ===== CAROUSEL CONTROLS =====
+        function scrollCarousel(amount) {
+            const carousel = document.getElementById('bookCarousel');
+            carousel.scrollBy({
+                left: amount,
+                behavior: 'smooth'
+            });
+        }
+
+        // ===== AUTO SCROLL CAROUSEL =====
+        let autoScrollInterval;
+        
+        function startAutoScroll() {
+            autoScrollInterval = setInterval(() => {
+                const carousel = document.getElementById('bookCarousel');
+                const scrollAmount = 320; // card width + gap
+                
+                // Check if we've reached the end
+                if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+                    // Scroll back to start
+                    carousel.scrollTo({ left: 0, behavior: 'smooth' });
+                } else {
+                    // Scroll right
+                    carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
                 }
-            }
-            
-            return null;
+            }, 5000); // Scroll every 5 seconds
         }
 
-        // ===== INITIALIZE =====
+        // ===== INITIALIZE ON LOAD =====
         document.addEventListener('DOMContentLoaded', function() {
-            // Check if user is already logged in
-            const session = localStorage.getItem('yomuKirokuAdminSession');
-            if (session) {
-                try {
-                    const sessionData = JSON.parse(session);
-                    // Check if session is still valid (less than 8 hours old)
-                    const loginTime = new Date(sessionData.loginTime);
-                    const now = new Date();
-                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
-                    
-                    if (hoursDiff < 8) {
-                        // Redirect to dashboard if session is still valid
-                        window.location.href = 'dashboard.html';
-                        return;
-                    } else {
-                        // Clear expired session
-                        localStorage.removeItem('yomuKirokuAdminSession');
+            // Start counters animation when section 2 is in view
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        observer.unobserve(entry.target);
                     }
-                } catch (e) {
-                    // Clear invalid session
-                    localStorage.removeItem('yomuKirokuAdminSession');
-                }
-            }
+                });
+            }, { threshold: 0.3 });
             
-            // Add event listeners for real-time validation
-            usernameInput.addEventListener('input', validateForm);
-            passwordInput.addEventListener('input', validateForm);
+            const hero2 = document.getElementById('hero2');
+            if (hero2) observer.observe(hero2);
             
-            // Form submission
-            loginForm.addEventListener('submit', handleLogin);
+            // Start auto-scroll for carousel
+            setTimeout(startAutoScroll, 2000);
             
-            // Enter key support
-            loginForm.addEventListener('keypress', handleKeyPress);
-            
-            // Handle logo image error
+            // Handle image loading
+            const logoImg = document.getElementById('logo-img');
             if (logoImg) {
                 logoImg.onerror = function() {
+                    console.log('Logo image not found at image/logo.svg');
+                    // Show placeholder
                     this.parentElement.innerHTML = '<div style="font-size: 2rem; color: #dc4f6c;">📚</div><div class="logo-text">Yomu Kiroku</div>';
                 };
             }
             
-            // Auto-focus on username field
-            setTimeout(() => {
-                usernameInput.focus();
-            }, 300);
+            // Handle concept images
+            const conceptImages = document.querySelectorAll('.concept-image img');
+            conceptImages.forEach(img => {
+                img.onerror = function() {
+                    console.log('Concept image not found');
+                    // Show placeholder emoji
+                    if (this.alt.includes('Laptop')) {
+                        this.outerHTML = '<div style="font-size: 5rem; color: #dc4f6c;">💻</div>';
+                    }
+                };
+            });
             
-            // Clear any leftover error states
-            validateForm();
-        });
-
-        // ===== PAGE VISIBILITY =====
-        document.addEventListener('visibilitychange', function() {
-            if (!document.hidden) {
-                // Page became visible again, re-validate form
-                validateForm();
+            // Handle book cover images dengan fallback yang lebih baik
+            const bookCovers = document.querySelectorAll('.book-cover img');
+            bookCovers.forEach(img => {
+                img.onerror = function() {
+                    console.log('Book cover image not found:', this.src);
+                    const bookCover = this.closest('.book-cover');
+                    const bookTitle = this.closest('.book-card').querySelector('.book-title').textContent;
+                    
+                    // Buat placeholder yang lebih menarik
+                    bookCover.classList.add('fallback');
+                    bookCover.innerHTML = `
+                        <div style="
+                            text-align: center;
+                            padding: 1rem;
+                            width: 100%;
+                            height: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            justify-content: center;
+                            background: linear-gradient(135deg, var(--pink-light), var(--green-light));
+                            border-radius: 12px;
+                        ">
+                            <div style="font-size: 3.5rem; color: white; margin-bottom: 1rem;">📚</div>
+                            <div style="
+                                font-family: 'rix-cutecat-pro', sans-serif;
+                                font-size: 1.1rem;
+                                color: white;
+                                font-weight: 600;
+                                text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                                line-height: 1.3;
+                                max-width: 90%;
+                                word-wrap: break-word;
+                            ">
+                                ${bookTitle}
+                            </div>
+                        </div>
+                    `;
+                };
+            });
+            
+            // Optimasi gambar dengan lazy loading
+            const bookCoverImages = document.querySelectorAll('.book-cover img');
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.getAttribute('src');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            bookCoverImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+            
+            // Animate bars on scroll
+            const barObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const bars = entry.target.querySelectorAll('.bar');
+                        bars.forEach(bar => {
+                            bar.style.animationPlayState = 'running';
+                        });
+                        barObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            
+            const chartContainer = document.querySelector('.chart-container');
+            if (chartContainer) barObserver.observe(chartContainer);
+            
+            // Add click effect to hero image
+            const heroImage = document.querySelector('.hero-image img');
+            if (heroImage) {
+                heroImage.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.05)';
+                    }, 300);
+                });
+            }
+            
+            // Add click effect to stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-8px) scale(1.02)';
+                    }, 200);
+                });
+            });
+            
+            // Add click effect to concept cards
+            const conceptCards = document.querySelectorAll('.concept-card');
+            conceptCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-20px) scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-15px) scale(1.03)';
+                    }, 200);
+                });
+            });
+            
+            // Add click effect to book cards
+            const bookCards = document.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-20px) scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-15px) scale(1.05)';
+                    }, 200);
+                });
+            });
+            
+            // Add click animation to search button
+            const searchButton = document.querySelector('.search-button');
+            if (searchButton) {
+                searchButton.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        setTimeout(() => {
+                            window.location.href = 'collection.html';
+                        }, 300);
+                    }, 150);
+                });
             }
         });
 
-        // ===== SECURITY MEASURES =====
-        // Prevent form autofill from browser
-        loginForm.setAttribute('autocomplete', 'off');
-        
-        // Prevent paste in username field (optional)
-        usernameInput.addEventListener('paste', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // Prevent copy from password field
-        passwordInput.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // Prevent drag and drop
-        passwordInput.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
-        
-        // Prevent right-click context menu on password field
-        passwordInput.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
+        // ===== PAUSE AUTOSCROLL ON HOVER =====
+        const carousel = document.getElementById('bookCarousel');
+        if (carousel) {
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(autoScrollInterval);
+            });
+            
+            carousel.addEventListener('mouseleave', () => {
+                startAutoScroll();
+            });
+        }
+
+        // ===== TOUCH SUPPORT FOR CAROUSEL =====
+        if (carousel) {
+            let startX = 0;
+            let isDragging = false;
+            
+            carousel.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                clearInterval(autoScrollInterval);
+            });
+            
+            carousel.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.touches[0].clientX;
+                const walk = (x - startX) * 2;
+                carousel.scrollLeft -= walk;
+                startX = x;
+            });
+            
+            carousel.addEventListener('touchend', () => {
+                isDragging = false;
+                setTimeout(startAutoScroll, 3000);
+            });
+        }
     </script>
 </body>
 </html>
