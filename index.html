@@ -16,6 +16,7 @@
             color: #333333;
             overflow-x: hidden;
             line-height: 1.6;
+            background-color: var(--white);
         }
 
         h1, h2, h3, .logo-text, .section-title, .carousel-title, .hero-title, .concept-title, .concept-name {
@@ -29,10 +30,12 @@
             --pink-light: #fec6e0;
             --green-dark: #4b6967;
             --green-light: #94a38d;
+            --green-light-transparent: rgba(148, 163, 141, 0.95);
             --white: #ffffff;
             --off-white: #fefcf9;
             --text-dark: #333333;
             --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
         
         /* ===== RESET & BASE STYLES ===== */
@@ -72,6 +75,7 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
+            z-index: 1001;
         }
         
         .logo-img {
@@ -81,13 +85,18 @@
         }
         
         .logo-container:hover .logo-img {
-            transform: rotate(-5deg);
+            transform: rotate(-5deg) scale(1.1);
         }
         
         .logo-text {
             font-size: 1.6rem;
             color: var(--pink-primary);
             letter-spacing: 0.5px;
+            transition: color 0.3s ease;
+        }
+        
+        .logo-container:hover .logo-text {
+            color: var(--green-dark);
         }
         
         .nav-links {
@@ -100,28 +109,22 @@
             text-decoration: none;
             color: var(--green-dark);
             font-size: 1rem;
-            padding: 0.5rem 0;
+            padding: 0.5rem 1rem;
             position: relative;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+            font-weight: 500;
         }
         
         .nav-link:hover {
-            color: var(--pink-primary);
+            color: var(--white);
+            background-color: var(--pink-primary);
+            transform: translateY(-2px);
         }
         
-        .nav-link.active::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--pink-primary);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
+        .nav-link.active {
+            background-color: var(--green-light);
+            color: var(--white);
         }
         
         /* ===== HERO SECTION 1 ===== */
@@ -132,6 +135,7 @@
             align-items: center;
             padding: 4rem 2rem 2rem;
             margin-bottom: 0;
+            overflow: hidden;
         }
         
         .hero-1-content {
@@ -147,56 +151,112 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            animation: floatInLeft 1s ease-out;
+            animation: floatInLeft 1.2s ease-out;
+            perspective: 1000px;
         }
         
         .hero-image img {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             height: auto;
+            transform-style: preserve-3d;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+        }
+        
+        .hero-image img:hover {
+            transform: rotateY(10deg) rotateX(5deg) scale(1.05);
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+        }
+        
+        .hero-image img:active {
+            transform: rotateY(0) rotateX(0) scale(0.98);
+            transition: all 0.2s ease;
         }
         
         .hero-text {
-            animation: floatInRight 1s ease-out 0.2s both;
+            animation: floatInRight 1.2s ease-out 0.2s both;
         }
         
         .hero-title {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             color: var(--pink-primary);
             margin-bottom: 1.5rem;
             line-height: 1.2;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-light));
+            transition: width 1s ease;
+        }
+        
+        .hero-1-content:hover .hero-title::after {
+            width: 100%;
         }
         
         .hero-subtitle {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--green-dark);
             max-width: 500px;
             font-weight: 500;
             margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+            transition: transform 0.5s ease;
+        }
+        
+        .hero-1-content:hover .hero-subtitle {
+            transform: translateX(10px);
         }
         
         /* ===== SEARCH BUTTON ===== */
         .search-button {
-            background: var(--green-light);
+            background: linear-gradient(135deg, var(--green-light), var(--green-dark));
             color: var(--white);
             border: none;
-            padding: 0.8rem 2rem;
-            border-radius: 25px;
+            padding: 1rem 2.5rem;
+            border-radius: 30px;
             font-family: "rix-cutecat-pro", sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 12px rgba(148, 163, 141, 0.3);
+            gap: 0.8rem;
+            box-shadow: 0 6px 20px rgba(148, 163, 141, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .search-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.7s ease;
         }
         
         .search-button:hover {
-            background: var(--green-dark);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(148, 163, 141, 0.4);
+            background: linear-gradient(135deg, var(--green-dark), var(--pink-primary));
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(220, 79, 108, 0.4);
+        }
+        
+        .search-button:hover::before {
+            left: 100%;
         }
         
         /* ===== HERO SECTION 2 ===== */
@@ -209,39 +269,76 @@
             justify-content: center;
             align-items: center;
             margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-2::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 30% 70%, rgba(254, 198, 224, 0.3) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .section-title {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             color: var(--pink-primary);
             text-align: center;
             margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
         }
         
         .stats-container {
             max-width: 1200px;
             width: 100%;
             background: var(--off-white);
-            border-radius: 20px;
-            padding: 3rem;
+            border-radius: 25px;
+            padding: 4rem;
             box-shadow: var(--shadow);
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.5s forwards;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .stats-container:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
         }
         
         .stats-intro {
             text-align: center;
             margin-bottom: 3rem;
             color: var(--green-dark);
-            font-size: 1.1rem;
-            max-width: 600px;
+            font-size: 1.2rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
             font-weight: 500;
+            line-height: 1.8;
+            padding: 0 1rem;
         }
         
         .stats-grid {
@@ -253,99 +350,147 @@
         
         .stat-card {
             text-align: center;
-            padding: 2rem;
-            border-radius: 15px;
-            background: var(--white);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s ease;
+            padding: 2.5rem;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--white), var(--off-white));
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
         }
         
         .stat-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .stat-card:hover::before {
+            transform: scaleX(1);
         }
         
         .stat-number {
-            font-size: 3.5rem;
+            font-size: 4rem;
             color: var(--green-dark);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             font-family: "playwrite-cc-de-grund", serif;
             font-weight: 100;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover .stat-number {
+            color: var(--pink-primary);
+            transform: scale(1.1);
         }
         
         .stat-label {
             color: var(--text-dark);
-            font-size: 1.1rem;
-            font-weight: 500;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .stat-card:hover .stat-label {
+            color: var(--green-dark);
         }
         
         .chart-container {
             margin-top: 2rem;
-            height: 300px;
+            height: 350px;
             position: relative;
             width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .bar-chart {
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 6rem;
+            gap: 8rem;
             height: 100%;
             padding: 2rem 0;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
         }
         
         .bar {
-            width: 80px;
-            background: var(--green-dark);
-            border-radius: 8px 8px 0 0;
+            width: 90px;
+            background: linear-gradient(to top, var(--green-dark), var(--green-light));
+            border-radius: 12px 12px 0 0;
             position: relative;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 12px rgba(75, 105, 103, 0.2);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 6px 20px rgba(75, 105, 103, 0.3);
+            cursor: pointer;
         }
         
         .bar:hover {
-            transform: translateY(-10px);
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(75, 105, 103, 0.4);
+            background: linear-gradient(to top, var(--pink-primary), var(--green-light));
         }
         
         .bar.fiction {
             height: 180px;
-            animation: growBar 1.2s ease-out 0.7s both;
+            animation: growBar 1.5s ease-out 0.7s both;
         }
         
         .bar.nonfiction {
             height: 160px;
-            animation: growBar 1.2s ease-out 0.9s both;
+            animation: growBar 1.5s ease-out 0.9s both;
         }
         
         .bar.read {
             height: 220px;
-            animation: growBar 1.2s ease-out 1.1s both;
+            animation: growBar 1.5s ease-out 1.1s both;
         }
         
         .bar-label {
             position: absolute;
-            bottom: -40px;
+            bottom: -50px;
             left: 0;
             right: 0;
             text-align: center;
             color: var(--green-dark);
-            font-size: 0.95rem;
-            font-weight: 500;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .bar:hover .bar-label {
+            color: var(--pink-primary);
         }
         
         .bar-value {
             position: absolute;
-            top: -35px;
+            top: -45px;
             left: 0;
             right: 0;
             text-align: center;
             color: var(--green-dark);
             font-family: "playwrite-cc-de-grund", serif;
             font-weight: 100;
-            font-size: 1.3rem;
+            font-size: 1.6rem;
+            transition: color 0.3s ease;
+        }
+        
+        .bar:hover .bar-value {
+            color: var(--pink-primary);
         }
         
         /* ===== HERO SECTION 3 (NEW) ===== */
@@ -358,43 +503,76 @@
             justify-content: center;
             align-items: center;
             margin-top: 0;
+            position: relative;
+            overflow: hidden;
         }
         
         .concept-title {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             color: var(--pink-primary);
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .concept-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--pink-primary), transparent);
         }
         
         .concept-container {
-            max-width: 1000px;
+            max-width: 1100px;
             width: 100%;
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            gap: 4rem;
             margin: 0 auto;
         }
         
         .concept-card {
             background: var(--off-white);
-            border-radius: 15px;
-            padding: 2rem;
+            border-radius: 25px;
+            padding: 3rem;
             box-shadow: var(--shadow);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.4s ease;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out forwards;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .concept-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-light));
+            transform: scaleX(0);
+            transition: transform 0.5s ease;
         }
         
         .concept-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-            background: var(--off-white);
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .concept-card:hover::before {
+            transform: scaleX(1);
         }
         
         .concept-card:nth-child(1) {
@@ -409,14 +587,25 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 1rem;
-            height: 200px;
+            margin-bottom: 2rem;
+            height: 220px;
+            transition: transform 0.5s ease;
+        }
+        
+        .concept-image:hover {
+            transform: scale(1.1) rotate(5deg);
         }
         
         .concept-image img {
             width: 100%;
-            max-width: 200px;
+            max-width: 220px;
             height: auto;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+            transition: all 0.5s ease;
+        }
+        
+        .concept-image:hover img {
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
         }
         
         .concept-image svg,
@@ -426,20 +615,31 @@
         }
         
         .concept-name {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             color: var(--pink-primary);
             text-align: center;
             margin-bottom: 1.5rem;
             font-family: "playwrite-cc-de-grund", serif;
             font-weight: 100;
+            transition: color 0.3s ease;
+        }
+        
+        .concept-card:hover .concept-name {
+            color: var(--green-dark);
         }
         
         .concept-description {
             color: var(--green-dark);
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1.2rem;
+            line-height: 1.8;
             text-align: center;
             font-weight: 500;
+            padding: 0 1rem;
+            transition: color 0.3s ease;
+        }
+        
+        .concept-card:hover .concept-description {
+            color: var(--text-dark);
         }
         
         /* ===== HERO SECTION 4 (FORMER HERO 3) ===== */
@@ -452,20 +652,47 @@
             justify-content: center;
             align-items: center;
             margin-top: 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-4::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
         }
         
         .carousel-title {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             color: var(--off-white);
             text-align: center;
             margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+        
+        .carousel-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--off-white), transparent);
         }
         
         .carousel-container {
-            max-width: 1200px;
+            max-width: 1300px;
             width: 100%;
             padding: 2rem 0;
         }
@@ -473,20 +700,23 @@
         .carousel-wrapper {
             position: relative;
             overflow: hidden;
-            border-radius: 25px;
-            background: var(--off-white);
-            padding: 2rem;
-            box-shadow: var(--shadow);
+            border-radius: 30px;
+            background: var(--green-light-transparent);
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .carousel {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             overflow-x: auto;
-            padding: 1rem;
+            padding: 1.5rem;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            scroll-snap-type: x mandatory;
         }
         
         .carousel::-webkit-scrollbar {
@@ -494,15 +724,41 @@
         }
         
         .book-card {
-            min-width: 280px;
-            background: var(--white);
-            border-radius: 15px;
+            min-width: 300px;
+            background: var(--off-white);
+            border-radius: 20px;
             padding: 2rem;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out forwards;
+            cursor: pointer;
+            scroll-snap-align: start;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+        
+        .book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--pink-primary), var(--green-dark));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .book-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        }
+        
+        .book-card:hover::before {
+            transform: scaleX(1);
         }
         
         .book-card:nth-child(1) { animation-delay: 0.4s; }
@@ -511,22 +767,34 @@
         .book-card:nth-child(4) { animation-delay: 0.7s; }
         .book-card:nth-child(5) { animation-delay: 0.8s; }
         
-        .book-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-        }
-        
         .book-cover {
             width: 100%;
-            height: 180px;
-            background: linear-gradient(135deg, rgba(220, 79, 108, 0.1), rgba(148, 163, 141, 0.1));
-            border-radius: 10px;
-            margin-bottom: 1.5rem;
+            height: 220px;
+            background: var(--white);
+            border-radius: 12px;
+            margin-bottom: 1.8rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
-            color: var(--green-dark);
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .book-card:hover .book-cover img {
+            transform: scale(1.1);
+        }
+        
+        .book-card:hover .book-cover {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
         }
         
         .book-info {
@@ -534,32 +802,43 @@
         }
         
         .book-title {
-            font-size: 1.3rem;
+            font-size: 1.5rem;
             color: var(--green-dark);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             font-family: "rix-cutecat-pro", sans-serif;
-            font-weight: 500;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .book-card:hover .book-title {
+            color: var(--pink-primary);
         }
         
         .book-author {
             color: var(--text-dark);
-            margin-bottom: 1rem;
-            font-size: 0.95rem;
-            opacity: 0.8;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            opacity: 0.9;
             font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .book-card:hover .book-author {
+            color: var(--green-dark);
         }
         
         .book-rating {
             display: flex;
             justify-content: center;
-            gap: 0.25rem;
+            gap: 0.3rem;
             margin-bottom: 1rem;
         }
         
         .star {
             color: #ffc107;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             animation: starGlow 2s infinite;
+            text-shadow: 0 0 10px rgba(255, 193, 7, 0.3);
         }
         
         .star:nth-child(1) { animation-delay: 0s; }
@@ -571,59 +850,77 @@
         .carousel-controls {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
         }
         
         .carousel-btn {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
-            background: var(--white);
+            background: var(--off-white);
             border: none;
             color: var(--green-dark);
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .carousel-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(220, 79, 108, 0.3), transparent);
+            transition: left 0.7s ease;
         }
         
         .carousel-btn:hover {
-            background: var(--green-dark);
+            background: var(--pink-primary);
             color: var(--white);
-            transform: scale(1.1);
+            transform: scale(1.15);
+            box-shadow: 0 8px 25px rgba(220, 79, 108, 0.4);
+        }
+        
+        .carousel-btn:hover::before {
+            left: 100%;
         }
         
         /* ===== ANIMATIONS ===== */
         @keyframes floatInLeft {
             from {
                 opacity: 0;
-                transform: translateX(-40px);
+                transform: translateX(-60px) rotateY(20deg);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateX(0) rotateY(0);
             }
         }
         
         @keyframes floatInRight {
             from {
                 opacity: 0;
-                transform: translateX(40px);
+                transform: translateX(60px) rotateY(-20deg);
             }
             to {
                 opacity: 1;
-                transform: translateX(0);
+                transform: translateX(0) rotateY(0);
             }
         }
         
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             to {
                 opacity: 1;
@@ -635,9 +932,11 @@
             from {
                 height: 0;
                 opacity: 0;
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
         
@@ -647,19 +946,31 @@
                 transform: scale(1);
             }
             50% {
-                opacity: 0.7;
-                transform: scale(0.95);
+                opacity: 0.8;
+                transform: scale(1.2);
             }
         }
         
         @keyframes countUp {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(15px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
             }
         }
         
@@ -672,7 +983,7 @@
             }
             
             .hero-title {
-                font-size: 3rem;
+                font-size: 3.2rem;
             }
             
             .hero-image {
@@ -680,15 +991,19 @@
             }
             
             .hero-image img {
-                max-width: 300px;
+                max-width: 350px;
             }
             
             .bar-chart {
-                gap: 4rem;
+                gap: 5rem;
             }
             
             .concept-container {
                 grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            
+            .stats-grid {
                 gap: 2rem;
             }
         }
@@ -703,7 +1018,12 @@
             }
             
             .nav-links {
-                gap: 1.5rem;
+                gap: 1rem;
+            }
+            
+            .nav-link {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.95rem;
             }
             
             .hero-1 {
@@ -711,28 +1031,85 @@
             }
             
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .hero-subtitle {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             
             .section-title, .carousel-title, .concept-title {
-                font-size: 2.2rem;
+                font-size: 2.5rem;
             }
             
             .stats-container {
-                padding: 2rem;
+                padding: 2.5rem;
             }
             
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
+            }
+            
+            .stat-number {
+                font-size: 3.5rem;
+            }
+            
+            .bar-chart {
+                gap: 3rem;
+            }
+            
+            .bar {
+                width: 70px;
+            }
+            
+            .carousel-wrapper, .concept-card {
+                padding: 2rem;
+            }
+            
+            .book-card {
+                min-width: 280px;
+                padding: 1.8rem;
+            }
+            
+            .search-button {
+                padding: 0.9rem 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .concept-name {
+                font-size: 2rem;
+            }
+            
+            .concept-description {
+                font-size: 1.1rem;
+            }
+            
+            .concept-image {
+                height: 180px;
+            }
+            
+            .concept-image img {
+                max-width: 180px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            
+            .section-title, .carousel-title, .concept-title {
+                font-size: 2rem;
+                margin-bottom: 2rem;
             }
             
             .stat-number {
                 font-size: 3rem;
+            }
+            
+            .stat-label {
+                font-size: 1.1rem;
             }
             
             .bar-chart {
@@ -740,78 +1117,68 @@
             }
             
             .bar {
-                width: 60px;
+                width: 55px;
             }
             
-            .carousel-wrapper, .concept-card {
-                padding: 1.5rem;
+            .bar-label {
+                font-size: 0.9rem;
             }
             
-            .book-card {
-                min-width: 250px;
+            .bar-value {
+                font-size: 1.2rem;
             }
             
-            .search-button {
-                padding: 0.7rem 1.8rem;
-                font-size: 1rem;
+            .concept-card {
+                padding: 2rem 1.5rem;
             }
             
-            .concept-name {
-                font-size: 1.8rem;
-            }
-            
-            .concept-description {
-                font-size: 1rem;
+            .concept-image img {
+                max-width: 150px;
             }
             
             .concept-image {
                 height: 150px;
             }
             
-            .concept-image img {
-                max-width: 150px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .hero-title {
-                font-size: 2rem;
+            .carousel-wrapper {
+                padding: 1.5rem;
             }
             
-            .section-title, .carousel-title, .concept-title {
-                font-size: 1.8rem;
+            .book-card {
+                min-width: 260px;
+                padding: 1.5rem;
             }
             
-            .stat-number {
-                font-size: 2.5rem;
+            .book-cover {
+                height: 180px;
             }
             
-            .bar-chart {
-                gap: 1.5rem;
+            .book-title {
+                font-size: 1.3rem;
             }
             
-            .bar {
-                width: 45px;
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                position: absolute;
+                top: 100%;
+                right: 1rem;
+                background: var(--white);
+                padding: 1rem;
+                border-radius: 10px;
+                box-shadow: var(--shadow);
+                display: none;
             }
             
-            .bar-label {
-                font-size: 0.8rem;
+            .nav-links.active {
+                display: flex;
             }
             
-            .bar-value {
-                font-size: 1.1rem;
-            }
-            
-            .concept-card {
-                padding: 2rem;
-            }
-            
-            .concept-image img {
-                max-width: 120px;
-            }
-            
-            .concept-image {
-                height: 120px;
+            .menu-toggle {
+                display: block;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: var(--green-dark);
             }
         }
     </style>
@@ -819,13 +1186,13 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar" id="navbar">
-        <a href="#" class="logo-container">
+        <a href="index.html" class="logo-container">
             <img src="image/logo.svg" alt="Yomu Kiroku Logo" class="logo-img" id="logo-img">
             <div class="logo-text">Yomu Kiroku</div>
         </a>
-         <ul class="nav-links">
+        <ul class="nav-links">
             <li><a href="collection.html" class="nav-link">Collection</a></li>
-            <li><a href="login.html" class="nav-link active">Login</a></li>
+            <li><a href="login.html" class="nav-link">Login</a></li>
         </ul>
     </nav>
 
@@ -895,7 +1262,7 @@
             <!-- Yomu Card -->
             <div class="concept-card">
                 <div class="concept-image">
-                    <img src="image/laptop.svg" alt="Laptop">
+                    <img src="image/laptop.svg" alt="Laptop" style="background-color: transparent;">
                 </div>
                 <h3 class="concept-name">Yomu</h3>
                 <p class="concept-description">
@@ -906,7 +1273,7 @@
             <!-- Kiroku Card -->
             <div class="concept-card">
                 <div class="concept-image">
-                    <img src="image/laptop.svg" alt="Laptop">
+                    <img src="image/laptop.svg" alt="Laptop" style="background-color: transparent;">
                 </div>
                 <h3 class="concept-name">Kiroku</h3>
                 <p class="concept-description">
@@ -926,7 +1293,7 @@
                     <!-- Book 1 -->
                     <div class="book-card">
                         <div class="book-cover">
-                            📖
+                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="The Midnight Library">
                         </div>
                         <div class="book-info">
                             <h3 class="book-title">The Midnight Library</h3>
@@ -944,7 +1311,7 @@
                     <!-- Book 2 -->
                     <div class="book-card">
                         <div class="book-cover">
-                            📚
+                            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Klara and the Sun">
                         </div>
                         <div class="book-info">
                             <h3 class="book-title">Klara and the Sun</h3>
@@ -962,7 +1329,7 @@
                     <!-- Book 3 -->
                     <div class="book-card">
                         <div class="book-cover">
-                            📖
+                            <img src="https://images.unsplash.com/photo-1532012197267-da84d127e765?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Project Hail Mary">
                         </div>
                         <div class="book-info">
                             <h3 class="book-title">Project Hail Mary</h3>
@@ -980,7 +1347,7 @@
                     <!-- Book 4 -->
                     <div class="book-card">
                         <div class="book-cover">
-                            📚
+                            <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="The Invisible Life">
                         </div>
                         <div class="book-info">
                             <h3 class="book-title">The Invisible Life</h3>
@@ -998,7 +1365,7 @@
                     <!-- Book 5 -->
                     <div class="book-card">
                         <div class="book-cover">
-                            📖
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" alt="Before the Coffee">
                         </div>
                         <div class="book-info">
                             <h3 class="book-title">Before the Coffee</h3>
@@ -1068,12 +1435,6 @@
             requestAnimationFrame(updateCounters);
         }
 
-        // ===== SEARCH BUTTON FUNCTION =====
-        function searchBooks() {
-            alert('Search books feature coming soon! 🔍');
-            // In a real implementation, this would open a search modal or redirect to search page
-        }
-
         // ===== CAROUSEL CONTROLS =====
         function scrollCarousel(amount) {
             const carousel = document.getElementById('bookCarousel');
@@ -1136,29 +1497,23 @@
                 img.onerror = function() {
                     console.log('Concept image not found');
                     // Show placeholder emoji
-                    if (this.src.includes('girlidea')) {
-                        this.outerHTML = '<div style="font-size: 4rem; color: #dc4f6c;">💡</div>';
-                    } else if (this.src.includes('boyidea')) {
-                        this.outerHTML = '<div style="font-size: 4rem; color: #94a38d;">💭</div>';
+                    if (this.alt.includes('Laptop')) {
+                        this.outerHTML = '<div style="font-size: 5rem; color: #dc4f6c;">💻</div>';
                     }
                 };
             });
             
-            // Smooth scroll for navigation links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    if (targetId.startsWith('#')) {
-                        const targetElement = document.querySelector(targetId);
-                        if (targetElement) {
-                            window.scrollTo({
-                                top: targetElement.offsetTop - 80,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
-                });
+            // Handle book cover images
+            const bookCovers = document.querySelectorAll('.book-cover img');
+            bookCovers.forEach(img => {
+                img.onerror = function() {
+                    console.log('Book cover image not found');
+                    // Show placeholder emoji based on book title
+                    const bookTitle = this.closest('.book-card').querySelector('.book-title').textContent;
+                    const emojis = ['📖', '📚', '📕', '📗', '📘'];
+                    const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+                    this.outerHTML = `<div style="font-size: 5rem; color: var(--green-dark); display: flex; align-items: center; justify-content: center; height: 100%;">${randomEmoji}</div>`;
+                };
             });
             
             // Animate bars on scroll
@@ -1177,53 +1532,63 @@
             const chartContainer = document.querySelector('.chart-container');
             if (chartContainer) barObserver.observe(chartContainer);
             
-            // Add hover effect to book cards
-            const bookCards = document.querySelectorAll('.book-card');
-            bookCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-            
-            // Add hover effect to stat cards
-            const statCards = document.querySelectorAll('.stat-card');
-            statCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                });
-            });
-            
-            // Add hover effect to search button
-            const searchButton = document.querySelector('.search-button');
-            if (searchButton) {
-                searchButton.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-3px)';
-                });
-                
-                searchButton.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
+            // Add click effect to hero image
+            const heroImage = document.querySelector('.hero-image img');
+            if (heroImage) {
+                heroImage.addEventListener('click', function() {
+                    this.style.transform = 'scale(1.2) rotateY(20deg)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1.05) rotateY(10deg) rotateX(5deg)';
+                    }, 300);
                 });
             }
             
-            // Add hover effect to concept cards
-            const conceptCards = document.querySelectorAll('.concept-card');
-            conceptCards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
+            // Add click effect to stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-8px) scale(1.02)';
+                    }, 200);
                 });
             });
+            
+            // Add click effect to concept cards
+            const conceptCards = document.querySelectorAll('.concept-card');
+            conceptCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-20px) scale(1.05)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-15px) scale(1.03)';
+                    }, 200);
+                });
+            });
+            
+            // Add click effect to book cards
+            const bookCards = document.querySelectorAll('.book-card');
+            bookCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-20px) scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-15px) scale(1.05)';
+                    }, 200);
+                });
+            });
+            
+            // Add click animation to search button
+            const searchButton = document.querySelector('.search-button');
+            if (searchButton) {
+                searchButton.addEventListener('click', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.1)';
+                    setTimeout(() => {
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        setTimeout(() => {
+                            window.location.href = 'collection.html';
+                        }, 300);
+                    }, 150);
+                });
+            }
         });
 
         // ===== PAUSE AUTOSCROLL ON HOVER =====
