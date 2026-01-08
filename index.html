@@ -332,7 +332,15 @@
             padding: 0 1rem;
         }
         
+        /* UPDATED STATS GRID - First row 3 cards, second row 2 cards */
         .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stats-grid-2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 2rem;
@@ -353,7 +361,6 @@
         }
         
         .stat-card.large {
-            grid-column: 1 / -1;
             padding: 2.5rem;
         }
         
@@ -468,6 +475,11 @@
         .hero-3-content .hero-image {
             order: 2;
             animation: floatInRight 1.2s ease-out;
+        }
+        
+        /* UPDATED: Hero title in section 3 to white */
+        .hero-3 .hero-title {
+            color: var(--white);
         }
         
         /* ===== HERO SECTION 4 ===== */
@@ -617,7 +629,7 @@
         /* ===== HERO SECTION 5 (NEW - How to Borrow) ===== */
         .hero-5 {
             min-height: 100vh;
-            background: var(--green-light); /* Full green color */
+            background: var(--green-light);
             display: flex;
             align-items: center;
             padding: 4rem 2rem 2rem;
@@ -632,6 +644,11 @@
             grid-template-columns: 1fr 1fr;
             gap: 4rem;
             align-items: center;
+        }
+        
+        /* UPDATED: Hero title in section 5 to white */
+        .hero-5 .hero-title {
+            color: var(--white);
         }
         
         .step-list {
@@ -685,7 +702,8 @@
         /* ===== HERO SECTION 6 ===== */
         .hero-6 {
             min-height: 100vh;
-            background: var(--green-light);
+            /* UPDATED: Gradient background from green-light to white */
+            background: linear-gradient(to bottom, var(--green-light), var(--white));
             padding: 2rem 2rem 4rem;
             display: flex;
             flex-direction: column;
@@ -703,13 +721,12 @@
         
         .carousel-title {
             font-size: 3.2rem;
-            color: var(--off-white);
+            color: var(--green-dark); /* Changed to match the new gradient */
             text-align: center;
             margin-bottom: 3rem;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.8s ease-out 0.3s forwards;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             position: relative;
             padding-bottom: 1rem;
         }
@@ -722,7 +739,7 @@
             transform: translateX(-50%);
             width: 100px;
             height: 2px;
-            background: linear-gradient(90deg, transparent, var(--off-white), transparent);
+            background: linear-gradient(90deg, transparent, var(--green-dark), transparent);
         }
         
         .carousel-container {
@@ -735,7 +752,7 @@
             position: relative;
             overflow: hidden;
             border-radius: 30px;
-            background: var(--green-light-transparent);
+            background: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
             padding: 2.5rem;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
@@ -1027,6 +1044,12 @@
             }
             
             .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+            
+            .stats-grid-2 {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1.5rem;
             }
             
@@ -1080,6 +1103,11 @@
             }
             
             .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            .stats-grid-2 {
                 grid-template-columns: 1fr;
                 gap: 1.5rem;
             }
@@ -1278,6 +1306,7 @@
                 A personal library grown with time, memories, and curiosity. Every book tells a story not just through its pages, but through the journey of how it came to be part of this library.
             </p>
             
+            <!-- First row: 3 cards (Total Books, Fiction, Non-Fiction) -->
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number" id="totalBooks">0</div>
@@ -1296,9 +1325,12 @@
                     <div class="stat-label">Non-Fiction</div>
                     <div class="stat-description">Knowledge & Learning</div>
                 </div>
-                
+            </div>
+            
+            <!-- Second row: 2 cards (Purchased Books, Gifted Books) -->
+            <div class="stats-grid-2">
                 <div class="stat-card large">
-                    <div class="stat-number">121</div>
+                    <div class="stat-number">124</div>
                     <div class="stat-label">Purchased Books</div>
                     <div class="stat-description">Chosen one by one with intention</div>
                 </div>
@@ -1557,10 +1589,10 @@
             const spendingAmount = document.getElementById('spendingAmount');
             
             const targets = {
-                total: 147,
+                total: 150,
                 fiction: 99,
-                nonfiction: 48,
-                spending: 10848400
+                nonfiction: 51,
+                spending: 11048400
             };
             
             const duration = 2000;
